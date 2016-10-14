@@ -104,7 +104,7 @@
                       <label class="weui-label">密码</label>
                   </div>
                   <div class="weui-cell__bd">
-                      <input id="regist_password" class="weui-input" type="password" placeholder="请输入密码">
+                      <input id="regist_password" class="weui-input" type="text" placeholder="请输入密码">
                   </div>
                 </div>
                 <div class="weui-cell__bd">
@@ -168,6 +168,7 @@ var phone=-1;
     function manageRegist(){
       if (state==1) {
         alert("请先获取并验证验证码");
+        return;
       }
       if (state==2) {
         phone=document.getElementById("regist_phone").value;
@@ -276,10 +277,12 @@ var phone=-1;
         var code=json.code;
         if (code==10114) {
           alert("密码错误!");
+          $loadingToast.fadeOut(100);
           return;
         }
         if (code==10113) {
           alert("用户不存在!");
+          $loadingToast.fadeOut(100);
           return;
         }
         if (code==10004) {
@@ -297,6 +300,7 @@ var phone=-1;
         }
         else{
           alert("请求失败!");
+          $loadingToast.fadeOut(100);
         }
     });
     }
@@ -319,6 +323,8 @@ var phone=-1;
         var code=json.code;
         if (code==10005) {
           alert("手机号已被注册!");
+          $loadingToast.fadeOut(100);
+          return;
         }
         if (code==10004) {
         
@@ -335,6 +341,7 @@ var phone=-1;
         }
         else{
           alert("请求失败!");
+          $loadingToast.fadeOut(100);
         }
     });
 

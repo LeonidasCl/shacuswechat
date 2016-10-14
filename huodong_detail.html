@@ -148,7 +148,7 @@ var $finishToast = $('#finishToast');
             if (isregist==0) {
             document.getElementById("loading_hint").innerHTML="报名中";
             $loadingToast.fadeIn(50);
-            alert("join "+phone);
+            //alert("join "+phone);
             $.getJSON("http://114.215.94.95:80/weixin/activity/regist?wacid=1&phone="+phone+"&jsoncallback=?",
             function(json){
                 if (json.code==10306||json.code==10312) {
@@ -159,7 +159,7 @@ var $finishToast = $('#finishToast');
                     setTimeout(function () {
                         $finishToast.fadeOut(100);
                     }, 1000);
-                    alert("join success");
+                    //alert("join success");
                     document.getElementById("btn_acjoin").innerHTML="取消报名";
                     isregist=1;
                     registN++;
@@ -173,7 +173,7 @@ var $finishToast = $('#finishToast');
             if (isregist==1) {
             document.getElementById("loading_hint").innerHTML="正在取消";
             $loadingToast.fadeIn(50);
-            alert("cancel "+phone);
+            //alert("cancel "+phone);
             $.getJSON("http://114.215.94.95:80/weixin/activity/quitregist?wacid=1&phone="+phone+"&jsoncallback=?",
             function(json){
                 if (json.code==10310) {
@@ -183,14 +183,14 @@ var $finishToast = $('#finishToast');
                     setTimeout(function () {
                         $finishToast.fadeOut(100);
                     }, 1000);
-                    alert("quit success");
+                    //alert("quit success");
                     document.getElementById("btn_acjoin").innerHTML="报名";
                     isregist=0;
                     registN--;
                     document.getElementById("ac_registN").innerHTML=registN;
                     return;
                 }
-                alert("fail");
+                //alert("fail");
             });
             }
         }
@@ -199,7 +199,7 @@ var $finishToast = $('#finishToast');
 
 $(function (){
 
-    alert("get detail "+phone);
+    //alert("get detail "+phone);
     $.getJSON("http://114.215.94.95:80/weixin/activity/detail?acid=1&phone="+phone+"&jsoncallback=?",
       function(json){
         //alert(json);
@@ -234,7 +234,7 @@ $(function (){
         closed=json.closed;
         piclist=json.picurls;
         isregist=json.isregist;
-        alert("isregist: "+isregist+" status "+status_code);
+        //alert("isregist: "+isregist+" status "+status_code);
         //alert(piclist.length);
         for (var index in piclist) {
         $preview = $('<li class="weui-uploader__file" style="background-image:url('+piclist[index]+')"></li>');
