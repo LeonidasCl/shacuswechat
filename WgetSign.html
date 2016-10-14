@@ -2,6 +2,8 @@
 <html lang="en">
 <script src="scripts/jweixin-1.0.0.js"></script>
 <script src="scripts/zepto.min.js"></script>
+<!--<script src="http://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>-->
+
 <!--<script src="example.js"></script>
 <script src="scripts/jquery-3.0.0.min.js"></script>
 <div id ="maindiv" style="display: none;">
@@ -140,7 +142,7 @@
     var signature='nones';
 
      //console.log('do');
-     $.getJSON(" http://114.215.94.95:800/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://shacuswechat2.tunnel.2bdata.com/WgetSign.html&jsoncallback=?",
+     $.getJSON(" http://114.215.94.95/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://shacuswechat2.tunnel.2bdata.com/WgetSign.html&jsoncallback=?",
       function(json){
         //console.log('done');
         var url=json.url;
@@ -232,7 +234,7 @@ function validate()//检查和发布约拍
 
       $.ajax({
             type:"GET",
-            url:"http://114.215.94.95:800/weixin/appointment/ask",    
+            url:"http://114.215.94.95/weixin/appointment/ask",    
             //提交的数据
             data:{serverIds:pics,
                 title:title,
@@ -359,6 +361,7 @@ function deleteImage(){
 
 <script type="text/javascript">
 var deleteID=-1;
+$.showLoading();
 $(function (){
     var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
     $uploaderInput = $("#uploaderInput"),
