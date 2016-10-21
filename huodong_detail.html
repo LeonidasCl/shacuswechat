@@ -9,33 +9,7 @@
 <script src="static/scripts/jweixin-1.0.0.js"></script>
 <script src="static/scripts/zepto.min.js"></script>
 <script src="static/scripts/swipe.js"></script>
-<link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
-      <!--第一段代码，全局的初始化-->
-      <script>
-      //预留,整个文档加载完时自动调用
-      window.onload=function()
-      {
-        $('#slide1').swipeSlide({
-        autoSwipe:true,//自动切换默认是
-        speed:3000,//速度默认4000
-        continuousScroll:true,//默认否
-        transitionType:'cubic-bezier(0.22, 0.69, 0.72, 0.88)',//过渡动画linear/ease/ease-in/ease-out/ease-in-out/cubic-bezier
-        lazyLoad:true,//懒加载默认否
-        firstCallback : function(i,sum,me){
-            me.find('.dot').children().first().addClass('cur');
-            },
-        callback : function(i,sum,me){
-            me.find('.dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
-            }
-        });
-      }
-
-      function GetQueryString(name)
-      {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-      }
+<link rel="stylesheet" href="http
       //初始化导航栏
         $(function(){
 
