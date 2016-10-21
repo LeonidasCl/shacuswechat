@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <title>追影</title>
  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-  <link rel="stylesheet" href="static/style/weui-0.4.3.css"/>
-  <link rel="stylesheet" href="static/style/weui-0.4.css"/>
-      <script src="static/scripts/zepto.min.js"></script>
-      <script src="static/scripts/iscroll.js"></script>
+  <link rel="stylesheet" href="style/weui-0.4.3.css"/>
+  <link rel="stylesheet" href="style/weui-0.4.css"/>
+      <script src="scripts/zepto.min.js"></script>
+      <script src="scripts/iscroll.js"></script>
       <!--第一段代码，全局的初始化-->
       <script>
       //预留,整个文档加载完时自动调用
@@ -45,21 +45,51 @@
         <div class="weui_tab_bd_item">
 
               <div id="tagnav" class="weui-navigator weui-navigator-wrapper">
-                <ul class="weui-navigator-list">
+                <!--<ul class="weui-navigator-list">
                      <li><a onclick="toJiaocheng1();">基础教程</a></li>
                      <li><a onclick="toJiaocheng2();">进阶教程</a></li>
 
                       <div id="jiaocheng1" class="page__hd page__bd_spacing">
-
-                          <a class="weui_panel_ft" href="javascript:void(0);">敬请期待</a>
+                          <div id="list_jiaocheng_1" class="weui_panel_bd">
+                            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                                <div class="weui_media_hd">
+                                    <img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
+                                </div>
+                                <div class="weui_media_bd">
+                                    <h4 class="weui_media_title">教程 G级恒星</h4>
+                                    <p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
+                                </div>
+                            </a>
+                            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                                <div class="weui_media_hd">
+                                    <img class="weui_media_appmsg_thumb" src="http://img0.imgtn.bdimg.com/it/u=3997468270,1038299082&fm=21&gp=0.jpg" alt="">
+                                </div>
+                                <div class="weui_media_bd">
+                                    <h4 class="weui_media_title">教程 A级恒星</h4>
+                                    <p class="weui_media_desc">释放出很强的辐射，绝大多数生命都难以生存。</p>
+                                </div>
+                            </a>
+                          </div>
+                          <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
                       </div>
 
                       <div id="jiaocheng2" class="page__bd page__bd_spacing" style="display:none;">
-
-                          <a class="weui_panel_ft" href="javascript:void(0);">敬请期待</a>
+                          <div id="list_jiaocheng_2" class="weui_panel_bd">
+                            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                                <div class="weui_media_hd">
+                                    <img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
+                                </div>
+                                <div class="weui_media_bd">
+                                    <h4 class="weui_media_title">教程 G级恒星</h4>
+                                    <p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
+                                </div>
+                            </a>
+                          </div>
+                          <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
                       </div>
 
-                </ul>
+                </ul>-->
+                <img src="images/jiaocheng_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">
             </div>
 
 
@@ -142,10 +172,38 @@
 <!--第二段脚本，初始化并处理各功能模块的数据-->
 <script type="text/javascript" >
 
+//读取cookies
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg)){
+        return (arr[2]);}
+    else
+        return null;
+}
+
 
 
 var phone=GetQueryString("vali");
 //alert("phone is "+phone);
+function checkCookie()
+{
+var username=getCookie('username');
+//alert("username "+username);
+//alert("phone "+phone);
+if (username!=null && username!="" && username==phone)
+  {
+  alert("您已经登陆过，现在进入系统");
+  }
+else
+  {alert("请先注册或用自己的账号登录！");
+  window.location.replace("https://mp.weixin.qq.com/s?__biz=MzIxMzUxMDAwMQ==&mid=100000017&idx=1&sn=37d70b9b791a7cc9164c04d565f45066&chksm=17b4f30f20c37a19913326a278655dd99b75add36fabe74ff5e3130a6a762016080032e7355c&scene=20&key=c3acc508db7203760d2b66304ade4d8bafc8a50dadac8750bbfc18bf8498e8628e2fdea0d060c8602f293eb6f86bca6e&ascene=7&uin=MTE1NjIyMTI4MQ%3D%3D&devicetype=android-19&version=26031b31&nettype=WIFI&pass_ticket=QbJniI9E%2Fz8wrPy7XDZAIc%2B5e1WLUcxm3p%2B3LfraU7d8A9mMbqLkHtITXKoSTgvj&wx_header=1");
+  }
+
+}
+checkCookie();
+
 
 /*//从服务器初始化教程数据
 $.getJSON("http://114.215.94.95:800/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://shacuswechat2.tunnel.2bdata.com/WgetSign.html&jsoncallback=?",//待更换的网络请求
@@ -162,7 +220,7 @@ $.getJSON("http://114.215.94.95:800/weixin/getsign?appsecret=f1dad656a7269b06883
         $("#list_yuepai_2").append(str);
 
       });*/
-
+//alert("asd");
 //从服务器初始化活动数据
 $.getJSON("http://114.215.94.95/weixin/activity/aclist?jsoncallback=?",//待更换的网络请求
       function(json){//在这里处理返回的列表并填充进html中

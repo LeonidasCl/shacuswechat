@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <title id="ac_title">活动标题</title>
  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-  <link rel="stylesheet" href="static/style/weui-0.4.3.css"/>
-  <link rel="stylesheet" href="static/style/weui-0.4.css"/>
-<script src="static/scripts/jweixin-1.0.0.js"></script>
-<script src="static/scripts/zepto.min.js"></script>
-<script src="static/scripts/swipe.js"></script>
+  <link rel="stylesheet" href="style/weui-0.4.3.css"/>
+  <link rel="stylesheet" href="style/weui-0.4.css"/>
+<script src="scripts/jweixin-1.0.0.js"></script>
+<script src="scripts/zepto.min.js"></script>
+<script src="scripts/swipe.js"></script>
 <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
       <!--第一段代码，全局的初始化-->
       <script>
@@ -72,11 +72,13 @@
         <div class="weui-label-list" style="padding-top: 15px;padding-bottom: 10px;" >
             <label id="ac_price" class="weui-label-s" style="padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;font-size:20px;">是否免费</label> 
             <label class="weui-label-s"  style="padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;font-size:20px;">新发布</label>
-        </div> 
+        </div>
+    <!--
         <div class="weui-label-list" style="padding-bottom: 15px;" >
             <label id="ac_maxp" class="weui-label-s"  style="padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;font-size:20px;">最多 xx 人</label>
             <label id="ac_minp" class="weui-label-s"  style="padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;font-size:20px;">最少 xx 人</label>
-        </div> 
+        </div>
+    -->
 
 
         <div class="weui-media-box weui-media-box_text">
@@ -100,7 +102,7 @@
         <div class="weui-cells__title">活动说明</div>
         <div class="weui-cell" style="padding-bottom: 25px;">
             <div class="weui-cell__bd">
-                    <textarea id="ac_content" class="weui-textarea" readOnly="true" placeholder="简要描述约拍要求（50字以内）" rows="4" style="font-size:16px;background-color: #f8f8f8;">加载中</textarea>
+                    <textarea id="ac_content" class="weui-textarea" readOnly="true" placeholder="简要描述约拍要求（50字以内）" rows="6" style="font-size:16px;background-color: #f8f8f8;">加载中</textarea>
             </div>
         </div>
 
@@ -141,6 +143,31 @@ var piclist=[];
 var isregist=-1;
 var $loadingToast = $('#loadingToast');
 var $finishToast = $('#finishToast');
+
+//读取cookies
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg))
+
+        return (arr[2]);
+    else
+        return null;
+}
+
+function checkCookie()
+{
+var username=getCookie('username');
+if (username!=null && username!=""&&username==phone)
+  {//alert('Welcome again '+username+'!')
+   }
+else
+  {alert("请先注册或用自己的账号登录！");
+  window.location.replace("https://mp.weixin.qq.com/s?__biz=MzIxMzUxMDAwMQ==&mid=100000017&idx=1&sn=37d70b9b791a7cc9164c04d565f45066&chksm=17b4f30f20c37a19913326a278655dd99b75add36fabe74ff5e3130a6a762016080032e7355c&scene=20&key=c3acc508db7203760d2b66304ade4d8bafc8a50dadac8750bbfc18bf8498e8628e2fdea0d060c8602f293eb6f86bca6e&ascene=7&uin=MTE1NjIyMTI4MQ%3D%3D&devicetype=android-19&version=26031b31&nettype=WIFI&pass_ticket=QbJniI9E%2Fz8wrPy7XDZAIc%2B5e1WLUcxm3p%2B3LfraU7d8A9mMbqLkHtITXKoSTgvj&wx_header=1");
+  }
+}
+checkCookie();
 
     function join_huodong(){
         //alert("join");
@@ -259,8 +286,8 @@ $(function (){
         //document.getElementById("ac_createT").innerHTML="发布时间 "+createT;
         document.getElementById("ac_startT_endT").innerHTML=startT+" 至 "+entT;
         document.getElementById("ac_joinT").innerHTML=joinT;
-        document.getElementById("ac_maxp").innerHTML="最多 "+maxp+" 人"; 
-        document.getElementById("ac_minp").innerHTML="最少 "+minp+" 人";        
+        //document.getElementById("ac_maxp").innerHTML="最多 "+maxp+" 人";
+        //document.getElementById("ac_minp").innerHTML="最少 "+minp+" 人";
         document.getElementById("ac_registN").innerHTML=registN;
 
 
