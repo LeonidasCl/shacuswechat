@@ -169,7 +169,7 @@
 									<td style="width:25%"><center><img src="images/activity.png" style="height:60px" onclick="myhuodong()"></center></td>
 									<td style="width:25%"><center><img src="images/myyuepai.png" style="height:60px" onclick="myyuepai()"></center></td>
 									<td style="width:25%"><center><img src="images/info.png" style="height:60px" onclick="editinfo()"></center></td>
-									<td style="width:25%"><center><img src="images/userdisplay.png" style="height:60px"></center></td>
+									<td style="width:25%"><center><img src="images/userdisplay.png" style="height:60px" onclick="userdisplay()"></center></td>
 								</tr>
 							</table>
 
@@ -229,7 +229,6 @@
 </html>
 <!--第二段脚本，初始化并处理各功能模块的数据-->
 <script type="text/javascript">
-
 function clkdvhide(){
 	$("#btn_add").hide();
 }
@@ -478,5 +477,10 @@ function myhuodong(){
 function editinfo(){
 	window.location.href="editinfo.html?vali="+phone;
 }
+
+function userdisplay(){
+	//window.location.href="UserDisplay.html?vali="+phone;	
+}
+
 </script>
 <script type="text/javascript" src="scripts/waterfall.js"></script>
