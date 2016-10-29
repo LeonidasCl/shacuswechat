@@ -56,7 +56,7 @@ function getCookie(name)
 var phone=getCookie("username");
 
 
-$.getJSON("http://123.206.212.206:800/weixin/appointment/UserAplist?id="+id+"&jsoncallback=?",
+$.getJSON("http://www.shacus.top/weixin/appointment/UserAplist?id="+id+"&jsoncallback=?",
 function(json){//在这里处理返回的列表并填充进html中
         if(json.code==10603){
                   var str='<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg"><div class="weui_media_bd"><p class="weui_media_desc">没有参与活动！</p></div></div></a>';

@@ -65,7 +65,7 @@ function getCookie(name)
 }
 var phone=getCookie("username");
 
-$.getJSON("http://123.206.212.206:800/weixin/appointment/UserAclist?id="+id+"&jsoncallback=?",
+$.getJSON("http://www.shacus.top/weixin/appointment/UserAclist?id="+id+"&jsoncallback=?",
 function(json){//在这里处理返回的列表并填充进html中
         if(json.code==10601){
                 //setTimeout("{window.history.go(-1);}",5000);

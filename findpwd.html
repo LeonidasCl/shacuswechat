@@ -129,7 +129,7 @@ var vercode="";
         //alert("正确的手机号");
         //return;
       $loadingToast.fadeIn(100);
-      $.getJSON("http://123.206.212.206:800/weixin/forgotpasswd?type=11001&phone="+phone+"&code="+vercode+"&jsoncallback=?",
+      $.getJSON("http://www.shacus.top/weixin/forgotpasswd?type=11001&phone="+phone+"&code="+vercode+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -175,7 +175,7 @@ var vercode="";
           return;
         }
       $loadingToast.fadeIn(100);
-      $.getJSON("http://123.206.212.206:800/weixin/forgotpasswd?type=11002&phone="+phone+"&password="+password+"&code="+vercode+"&jsoncallback=?",
+      $.getJSON("http://www.shacus.top/weixin/forgotpasswd?type=11002&phone="+phone+"&password="+password+"&code="+vercode+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -221,7 +221,7 @@ var vercode="";
      $loadingToast.fadeIn(100);
 
 
-     $.getJSON("http://123.206.212.206:800/weixin/forgotpasswd?type=11000&phone="+phone+"&jsoncallback=?",
+     $.getJSON("http://www.shacus.top/weixin/forgotpasswd?type=11000&phone="+phone+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;

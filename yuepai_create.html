@@ -152,7 +152,7 @@
 var phone=GetQueryString("vali");
 
      //console.log('do');
-     $.getJSON("http://123.206.212.206:800/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://123.206.212.206:800/yuepai_create.html&jsoncallback=?",
+     $.getJSON("http://www.shacus.top/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://www.shacus.top/static/yuepai_create.html&jsoncallback=?",
       function(json){
         //console.log('done');
         var url=json.url;
@@ -244,7 +244,7 @@ function validate()//检查和发布约拍
 
       $.ajax({
             type:"GET",
-            url:"http://123.206.212.206:800/weixin/appointment/ask",
+            url:"http://www.shacus.top/weixin/appointment/ask",
             //提交的数据
             data:{serverIds:pics,
                 title:title,

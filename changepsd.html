@@ -93,7 +93,7 @@ $(document).on("click", "#formSubmitBtn",function(){
                   return false; 
              }
              
- $.getJSON("http://123.206.212.206:800/weixin/user/changeinfo?type=2&utel="+phone+"&old_password="+bt3.value+"&new_password="+bt2.value+"&jsoncallback=?",//网络请求
+ $.getJSON("http://www.shacus.top/weixin/user/changeinfo?type=2&utel="+phone+"&old_password="+bt3.value+"&new_password="+bt2.value+"&jsoncallback=?",//网络请求
 
        function(json){//在这里处理返回的列表并填充进html中
     if (json.code==20002) {

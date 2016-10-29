@@ -96,7 +96,7 @@
         $gallery.fadeOut(100);
     });
 
-	$.getJSON("http://123.206.212.206:800/weixin/userpage/selfinfo?utel="+utel+"&type=2&uid="+uid+"&jsoncallback=?",
+	$.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+utel+"&type=2&uid="+uid+"&jsoncallback=?",
 		function(json) {
 			var code=json.code;
 			if(code==200 || code==20002){

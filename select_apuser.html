@@ -68,7 +68,7 @@ function select_regists(uid,vali,name){
     //alert(uid+" "+vali);
     $.confirm("确定选择 "+name+" 为约拍对象吗？一旦选择，不可更改！", "确认选择", function(){
           //$.toast("删除成功!");
-              $.getJSON("http://123.206.212.206:800/weixin/appointment/select?phone="+vali+"&apid="+apid+"&registid="+uid+"&type="+aptype+"&jsoncallback=?",//待更换的网络请求
+              $.getJSON("http://www.shacus.top/weixin/appointment/select?phone="+vali+"&apid="+apid+"&registid="+uid+"&type="+aptype+"&jsoncallback=?",//待更换的网络请求
               function(json){//在这里处理返回的列表并填充进html中
                 //alert("selected");
                 if (json.code!=10293){
@@ -90,7 +90,7 @@ function select_regists(uid,vali,name){
 }
 
     //alert("get select");
-    $.getJSON("http://123.206.212.206:800/weixin/appointment/selectlist?phone="+phone+"&apid="+apid+"&jsoncallback=?",
+    $.getJSON("http://www.shacus.top/weixin/appointment/selectlist?phone="+phone+"&apid="+apid+"&jsoncallback=?",
               function(json){//在这里处理返回的列表并填充进html中
 
                 if (json.code!=10281){

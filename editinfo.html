@@ -54,7 +54,7 @@ var phone=GetQueryString("vali");
 //var phone = "MTc3NTEwMzAwMzc=";
     $(document).on("click", "#email", function() {
         $.prompt("请输入要绑定的邮箱", "邮箱绑定",function(text) {
-        $.getJSON("http://123.206.212.206:800/weixin/user/changeinfo?type=1&utel="+phone+"&mailbox="+text+"&jsoncallback=?",//网络请求
+        $.getJSON("http://www.shacus.top/weixin/user/changeinfo?type=1&utel="+phone+"&mailbox="+text+"&jsoncallback=?",//网络请求
 
       function(json){//在这里处理返回的列表并填充进html中
 

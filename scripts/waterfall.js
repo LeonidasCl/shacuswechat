@@ -4,7 +4,7 @@
 		//alert("initial");
 		apid0_cur=0;
 		apid1_cur=0;
-		$.getJSON("http://123.206.212.206:800/weixin/appointment/listphoto?row=0&jsoncallback=?",//待更换的网络请求
+		$.getJSON("http://www.shacus.top/weixin/appointment/listphoto?row=0&jsoncallback=?",//待更换的网络请求
 		      function(json){//在这里处理返回的列表并填充进html中
 
 		      	if (json.code==10211){
@@ -104,8 +104,8 @@ function loadMore(atype){
 	var cur=-1;
 	if (atype==0)
 	{	cur=apid0_cur;
-		cur=0;//为了测试用
-		$.getJSON("http://123.206.212.206:800/weixin/appointment/listmodel?row="+cur+"&jsoncallback=?",//待更换的网络请求
+		//cur=0;//为了测试用
+		$.getJSON("http://www.shacus.top/weixin/appointment/listmodel?row="+cur+"&jsoncallback=?",//待更换的网络请求
 		      function(json){//在这里处理返回的列表并填充进html中
 
 		      	if (json.code==10211){
@@ -153,7 +153,7 @@ function loadMore(atype){
 	}
 	else
 	{	cur=apid1_cur;
-		$.getJSON("http://123.206.212.206:800/weixin/appointment/listmodel?row="+cur+"&jsoncallback=?",//待更换的网络请求
+		$.getJSON("http://www.shacus.top/weixin/appointment/listmodel?row="+cur+"&jsoncallback=?",//待更换的网络请求
 		      function(json){//在这里处理返回的列表并填充进html中
 
 

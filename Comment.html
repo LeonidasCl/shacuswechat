@@ -164,13 +164,13 @@
 				}
 				
 			}else{
-					$.getJSON('http://123.206.212.206:800/weixin/appointment/comment?apid='+apid+'&utel='+utel+'&score='+score+'&comment='+textarea.value+'&jsoncallback=?',
+					$.getJSON('http://www.shacus.top/weixin/appointment/comment?apid='+apid+'&utel='+utel+'&score='+score+'&comment='+textarea.value+'&jsoncallback=?',
 					function(json) {
 					var code=json.code;
 					if(code==40005){
 						//alert("该用户不存在");
 					}else if(code==200){
-						$.getJSON('http://123.206.212.206:800/weixin/appointment/finish?apid='+apid+'&phone='+utel+'&jsoncallback=?',
+						$.getJSON('http://www.shacus.top/weixin/appointment/finish?apid='+apid+'&phone='+utel+'&jsoncallback=?',
 							function(json){
 								if (json.code==10303) {
 									//alert(json.code + "sdads");

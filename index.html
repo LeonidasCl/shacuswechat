@@ -33,7 +33,7 @@ function checkCookie()
 var username=getCookie('username');
 var uid=getCookie('id');
 //alert("auto return");
-     $.getJSON("http://123.206.212.206:800/weixin/user/judge?id="+uid+"&phone="+username+"&jsoncallback=?",
+     $.getJSON("http://www.shacus.top/weixin/user/judge?id="+uid+"&phone="+username+"&jsoncallback=?",
       function(json){
         //console.log('done');
         //var url=json.url;
@@ -235,7 +235,7 @@ function setCookie(c_name, value, expiredays){
         //alert("正确的手机号");
         //return;
       $loadingToast.fadeIn(100);
-      $.getJSON("http://123.206.212.206:800/weixin/regist?type=10002&phone="+phone+"&code="+vercode+"&jsoncallback=?",
+      $.getJSON("http://www.shacus.top/weixin/regist?type=10002&phone="+phone+"&code="+vercode+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -278,7 +278,7 @@ function setCookie(c_name, value, expiredays){
           return;
         }
       $loadingToast.fadeIn(100);
-      $.getJSON("http://123.206.212.206:800/weixin/regist?type=10003&phone="+phone+"&password="+password+"&nickName="+nickname+"&sex="+sex+"&jsoncallback=?",
+      $.getJSON("http://www.shacus.top/weixin/regist?type=10003&phone="+phone+"&password="+password+"&nickName="+nickname+"&sex="+sex+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -332,7 +332,7 @@ function setCookie(c_name, value, expiredays){
      $loadingToast.fadeIn(100);
 
 
-     $.getJSON("http://123.206.212.206:800/weixin/login?phone="+phone+"&password="+password+"&jsoncallback=?",
+     $.getJSON("http://www.shacus.top/weixin/login?phone="+phone+"&password="+password+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -385,7 +385,7 @@ function setCookie(c_name, value, expiredays){
      $loadingToast.fadeIn(100);
 
 
-     $.getJSON("http://123.206.212.206:800/weixin/regist?type=10001&phone="+phone+"&jsoncallback=?",
+     $.getJSON("http://www.shacus.top/weixin/regist?type=10001&phone="+phone+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;

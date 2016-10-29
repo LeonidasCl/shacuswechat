@@ -264,7 +264,7 @@ function apcreate(){
 	window.location.href="yuepai_create.html?vali="+phone;
 }
 
-$.getJSON("http://123.206.212.206:800/weixin/userpage/selfinfo?utel="+phone+"&type=1&jsoncallback=?",
+$.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+phone+"&type=1&jsoncallback=?",
 	function(json){
 		var code=json.code;
 		if(code==200 || code==20002){
@@ -352,7 +352,7 @@ else
 }
 checkCookie();
 
-$.getJSON("http://123.206.212.206:800/weixin/user/changeinfo?utel="+phone+"&jsoncallback=?",//待更换的网络请求
+$.getJSON("http://www.shacus.top/weixin/user/changeinfo?utel="+phone+"&jsoncallback=?",//
 			function(json){//在这里处理返回的列表并填充进html中
 
 				if (json.code!=20001) {
@@ -372,7 +372,7 @@ $.getJSON("http://123.206.212.206:800/weixin/user/changeinfo?utel="+phone+"&json
 
 //alert("asd");*/
 //从服务器初始化活动数据
-$.getJSON("http://123.206.212.206:800/weixin/activity/aclist?jsoncallback=?",//待更换的网络请求
+$.getJSON("http://www.shacus.top/weixin/activity/aclist?jsoncallback=?",//
 			function(json){//在这里处理返回的列表并填充进html中
 
 				if (json.code==10304) {
@@ -405,7 +405,7 @@ function toYuepai2(){
 	$("#container2").show();
 	if (apid1_cur<=1) {
 		//alert("photograph");
-				$.getJSON("http://123.206.212.206:800/weixin/appointment/listmodel?row=0&jsoncallback=?",
+				$.getJSON("http://www.shacus.top/weixin/appointment/listmodel?row=0&jsoncallback=?",
 					function(json){//在这里处理返回的列表并填充进html中
 
 						if (json.code==10211){
