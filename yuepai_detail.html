@@ -154,6 +154,26 @@ var $finishToast = $('#finishToast');
 var aptype=-1;
 var choosed;
 
+     $.getJSON("http://www.shacus.top/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://www.shacus.top/static/yuepai_detail.html?vali="+phone+"&apid="+apid+"&jsoncallback=?",
+      function(json){
+        //console.log('done');
+        var url=json.url;
+        timestamp=json.timestamp;
+        nonceStr=json.nonceStr;
+        signature=json.signature;
+      //if(json.属性名==值){
+      // 执行代码
+            //}
+            //alert("Sdds");
+    wx.config({
+        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: 'wx0c9dd1c77d3e5295', // 必填，公众号的唯一标识
+        timestamp: timestamp, // 必填，生成签名的时间戳
+        nonceStr: nonceStr, // 必填，生成签名的随机串
+        signature: signature,// 必填，签名，见附录1
+        jsApiList: ['chooseImage','previewImage','uploadImage','downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+    });
 
 function look_regists(){
     window.location.href="select_apuser.html?vali="+phone+"&apid="+apid+"&sponsor="+issponsor+"&status="+status_code+"&type="+aptype;
@@ -183,6 +203,8 @@ else
   }
 }
 checkCookie();
+
+
 
     function join_yuepai(){
         //alert("join");
@@ -301,10 +323,20 @@ $(function (){
         $('.weui-uploader__files').append($preview);
         var cur=parseInt(index)+1;
         //alert(cur);
-        $swipe = $('<li><a href="#"><img name="pict" src="'+piclist[index]+'"style="width:auto!important;height:100%!important;background-image:url('+piclist[index]+')" /></a><div class="slide-desc">'+cur+'/'+piclist.length+'</div></li>');
+
+        wx.downloadImage({
+            serverId: piclist[index], // 需要下载的图片的服务器端ID，由uploadImage接口获得
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function (res) {
+                var localId = res.localId; // 返回图片下载后的本地ID
+            $swipe = $('<li><a href="#"><img name="pict" src="'+localId+'"style="width:auto!important;height:100%!important;background-image:url('+localId+')" /></a><div class="slide-desc">'+cur+'/'+piclist.length+'</div></li>');
         $('#swipe_pics').append($swipe);
         $dot=$('<span></span>');
         $('#swipe_dots').append($dot);
+            }
+        });
+
+
         //AutoResizeImage();
         }
 
