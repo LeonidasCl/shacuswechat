@@ -4,256 +4,479 @@
 <meta charset="utf-8">
 <title>追影</title>
  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-  <link rel="stylesheet" href="style/weui-0.4.3.css"/>
-  <link rel="stylesheet" href="style/weui-0.4.css"/>
-      <script src="scripts/zepto.min.js"></script>
-      <script src="scripts/iscroll.js"></script>
-      <!--第一段代码，全局的初始化-->
-      <script>
-      //预留,整个文档加载完时自动调用
-      window.onload=function()
-      {
-        $("#tab3").click();
-      }
-      //初始化导航栏
-        $(function(){
-          TagNav('#tagnav',{
-              type: 'scrollToFirst',
-          });
-          TagNav('#tagnav2',{
-              type: 'scrollToFirst',
-          });
-            $('.weui_tab').tab();
-            });
+	<link rel="stylesheet" href="style/weui-0.4.3.css"/>
+	<link rel="stylesheet" href="style/weui-0.4.css"/>
+	<link rel="stylesheet" type="text/css" href="style/public.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="style/media.css">
+			<script src="scripts/zepto.min.js"></script>
 
-      function GetQueryString(name)
-      {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-      }
+			<script src="scripts/iscroll.js"></script>
 
-      </script>
+			<!--第一段代码，全局的初始化-->
+			<script>
+			//预留,整个文档加载完时自动调用
+			window.onload=function()
+			{
+				$("#tab2").click();
+				initial();
+			}
+			//初始化导航栏
+				$(function(){
+					TagNav('#tagnav',{
+							type: 'scrollToFirst',
+					});
+					/*TagNav('#tagnav2',{
+							type: 'scrollToFirst',
+					});*/
+						$('.weui_tab').tab();
+						});
+
+			function GetQueryString(name)
+			{
+				var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r!=null)return  unescape(r[2]); return null;
+			}
+
+			</script>
 </head>
 
 <body ontouchstart style="background-color: #f8f8f8;">    
-    
+		
  <div class="weui_cells_title" style="height:45px;">&nbsp;</div>    
 <div class="weui_tab tab-bottom" >
-    <div class="weui_tab_bd">
-        <!--一级页面：教程-->
-        <div class="weui_tab_bd_item">
+		<div class="weui_tab_bd">
+				<!--一级页面：教程-->
+				<div class="weui_tab_bd_item">
 
-              <div id="tagnav" class="weui-navigator weui-navigator-wrapper">
-                <!--<ul class="weui-navigator-list">
-                     <li><a onclick="toJiaocheng1();">基础教程</a></li>
-                     <li><a onclick="toJiaocheng2();">进阶教程</a></li>
+							<div id="tagnav" class="weui-navigator weui-navigator-wrapper">
+								<!--<ul class="weui-navigator-list">
+										 <li><a onclick="toJiaocheng1();">基础教程</a></li>
+										 <li><a onclick="toJiaocheng2();">进阶教程</a></li>
 
-                      <div id="jiaocheng1" class="page__hd page__bd_spacing">
-                          <div id="list_jiaocheng_1" class="weui_panel_bd">
-                            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-                                <div class="weui_media_hd">
-                                    <img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
-                                </div>
-                                <div class="weui_media_bd">
-                                    <h4 class="weui_media_title">教程 G级恒星</h4>
-                                    <p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
-                                </div>
-                            </a>
-                            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-                                <div class="weui_media_hd">
-                                    <img class="weui_media_appmsg_thumb" src="http://img0.imgtn.bdimg.com/it/u=3997468270,1038299082&fm=21&gp=0.jpg" alt="">
-                                </div>
-                                <div class="weui_media_bd">
-                                    <h4 class="weui_media_title">教程 A级恒星</h4>
-                                    <p class="weui_media_desc">释放出很强的辐射，绝大多数生命都难以生存。</p>
-                                </div>
-                            </a>
-                          </div>
-                          <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
-                      </div>
+											<div id="jiaocheng1" class="page__hd page__bd_spacing">
+													<div id="list_jiaocheng_1" class="weui_panel_bd">
+														<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+																<div class="weui_media_hd">
+																		<img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
+																</div>
+																<div class="weui_media_bd">
+																		<h4 class="weui_media_title">教程 G级恒星</h4>
+																		<p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
+																</div>
+														</a>
+														<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+																<div class="weui_media_hd">
+																		<img class="weui_media_appmsg_thumb" src="http://img0.imgtn.bdimg.com/it/u=3997468270,1038299082&fm=21&gp=0.jpg" alt="">
+																</div>
+																<div class="weui_media_bd">
+																		<h4 class="weui_media_title">教程 A级恒星</h4>
+																		<p class="weui_media_desc">释放出很强的辐射，绝大多数生命都难以生存。</p>
+																</div>
+														</a>
+													</div>
+													<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+											</div>
 
-                      <div id="jiaocheng2" class="page__bd page__bd_spacing" style="display:none;">
-                          <div id="list_jiaocheng_2" class="weui_panel_bd">
-                            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-                                <div class="weui_media_hd">
-                                    <img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
-                                </div>
-                                <div class="weui_media_bd">
-                                    <h4 class="weui_media_title">教程 G级恒星</h4>
-                                    <p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
-                                </div>
-                            </a>
-                          </div>
-                          <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
-                      </div>
+											<div id="jiaocheng2" class="page__bd page__bd_spacing" style="display:none;">
+													<div id="list_jiaocheng_2" class="weui_panel_bd">
+														<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+																<div class="weui_media_hd">
+																		<img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
+																</div>
+																<div class="weui_media_bd">
+																		<h4 class="weui_media_title">教程 G级恒星</h4>
+																		<p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
+																</div>
+														</a>
+													</div>
+													<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+											</div>
+								</ul>-->
+								<img src="images/jiaocheng_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">
 
-                </ul>-->
-                <img src="images/jiaocheng_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">
-            </div>
+						</div>
 
 
-        </div>
+				</div>
 
-        <!--一级页面：约拍-->
-        <div class="weui_tab_bd_item">
+				<!--一级页面：约拍-->
+				<div class="weui_tab_bd_item"> 
 
-            <div id="tagnav2" class="weui-navigator weui-navigator-wrapper">
-                <!--<ul class="weui-navigator-list" style="display:none;">
-                     <li><a onclick="toYuepai1();">约模特</a></li>
-                     <li><a onclick="toYuepai2();">约摄影师</a></li>
+						<div id="tagnav2" class="weui-navigator weui-navigator-wrapper">
+								<ul class="weui-navigator-list">
+										 <li><a id="yuepaia" style="background-color:#ededed;" onclick="toYuepai1();">约模特</a></li>
+										 <li><a id="yuepaib" onclick="toYuepai2();">约摄影师</a></li>
+								</ul>
+			<div class="container" id="container1">
+				<ul class="col">
 
-                      <div id="yuepai1" class="page__bd page__bd_spacing">
-                          <div id="list_yuepai_1" class="weui_panel_bd">
+				</ul>
+				<ul class="col" style="margin-right:0">
 
-                          <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">约拍 G级</h4><p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p></div></a>
+				</ul>
+				<a href="javascript:" class="loadMeinvMOre" id="loadMeinvMOre1">加载更多</a>
+				</div>
 
-                          </div>
-                          <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
-                      </div>
-                      <div id="yuepai2" class="page__bd page__bd_spacing" style="display:none;">
-                          <div id="list_yuepai_2" class="weui_panel_bd">
 
-                          <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">约拍 G级</h4><p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p></div></a>
+			<div class="container" id="container2" style="display:none;">
+				<ul class="col">
 
-                          </div>
-                          <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
-                      </div>
-                </ul>-->
-                <img src="images/yuepai_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">
-            </div>
+				</ul>
+				<ul class="col" style="margin-right:0">
 
-        </div>
+				</ul>
+				<a href="javascript:" class="loadMeinvMOre" id="loadMeinvMOre2">加载更多</a>
+			</div>
+								
+								<!--<img src="images/yuepai_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">-->
+						</div>
+				
 
-        <!--一级页面：活动-->
-        <div class="weui_tab_bd_item">
-            <div id="huodong" class="page__bd page__bd_spacing" style="display:show;">
-                <div id="list_huodong" class="weui_panel_bd">
 
-                </div>
-                <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
-            </div>
-        </div>
+						
 
-        <!--一级页面：我的
-        <div class="weui_tab_bd_item">
-            <h3>我的</h3>
-        </div>-->
-    </div>
-            <div class="weui_tabbar ">
-                <a id="tab1" href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
-                    <div class="weui_tabbar_icon">
-                        <img src="images/icon_nav_button.png" alt="">
-                    </div>
-                    <p class="weui_tabbar_label">教程</p>
-                </a>
-                <a id="tab2" href="javascript:;" class="weui_tabbar_item">
-                    <div class="weui_tabbar_icon">
-                        <img src="images/icon_nav_msg.png" alt="">
-                    </div>
-                    <p class="weui_tabbar_label">约拍</p>
-                </a>
-                <a id="tab3" href="javascript:;" class="weui_tabbar_item">
-                    <div class="weui_tabbar_icon">
-                        <img src="images/icon_nav_article.png" alt="">
-                    </div>
-                    <p class="weui_tabbar_label">活动</p>
-                </a>
-                <!--<a href="javascript:;" class="weui_tabbar_item">
-                    <div class="weui_tabbar_icon">
-                        <img src="images/icon_nav_cell.png" alt="">
-                    </div>
-                    <p class="weui_tabbar_label">我的</p>
-                </a>-->
-            </div>
-        </div>
+				</div>
+
+				<!--一级页面：活动-->
+				<div class="weui_tab_bd_item">
+						<div id="huodong" class="page__bd page__bd_spacing" style="display:show;">
+								<div id="list_huodong" class="weui_panel_bd">
+
+								</div>
+								<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+						</div>
+				</div>
+
+				<!--一级页面：我的-->
+				<div class="weui_tab_bd_item">
+						<div>
+								<div>
+										<center>
+												<br>
+												<img src="images/avatar_0.jpg" class="circle" id="userImage"  style="width:90px;height:90px">
+										</center>
+										<div style="text-align: center;">
+													<!-- <p style="margin-top:10px;"><span class="weui-media-box__title f11">&nbsp</span></p> -->
+													<p ><h4 id="username">加载中</h4></p>
+													<p style="margin-bottom:15px;" id="sign" onclick="personalinfo()" class="f13"><span class="f13">加载中</span></p>
+										</div>
+								</div>
+
+							<table border="0" cellspacing="0" width="100%">
+								<tr>
+									<td style="width:25%"><center><img src="images/activity.png" style="height:60px" onclick="myhuodong()"></center></td>
+									<td style="width:25%"><center><img src="images/myyuepai.png" style="height:60px" onclick="myyuepai()"></center></td>
+									<td style="width:25%"><center><img src="images/info.png" style="height:60px" onclick="editinfo()"></center></td>
+									<td style="width:25%"><center><img src="images/userdisplay.png" style="height:60px"></center></td>
+								</tr>
+							</table>
+
+							<div id="bottom">
+									<div id="comment">
+										<div class="weui_media_box weui_media_text">
+													<!-- <h4 class="weui_media_title" id="commentTitle">标题一</h4>
+														<p class="weui_media_desc" id="commentIn">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+														<p class="weui_media_info" id="stars">
+																<span class="icon icon-48" id="star1"></span><span id="star2" class="icon icon-48"></span><span id="star3" class="icon icon-48"></span><span id="star4" class="icon icon-48"></span><span class="icon icon-48" id="star5"></span>
+																<span style="float:right;"><span>2016-10-11</span></span>
+														</p> -->  
+											</div>
+									</div>
+
+									<!-- <center> 
+											<a class="weui_panel_ft" href="javascript:void(0);" style="margin: 0 auto;"><center>查看更多</center></a>
+									</center> -->
+								</div>
+
+								<div id="nonecomment" style="margin-top:40%;display:none">
+										<center style="color:#a9a9a9">他还没有评论哦，来做第一个沙发</center>
+								</div>
+
+						</div>
+				</div>
+		</div>
+		<div id="btn_add" onclick="apcreate()" style="position:fixed;bottom:80px;right:20px;z-index:999999;"><img src="images/icon_nav_button.png" alt=""></div>
+						<div class="weui_tabbar ">
+								<a id="tab1" href="javascript:;" onclick="clkdvhide()" class="weui_tabbar_item weui_bar_item_on">
+										<div class="weui_tabbar_icon">
+												<img src="images/icon_jiaocheng.png" alt="">
+										</div>
+										<p class="weui_tabbar_label">教程</p>
+								</a>
+								<a id="tab2" href="javascript:;" onclick="clkdvshow()" class="weui_tabbar_item">
+										<div class="weui_tabbar_icon">
+												<img src="images/icon_yuepai.png" alt="">
+										</div>
+										<p class="weui_tabbar_label">约拍</p>
+								</a>
+								<a id="tab3" href="javascript:;" onclick="clkdvhide()" class="weui_tabbar_item">
+										<div class="weui_tabbar_icon">
+												<img src="images/icon_huodong.png" alt="">
+										</div>
+										<p class="weui_tabbar_label">活动</p>
+								</a>
+								<a href="javascript:;" onclick="clkdvhide()" class="weui_tabbar_item">
+										<div class="weui_tabbar_icon">
+												<img src="images/icon_nav_cell.png" alt="">
+										</div>
+										<p class="weui_tabbar_label">我的</p>
+								</a> 
+						</div>
+				</div>
 </body>
 </html>
 <!--第二段脚本，初始化并处理各功能模块的数据-->
-<script type="text/javascript" >
+<script type="text/javascript">
+
+function clkdvhide(){
+	$("#btn_add").hide();
+}
+
+function clkdvshow(){
+	$("#btn_add").show();
+}
+
+var aptype=0;//0为页面在约模特
+var apid0_cur=-1;
+var apid1_cur=-1;
+var sign="";
+
+function personalinfo(){
+	window.location.href="personalInfo.html?inf="+sign;
+}
 
 //读取cookies
 function getCookie(name)
 {
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+		var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
 
-    if(arr=document.cookie.match(reg)){
-        return (arr[2]);}
-    else
-        return null;
+		if(arr=document.cookie.match(reg)){
+				return (arr[2]);}
+		else
+				return null;
+}
+var phone=GetQueryString("vali");
+var id=GetQueryString("id");
+
+function apcreate(){
+	window.location.href="yuepai_create.html?vali="+phone;
 }
 
+$.getJSON("http://123.206.212.206:800/weixin/userpage/selfinfo?utel="+phone+"&type=1&jsoncallback=?",
+	function(json){
+		var code=json.code;
+		if(code==200 || code==20002){
+			//alert("code  "+code);
+			sign=json.sign;
+			if(sign.length>15){
+				var str_show = string.substr(0,13) + "…";
+				document.getElementById("sign").innerHTML = str_show;
+				window.location.href="PersonalInfo.html?personalinfo="+sign;  
+			}else{
+				document.getElementById("sign").innerHTML = sign;
+			}
+
+			var user=json.alais;
+			document.getElementById('username').innerHTML=user;
+			var sex=json.sex;
+				if (sex==0){
+                        sexurl="images/avatar_0.jpg";
+                        document.getElementById("userImage").src=sexurl;
+                    }
+                if (sex==1){
+                        sexurl="images/avatar_1.jpg";
+                        document.getElementById("userImage").src=sexurl;
+                    }
+
+			var comments=json.comments;
+			var commentIn=null;
+			var commentTitle=null;
+			var stars=0;
+			var time=null;
+			if(code==20002){//评论为空
+					$("#bottom").css("display","none");
+					$("#nonecomment").css("display","block");
+			}else{//评论不为空
+				for(var i=0;i<comments.length;i++){
+					commentTitle=comments[i].title;
+					commentIn=comments[i].comment;
+					stars=comments[i].score;
+					time=comments[i].time;
+					var str='<div class="weui_media_box weui_media_text"><h4 class="weui_media_title" id="commentTitle">'+commentTitle+'</h4><p class="weui_media_desc" id="commentIn">'+commentIn;
+						if(stars==5){
+							str+='</p><p class="weui_media_info" id="starts"><span class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span style="float:right;"><span>';
+						}else if(stars==4){
+							/*$("#star1").css("color","#ffdd99");
+							$("#star2").css("color","#ffdd99");
+							$("#star3").css("color","#ffdd99");
+							$("#star4").css("color","#ffdd99");*/
+							str+='</p><p class="weui_media_info" id="starts"><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span id="star3" class="icon icon-48" style="color:#ffdd99"></span><span id="star4" class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}else if(stars==3){
+							str+='</p><p class="weui_media_info" id="starts"><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}else if(stars==2){
+							str+='</p><p class="weui_media_info"><span class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48" ></span><span class="icon icon-48"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}else if(stars==1){
+							str+='</p><p class="weui_media_info"><span class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48"></span><span  class="icon icon-48" ></span><span class="icon icon-48"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}
+						str+='<span style="float:right;"><span>'+time+'</span></span></p></div>';
+						$("#comment").append(str);
+				}
+			}
+			//alert(code + "  ----2");
+		}else if(code==40001){
+			//alert(code + "  ---3该用户不存在");
+		}else if(code==40005){
+			//alert("获取评论用户出错");
+		}
+	});
 
 
-var phone=GetQueryString("vali");
 //alert("phone is "+phone);
 function checkCookie()
 {
 var username=getCookie('username');
+var uid=getCookie('id');
 //alert("username "+username);
 //alert("phone "+phone);
 if (username!=null && username!="" && username==phone)
-  {
-  alert("您已经登陆过，现在进入系统");
-  }
+	{
+	//alert("您已经登陆过，现在进入系统");
+	}
 else
-  {alert("请先注册或用自己的账号登录！");
-  window.location.replace("https://mp.weixin.qq.com/s?__biz=MzIxMzUxMDAwMQ==&mid=100000017&idx=1&sn=37d70b9b791a7cc9164c04d565f45066&chksm=17b4f30f20c37a19913326a278655dd99b75add36fabe74ff5e3130a6a762016080032e7355c&scene=20&key=c3acc508db7203760d2b66304ade4d8bafc8a50dadac8750bbfc18bf8498e8628e2fdea0d060c8602f293eb6f86bca6e&ascene=7&uin=MTE1NjIyMTI4MQ%3D%3D&devicetype=android-19&version=26031b31&nettype=WIFI&pass_ticket=QbJniI9E%2Fz8wrPy7XDZAIc%2B5e1WLUcxm3p%2B3LfraU7d8A9mMbqLkHtITXKoSTgvj&wx_header=1");
-  }
+	{//alert("请先注册或用自己的账号登录！");
+	window.location.href="index.html";
+	}
 
 }
 checkCookie();
 
+$.getJSON("http://123.206.212.206:800/weixin/user/changeinfo?utel="+phone+"&jsoncallback=?",//待更换的网络请求
+			function(json){//在这里处理返回的列表并填充进html中
+
+				if (json.code!=20001) {
+					alert("服务器错误！");
+					return;
+				}
+				if (json.choosed==1) {
+					$.toptips('您在一项约拍中被选中，请到“我的约拍”查看','ok');
+					//alert();
+				}
+
+				
+			});
 
 /*//从服务器初始化教程数据
-$.getJSON("http://114.215.94.95:800/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://shacuswechat2.tunnel.2bdata.com/WgetSign.html&jsoncallback=?",//待更换的网络请求
-      function(json){//在这里处理返回的列表并填充进html中
-        var str='<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">添加的教程标题</h4><p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p></div></a>';
-        $("#list_jiaocheng_1").append(str);
-      });
-
 //从服务器初始化约拍数据
-$.getJSON("http://114.215.94.95:800/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://shacuswechat2.tunnel.2bdata.com/WgetSign.html&jsoncallback=?",//待更换的网络请求
-      function(json){//在这里处理返回的列表并填充进html中
-        var str='<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">添加的约拍标题</h4><p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p></div></a>';
-        $("#list_yuepai_1").append(str);
-        $("#list_yuepai_2").append(str);
 
-      });*/
-//alert("asd");
+//alert("asd");*/
 //从服务器初始化活动数据
-$.getJSON("http://114.215.94.95/weixin/activity/aclist?jsoncallback=?",//待更换的网络请求
-      function(json){//在这里处理返回的列表并填充进html中
+$.getJSON("http://123.206.212.206:800/weixin/activity/aclist?jsoncallback=?",//待更换的网络请求
+			function(json){//在这里处理返回的列表并填充进html中
 
-        var aclist=[];
-        aclist=json.contents;
-        //alert(aclist[0].WACtitle);
-        for (var index in aclist) {
-          var url="huodong_detail.html?acid="+aclist[index].WACid+"&vali="+phone;
-          var str='<a href="'+url+'" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="'+aclist[index].WACimgurl+'" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">'+aclist[index].WACtitle+'</h4><p class="weui_media_desc">'+aclist[index].WACcontent+'</p></div></a>';
-          $("#list_huodong").append(str);
-        }
-      });
+				if (json.code==10304) {
+					alert("服务器错误！");
+					return;
+				}
+
+				var aclist=[];
+				aclist=json.contents;
+				//alert(aclist[0].WACtitle);
+				for (var index in aclist) {
+					var url="huodong_detail.html?acid="+aclist[index].WACid+"&vali="+phone;
+					var str='<a href="'+url+'" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="'+aclist[index].WACimgurl+'" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">'+aclist[index].WACtitle+'</h4><p class="weui_media_desc">'+aclist[index].WACcontent+'</p></div></a>';
+					$("#list_huodong").append(str);
+				}
+			});
 
 //各模块的显示与隐藏
 function toYuepai1(){
-  $("#yuepai1").show(); 
-  $("#yuepai2").hide(); 
+	$("#container1").show();
+	document.getElementById("yuepaia").style="background-color:#ededed;"; 
+	document.getElementById("yuepaib").style=""; 
+	$("#container2").hide();
+	aptype=0;
 }
 
 function toYuepai2(){
-  $("#yuepai2").show(); 
-  $("#yuepai1").hide(); 
+	document.getElementById("yuepaib").style="background-color:#ededed;"; 
+	document.getElementById("yuepaia").style=""; 
+	$("#container2").show();
+	if (apid1_cur<=1) {
+		//alert("photograph");
+				$.getJSON("http://123.206.212.206:800/weixin/appointment/listmodel?row=0&jsoncallback=?",
+					function(json){//在这里处理返回的列表并填充进html中
+
+						if (json.code==10211){
+							alert(json.contents);
+							return;
+						}
+
+						var aplist=[];
+						aplist=json.contents;
+						//alert(aplist[0].WACtitle);
+						for (var index in aplist) {
+
+							apid1_cur++;
+
+							var state=aplist[index].status;
+							var statestr="加载中";
+							if (state==1){
+								statestr="报名中";
+							}
+
+							if (state==2){
+								statestr="进行中";
+							}
+
+							if (state>2){
+								statestr="已结束";
+							}
+
+							var html = "";
+							var sex=aplist[index].sex;
+							if (sex==0) {
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img src="'+aplist[index].picurl+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
+					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
+				}
+							if (sex==1) {
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img src="'+aplist[index].picurl+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
+					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
+				}
+
+					$minUl = getMinUl(1);//增加到约摄影师那一列
+
+					$minUl.append(html);
+
+						}
+					});
+	}
+	$("#container1").hide(); 
+	aptype=1;
 }
 
 
 function toJiaocheng1(){
-  $("#jiaocheng1").show(); 
-  $("#jiaocheng2").hide(); 
+	$("#jiaocheng1").show(); 
+	$("#jiaocheng2").hide(); 
 }
 
 function toJiaocheng2(){
-  $("#jiaocheng2").show(); 
-  $("#jiaocheng1").hide(); 
+	$("#jiaocheng2").show(); 
+	$("#jiaocheng1").hide(); 
+}
+
+function myyuepai(){
+	window.location.href="myyuepai.html?id="+id;
+}
+
+function myhuodong(){
+	window.location.href="myhuodong.html?id="+id;
+}
+
+function editinfo(){
+	window.location.href="editinfo.html?vali="+phone;
 }
 </script>
+<script type="text/javascript" src="scripts/waterfall.js"></script>

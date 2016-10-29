@@ -1,0 +1,466 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title id="ac_title">约拍标题</title>
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <link rel="stylesheet" href="style/weui-0.4.3.css"/>
+  <link rel="stylesheet" href="style/weui-0.4.css"/>
+<script src="scripts/jweixin-1.0.0.js"></script>
+<script src="scripts/zepto.min.js"></script>
+<script src="scripts/swipe.js"></script>
+<link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
+      <!--第一段代码，全局的初始化-->
+      <script>
+      //预留,整个文档加载完时自动调用
+      window.onload=function()
+      {
+        $('#slide1').swipeSlide({
+        autoSwipe:true,//自动切换默认是
+        speed:3000,//速度默认4000
+        continuousScroll:true,//默认否
+        transitionType:'cubic-bezier(0.22, 0.69, 0.72, 0.88)',//过渡动画linear/ease/ease-in/ease-out/ease-in-out/cubic-bezier
+        lazyLoad:true,//懒加载默认否
+        firstCallback : function(i,sum,me){
+            me.find('.dot').children().first().addClass('cur');
+            },
+        callback : function(i,sum,me){
+            me.find('.dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+            }
+        });
+      }
+
+      function GetQueryString(name)
+      {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+      }
+      //初始化导航栏
+        $(function(){
+
+            });      
+      </script>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+
+    <div class="slide" id="slide1">
+        <ul id="swipe_pics">
+
+        </ul>
+        <div id="swipe_dots" class="dot">
+
+        </div>
+    </div>
+
+    <div id="loadingToast" style="display:none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+            <p id="loading_hint" class="weui-toast__content">操作中</p>
+        </div>
+    </div>
+    <div id="finishToast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p id="success_hint" class="weui-toast__content">请求完成</p>
+        </div>
+    </div>
+
+        <div class="weui-label-list" style="padding-top: 15px;padding-bottom: 10px;" >
+            <label id="ap_price" class="weui-label-s" style="padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;font-size:20px;">是否免费</label> 
+            <label class="weui-label-s"  style="padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;font-size:20px;">新发布</label>
+        </div>
+
+<div id="selecteddiv">
+        <div id="sponsordiv" class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" >
+            <ul id="sponsorul" style="width: 100%;height: auto;float: left;">
+            	<!--<li style="width: 50px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label  tyle="font-size:18px;">已选择</label></li>-->
+                <li id="sponsorimg" style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"></li>
+                <li style="width: 100px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">发起者</label></li>
+            </ul>
+        </div>
+</div>
+        <!--<div id="sponsordiv" class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" >
+            <ul id="sponsorul" style="width: 100%;height: auto;float: left;">
+            	<li style="width: 50px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label  tyle="font-size:18px;">已选择</label></li>
+                <li id="sponsorimg" style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"></li>
+                <li style="width: 100px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">发起者</label></li>
+            </ul>
+        </div>-->
+
+
+        <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">时间描述</h4>
+            <p id="ap_startT_endT" class="weui-media-box__desc">加载中</p>
+        </div>
+
+
+        <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">约拍地点</h4>
+            <p id="ap_location" class="weui-media-box__desc">加载中</p>
+        </div>
+
+        <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">当前报名人数</h4>
+            <p id="ap_registN" class="weui-media-box__desc">加载中</p>
+        </div>
+        <div class="weui-cells__title">约拍说明</div>
+        <div class="weui-cell" style="padding-bottom: 25px;">
+            <div class="weui-cell__bd">
+                    <textarea id="ap_content" class="weui-textarea" readOnly="true" placeholder="简要描述约拍要求（50字以内）" rows="6" style="font-size:16px;background-color: #f8f8f8;">加载中</textarea>
+            </div>
+        </div>
+
+    <div class="page__bd">
+        <div class="weui-gallery" id="gallery">
+            <span class="weui-gallery__img" id="galleryImg"></span>
+            <div class="weui-gallery__opr">
+
+            </div>
+        </div>
+
+
+        <div class="weui-cell__bd">
+            <a id="btn_choose" onclick="look_regists()" class="weui-btn weui-btn_primary">查看报名用户</a>
+            <a id="btn_acjoin" onclick="join_yuepai()" class="weui-btn weui-btn_primary">报名</a>
+        </div>
+</body>
+</html>
+<script type="text/javascript">
+
+var phone=GetQueryString("vali");
+var apid=GetQueryString("apid");
+var status_code;//状态码1为报名中 2为进行中 3为已结束
+var price;
+var free;
+var issponsor;//是否为发起人
+var minp;
+var maxp;
+var apontent;
+var time;
+var alias;
+var atitle;
+var sponsorid;//发起人id
+var ap_location;
+var closed;
+var registN;
+var piclist=[];
+var isregist=-1;//是否已报名，1为是0为否
+var $loadingToast = $('#loadingToast');
+var $finishToast = $('#finishToast');
+var aptype=-1;
+var choosed;
+
+
+function look_regists(){
+    window.location.href="select_apuser.html?vali="+phone+"&apid="+apid+"&sponsor="+issponsor+"&status="+status_code+"&type="+aptype;
+}
+
+//读取cookies
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg))
+
+        return (arr[2]);
+    else
+        return null;
+}
+
+function checkCookie()
+{
+var username=getCookie('username');
+if (username!=null && username!=""&&username==phone)
+  {//alert('Welcome again '+username+'!')
+   }
+else
+  {alert("请先注册或用自己的账号登录！");
+  window.location.href="index.html";
+  }
+}
+checkCookie();
+
+    function join_yuepai(){
+        //alert("join");
+        if (status_code==1) {//报名
+            if (isregist==0&&issponsor==0) {
+            document.getElementById("loading_hint").innerHTML="报名中";
+            $loadingToast.fadeIn(50);
+            //alert("join "+phone);
+            $.getJSON("http://123.206.212.206:800/weixin/appointment/regist?apid="+apid+"&phone="+phone+"&jsoncallback=?",
+            function(json){
+                if (json.code==10270) {
+                    $loadingToast.fadeOut(100);
+
+                    document.getElementById("success_hint").innerHTML="报名成功";
+                    $finishToast.fadeIn(100);
+                    setTimeout(function () {
+                        $finishToast.fadeOut(100);
+                    }, 1000);
+                    //alert("join success");
+                    document.getElementById("btn_acjoin").innerHTML="取消报名";
+                    isregist=1;
+                    registN++;
+                    document.getElementById("ap_registN").innerHTML=registN;
+                    return;
+                }
+                $loadingToast.fadeOut(100);
+                alert("报名失败:"+json.contents);
+                return;
+            });
+            }
+            if(isregist==0&&issponsor==1){
+                //alert(isregist+"  "+sponsorid);
+                alert("不能报名自己发布的约拍！");
+                return;
+            }
+            if (isregist==1&&issponsor==0) {
+            document.getElementById("loading_hint").innerHTML="正在取消";
+            $loadingToast.fadeIn(50);
+            //alert("cancel "+phone);
+            $.getJSON("http://123.206.212.206:800/weixin/appointment/registcancel?apid="+apid+"&phone="+phone+"&jsoncallback=?",
+            function(json){
+                if (json.code==10276) {
+                    $loadingToast.fadeOut(100);
+                    document.getElementById("success_hint").innerHTML="已取消报名";
+                    $finishToast.fadeIn(100);
+                    setTimeout(function () {
+                        $finishToast.fadeOut(100);
+                    }, 1000);
+                    //alert("quit success");
+                    document.getElementById("btn_acjoin").innerHTML="报名";
+                    isregist=0;
+                    registN--;
+                    document.getElementById("ap_registN").innerHTML=registN;
+                    return;
+                }
+                //alert("fail");
+            });
+            }
+            if (isregist==1&&issponsor==1) {
+                alert("自己发布的约拍不能取消报名！");
+                return;
+            }
+        }
+        if ((status_code==2&&issponsor==1)||(status_code==2&&ischoosed==1)) {
+            window.location.href="Comment.html?apid="+apid+"&utel="+phone;
+        }
+}
+
+
+
+function excitedid(excited){
+    window.location.href=excited;
+}
+$(function (){
+
+    //alert("get detail "+phone);
+    $.getJSON("http://123.206.212.206:800/weixin/appointment/info?apid="+apid+"&phone="+phone+"&jsoncallback=?",
+      function(json){
+        //alert(json);
+        var code=json.code;
+
+        if (code==10401) {
+
+        json=json.contents;
+        //alert("return "+json);
+        status_code=json.status;
+        price=json.price;
+        free=json.free;
+        time=json.time;
+        atitle=json.title;
+        registN=json.registn;
+        sponsorid=json.sponsorid;
+        ap_location=json.location;
+        alias=json.alias;
+        apontent=json.content;
+        piclist=json.picurl;
+        isregist=json.isregist;
+        issponsor=json.issponsorid;
+        aptype=json.type;
+        sponsorid=json.sponsorid;
+        var surl="OtherPage.html?id="+sponsorid+"&username="+phone;
+        var avatarurl="";
+        if (json.sex==0)
+        	avatarurl="images/avatar_0.jpg";
+        else
+        	avatarurl="images/avatar_1.jpg";
+        document.getElementById("sponsorimg").innerHTML='<img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+avatarurl+'"/>';
+        //document.getElementById("sponsorul").onclick='excitedid(\"'+surl+'\");';
+        $('#sponsorul').attr('onclick','excitedid(\"'+surl+'\");');
+        //$sponsorurl=$('<span></span>');
+        //$('#sponsorimg').append($sponsorurl);
+        //alert("isregist: "+isregist+" status "+status_code);
+        //alert(piclist.length);
+        for (var index in piclist) {
+        $preview = $('<li class="weui-uploader__file" style="background-image:url('+piclist[index]+')"></li>');
+        $('.weui-uploader__files').append($preview);
+        var cur=parseInt(index)+1;
+        //alert(cur);
+        $swipe = $('<li><a href="#"><img name="pict" src="'+piclist[index]+'"style="width:auto!important;height:100%!important;background-image:url('+piclist[index]+')" /></a><div class="slide-desc">'+cur+'/'+piclist.length+'</div></li>');
+        $('#swipe_pics').append($swipe);
+        $dot=$('<span></span>');
+        $('#swipe_dots').append($dot);
+        //AutoResizeImage();
+        }
+
+
+        document.getElementById("ap_content").innerHTML=apontent;
+        document.getElementById("ap_location").innerHTML=ap_location;
+        //alert(free);
+        if (free==0)
+        document.getElementById("ap_price").innerHTML="免费参与";
+        else
+        document.getElementById("ap_price").innerHTML="人均消费 "+price+" 元";
+        document.getElementById("alias").innerHTML=alias;
+        document.getElementById("ac_title").innerHTML=atitle;
+        //document.getElementById("ac_createT").innerHTML="发布时间 "+createT;
+        document.getElementById("ap_startT_endT").innerHTML=time;
+        //document.getElementById("ac_maxp").innerHTML="最多 "+maxp+" 人";
+        //document.getElementById("ac_minp").innerHTML="最少 "+minp+" 人";
+        document.getElementById("ap_registN").innerHTML=registN;
+
+
+        //检查是否关闭
+        /*if (closed=="true") {
+            $("btn_acjoin").setAttribute("disabled",true);
+            document.getElementById("btn_acjoin").innerHTML="已关闭";
+            return;
+        }*/
+
+        if (status_code==1) {
+            //alert("status is 1");
+            if (issponsor==1) 
+            {
+                document.getElementById("btn_choose").innerHTML="选择报名用户"; 
+                //$("#/").setAttribute("disabled",true);
+                document.getElementById("btn_acjoin").innerHTML="不能报名自己发布的约拍"; 
+            }
+            if (isregist==1) {
+                //alert("setting cancel");btn_choose
+                document.getElementById("btn_acjoin").innerHTML="取消报名";              
+            }
+        }
+
+        if (status_code==2) {
+                
+            if (issponsor==1){
+                document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
+                document.getElementById("btn_acjoin").innerHTML="完成约拍"; 
+                var selecturl="";
+                if (json.user.Usex==0) 
+                	selecturl="images/avatar_0.jpg";
+                else
+                	selecturl="images/avatar_1.jpg";
+                $selected=$('<div class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" ><ul id="selectedul" style="width: 100%;height: auto;float: left;"><li style="width:60px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label  tyle="font-size:16px">已选择:</label></li><li style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+selecturl+'"/></li><li style="width: 80px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">'+json.user.Ualais+'</label></li><p id="ap_registN" class="weui-media-box__desc" style="overflow:visible" >对方联系方式（仅您可见）:<br>'+json.user.Utel+'</p></ul></div>');
+                var seurl="OtherPage.html?id="+json.user.Uid+"&username="+phone;
+                $('#selectedul').attr('onclick','excitedid(\"'+seurl+'\");');
+                //alert("insert");
+                $("#selecteddiv").append($selected);
+            }
+            if (issponsor==0){
+                if (isregist==1) {
+                    choosed=json.ischoosed;
+                    if (choosed==1) {
+                        document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
+                        document.getElementById("btn_acjoin").innerHTML="完成约拍"; 
+                        var selecturl="";
+                		if (json.user.Usex==0) 
+                			selecturl="images/avatar_0.jpg";
+                		else
+                			selecturl="images/avatar_1.jpg";
+                $selected=$('<div class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" ><ul id="selectedul" style="width: 100%;height: auto;float: left;"><li style="width:60px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label  tyle="font-size:16px">已选择:</label></li><li style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+selecturl+'"/></li><li style="width: 80px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">'+json.user.Ualais+'</label></li><p id="ap_registN" class="weui-media-box__desc" style="overflow:visible" >对方联系方式（仅您可见）:<br>'+json.user.Utel+'</p></ul></div>');
+                var seurl="OtherPage.html?id="+json.user.Uid+"&username="+phone;
+                $('#selectedul').attr('onclick','excitedid(\"'+seurl+'\");');
+                //alert("insert");
+                $("#selecteddiv").append($selected);
+                    }
+                    if (choosed==0) {
+                        document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
+                        document.getElementById("btn_acjoin").innerHTML="不能报名进行中的约拍"; 
+                    }
+                }
+                if (isregist==0) {
+                document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
+                document.getElementById("btn_acjoin").innerHTML="不能报名进行中的约拍"; 
+                }
+            }
+
+            //$("#btn_acjoin").setAttribute("disabled",true);
+            return;
+        }
+
+        if (status_code==3) {
+            if (issponsor==1){
+                document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
+                document.getElementById("btn_acjoin").innerHTML="约拍已完成"; 
+                var selecturl="";
+                if (json.user.Usex==0) 
+                	selecturl="images/avatar_0.jpg";
+                else
+                	selecturl="images/avatar_1.jpg";
+                $selected=$('<div class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" ><ul id="selectedul" style="width: 100%;height: auto;float: left;"><li style="width:60px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label  tyle="font-size:16px">已选择:</label></li><li style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+selecturl+'"/></li><li style="width: 80px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">'+json.user.Ualais+'</label></li><p id="ap_registN" class="weui-media-box__desc" style="overflow:visible" >对方联系方式（仅您可见）:<br>'+json.user.Utel+'</p></ul></div>');
+                var seurl="OtherPage.html?id="+json.user.Uid+"&username="+phone;
+                $('#selectedul').attr('onclick','excitedid(\"'+seurl+'\");');
+                //alert("insert");
+                $("#selecteddiv").append($selected);
+            }
+            if (issponsor==0){
+                if (isregist==1) {
+                    choosed=json.ischoosed;
+                    if (choosed==1) {
+                        document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
+                        document.getElementById("btn_acjoin").innerHTML="约拍已完成"; 
+                        var selecturl="";
+                		if (json.user.Usex==0) 
+                			selecturl="images/avatar_0.jpg";
+                		else
+                			selecturl="images/avatar_1.jpg";
+                $selected=$('<div class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" ><ul id="selectedul" style="width: 100%;height: auto;float: left;"><li style="width:60px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label  tyle="font-size:16px">已选择:</label></li><li style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+selecturl+'"/></li><li style="width: 80px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">'+json.user.Ualais+'</label></li><p id="ap_registN" class="weui-media-box__desc" style="overflow:visible" >对方联系方式（仅您可见）:<br>'+json.user.Utel+'</p></ul></div>');
+                var seurl="OtherPage.html?id="+json.user.Uid+"&username="+phone;
+                $('#selectedul').attr('onclick','excitedid(\"'+seurl+'\");');
+                //alert("insert");
+                $("#selecteddiv").append($selected);
+                    }
+                    if (choosed==0) {
+                        document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
+                        document.getElementById("btn_acjoin").innerHTML="约拍已完成"; 
+                    }
+                }
+                if (isregist==0) {
+                document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
+                document.getElementById("btn_acjoin").innerHTML="约拍已完成"; 
+                }
+            }
+
+            //$("#btn_acjoin").setAttribute("disabled",true);
+            return;
+        }
+
+        }
+        else{
+          alert(json.contents);
+        }
+    });
+
+
+
+    var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
+
+
+    $swipebar = $("#swipe_pics");
+    $swipebar.on("click", "img", function(){
+        $galleryImg.attr("style", this.getAttribute("style"));
+        $gallery.fadeIn(100);
+    });
+
+    $gallery.on("click", function(){
+        $gallery.fadeOut(100);
+    });
+});
+
+</script>

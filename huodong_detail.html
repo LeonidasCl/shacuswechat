@@ -164,7 +164,7 @@ if (username!=null && username!=""&&username==phone)
    }
 else
   {alert("请先注册或用自己的账号登录！");
-  window.location.replace("https://mp.weixin.qq.com/s?__biz=MzIxMzUxMDAwMQ==&mid=100000017&idx=1&sn=37d70b9b791a7cc9164c04d565f45066&chksm=17b4f30f20c37a19913326a278655dd99b75add36fabe74ff5e3130a6a762016080032e7355c&scene=20&key=c3acc508db7203760d2b66304ade4d8bafc8a50dadac8750bbfc18bf8498e8628e2fdea0d060c8602f293eb6f86bca6e&ascene=7&uin=MTE1NjIyMTI4MQ%3D%3D&devicetype=android-19&version=26031b31&nettype=WIFI&pass_ticket=QbJniI9E%2Fz8wrPy7XDZAIc%2B5e1WLUcxm3p%2B3LfraU7d8A9mMbqLkHtITXKoSTgvj&wx_header=1");
+  window.location.href="https://mp.weixin.qq.com/s?__biz=MzIxMzUxMDAwMQ==&mid=100000017&idx=1&sn=37d70b9b791a7cc9164c04d565f45066&chksm=17b4f30f20c37a19913326a278655dd99b75add36fabe74ff5e3130a6a762016080032e7355c&scene=20&key=c3acc508db7203760d2b66304ade4d8bafc8a50dadac8750bbfc18bf8498e8628e2fdea0d060c8602f293eb6f86bca6e&ascene=7&uin=MTE1NjIyMTI4MQ%3D%3D&devicetype=android-19&version=26031b31&nettype=WIFI&pass_ticket=QbJniI9E%2Fz8wrPy7XDZAIc%2B5e1WLUcxm3p%2B3LfraU7d8A9mMbqLkHtITXKoSTgvj&wx_header=1";
   }
 }
 checkCookie();
@@ -176,7 +176,7 @@ checkCookie();
             document.getElementById("loading_hint").innerHTML="报名中";
             $loadingToast.fadeIn(50);
             //alert("join "+phone);
-            $.getJSON("http://114.215.94.95:80/weixin/activity/regist?wacid=1&phone="+phone+"&jsoncallback=?",
+            $.getJSON("http://123.206.212.206:800/weixin/activity/regist?wacid=1&phone="+phone+"&jsoncallback=?",
             function(json){
                 if (json.code==10306||json.code==10312) {
                     $loadingToast.fadeOut(100);
@@ -201,7 +201,7 @@ checkCookie();
             document.getElementById("loading_hint").innerHTML="正在取消";
             $loadingToast.fadeIn(50);
             //alert("cancel "+phone);
-            $.getJSON("http://114.215.94.95:80/weixin/activity/quitregist?wacid=1&phone="+phone+"&jsoncallback=?",
+            $.getJSON("http://123.206.212.206:800/weixin/activity/quitregist?wacid=1&phone="+phone+"&jsoncallback=?",
             function(json){
                 if (json.code==10310) {
                     $loadingToast.fadeOut(100);
@@ -227,7 +227,7 @@ checkCookie();
 $(function (){
 
     //alert("get detail "+phone);
-    $.getJSON("http://114.215.94.95:80/weixin/activity/detail?acid=1&phone="+phone+"&jsoncallback=?",
+    $.getJSON("http://123.206.212.206:800/weixin/activity/detail?acid=1&phone="+phone+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -293,7 +293,7 @@ $(function (){
 
         //检查是否关闭
         if (closed=="true") {
-            $("btn_acjoin").setAttribute("disabled",true);
+            //$("#btn_acjoin").setAttribute("disabled",true);
             document.getElementById("btn_acjoin").innerHTML="活动已关闭";
             return;
         }
@@ -307,13 +307,13 @@ $(function (){
         }
 
         if (status_code==2) {
-            $("btn_acjoin").setAttribute("disabled",true);
+            //$("#btn_acjoin").setAttribute("disabled",true);
             document.getElementById("btn_acjoin").innerHTML="活动正在进行，不能报名";
             return;
         }
 
         if (status_code==3) {
-            $("btn_acjoin").setAttribute("disabled",true);
+            //$("#btn_acjoin").setAttribute("disabled",true);
             document.getElementById("btn_acjoin").innerHTML="活动已结束";
             return;
         }

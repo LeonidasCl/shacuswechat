@@ -5,8 +5,8 @@
 <title>追影</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
-      <script src="static/scripts/zepto.min.js"></script>
-      <script src="static/scripts/iscroll.js"></script>
+      <script src="scripts/zepto.min.js"></script>
+      <script src="scripts/iscroll.js"></script>
       <!--<script src="http://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>-->
       <!--第一段代码，全局的初始化-->
       <script>
@@ -31,9 +31,16 @@ function getCookie(name)
 function checkCookie()
 {
 var username=getCookie('username');
-if (username!=null && username!="")
-  {//alert('Welcome again '+username+'!')
-   window.location.replace("static/main.html?vali="+username);}
+var uid=getCookie('id');
+//alert("auto return");
+     $.getJSON("http://123.206.212.206:800/weixin/user/judge?id="+uid+"&phone="+username+"&jsoncallback=?",
+      function(json){
+        //console.log('done');
+        //var url=json.url;
+
+        if (json.code==10500)
+        window.location.href="main.html?vali="+username+"&id="+uid;
+    });
 
 }
 
@@ -178,7 +185,7 @@ function setCookie(c_name, value, expiredays){
 　　　　exdate.setDate(exdate.getDate() + expiredays);
 　　　　document.cookie=c_name+ "=" + value + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
         //alert(document.cookie);
- 　　}
+}
 
 
 
@@ -220,7 +227,7 @@ function setCookie(c_name, value, expiredays){
         //alert("正确的手机号");
         //return;
       $loadingToast.fadeIn(100);
-      $.getJSON("http://114.215.94.95/weixin/regist?type=10002&phone="+phone+"&code="+vercode+"&jsoncallback=?",
+      $.getJSON("http://123.206.212.206:800/weixin/regist?type=10002&phone="+phone+"&code="+vercode+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -263,7 +270,7 @@ function setCookie(c_name, value, expiredays){
           return;
         }
       $loadingToast.fadeIn(100);
-      $.getJSON("http://114.215.94.95/weixin/regist?type=10003&phone="+phone+"&password="+password+"&nickName="+nickname+"&sex="+sex+"&jsoncallback=?",
+      $.getJSON("http://123.206.212.206:800/weixin/regist?type=10003&phone="+phone+"&password="+password+"&nickName="+nickname+"&sex="+sex+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -284,9 +291,11 @@ function setCookie(c_name, value, expiredays){
             setTimeout(function () {
                 $finishToast.fadeOut(100);
             }, 1000);
-            var token=json.contents;
+            var token=json.contents.phone;
+            var uid=json.contents.id;
             setCookie('username',token,14);
-            window.location.replace("static/main.html?vali="+token);
+            setCookie('id',uid,3);
+            window.location.href="main.html?vali="+token+"&id="+uid;
             //state=3;
             //return;
         }
@@ -315,7 +324,7 @@ function setCookie(c_name, value, expiredays){
      $loadingToast.fadeIn(100);
 
 
-     $.getJSON(" http://114.215.94.95:80/weixin/login?phone="+phone+"&password="+password+"&jsoncallback=?",
+     $.getJSON("http://123.206.212.206:800/weixin/login?phone="+phone+"&password="+password+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -336,9 +345,11 @@ function setCookie(c_name, value, expiredays){
         setTimeout(function () {
                 $finishToast.fadeOut(100);
             }, 1000);
-        var token=json.contents;
+        var token=json.contents.phone;
+        var uid=json.contents.id;
         setCookie('username',token,3);
-        window.location.replace("static/main.html?vali="+token);
+        setCookie('id',uid,3);
+        window.location.href="main.html?vali="+token+"&id="+uid;
         //$("#yuepai_contents").val();
         //$("button_getvercode").setAttribute("disabled",true);
 
@@ -366,7 +377,7 @@ function setCookie(c_name, value, expiredays){
      $loadingToast.fadeIn(100);
 
 
-     $.getJSON(" http://114.215.94.95/weixin/regist?type=10001&phone="+phone+"&jsoncallback=?",
+     $.getJSON("http://123.206.212.206:800/weixin/regist?type=10001&phone="+phone+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;

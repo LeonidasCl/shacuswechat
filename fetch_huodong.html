@@ -53,7 +53,7 @@ function manageFetch(){
 
   var fetchcode=document.getElementById("input_fetchcode").value;
 
-  $.getJSON("http://114.215.94.95:80/weixin/activity/registerlist?acid="+fetchcode+"&jsoncallback=?",
+  $.getJSON("http://123.206.212.206:800/weixin/activity/registerlist?acid="+fetchcode+"&jsoncallback=?",
   function(json){
     //alert(json.code);
     if (json.code==10400) {
