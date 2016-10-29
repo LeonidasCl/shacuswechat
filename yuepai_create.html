@@ -83,7 +83,7 @@
             <label for="weuiAgree" class="weui-agree">
                 <input id="yuepai_agree" type="checkbox" class="weui-agree__checkbox">
                 <span class="weui-agree__text">
-                    阅读并同意<a href="javascript:void(0);">《相关条款》</a>
+                    阅读并同意<a href="javascript:askagree();">《相关条款》</a>
                 </span>
             </label>
         </div>
@@ -141,7 +141,9 @@
     var nonceStr='nonen';
     var signature='nones';
 
-
+function askagree(){
+    alert("亲爱的用户，请注意人身和财产安全，请勿将约拍用作其他用途。线下约拍前请确认对方真实身份后再进行约拍。今后由此约拍引起的纠纷和造成的一切后果，其责任概和本平台无关。特此声明。");
+}
     function GetQueryString(name)
     {
         var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -150,7 +152,7 @@
     }
 
 var phone=GetQueryString("vali");
-
+alert("2222");
      //console.log('do');
      $.getJSON("http://www.shacus.top/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://www.shacus.top/static/yuepai_create.html&jsoncallback=?",
       function(json){
@@ -162,6 +164,7 @@ var phone=GetQueryString("vali");
       //if(json.属性名==值){
       // 执行代码
             //}
+            alert("Sdds");
     wx.config({
         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: 'wx0c9dd1c77d3e5295', // 必填，公众号的唯一标识
@@ -206,6 +209,10 @@ function validate()//检查和发布约拍
     var time=document.getElementById("yuepai_time").value;//时间描述
     var location=document.getElementById("yuepai_location").value;//地点描述
     var content=document.getElementById("yuepai_contents").value;//内容描述
+    if (document.getElementById("yuepai_agree").checked!=true) {
+        alert('请先同意《相关条款》');
+        return;        
+    }
     //先进行字符过滤
     title=stripscript(title);
     time=stripscript(time);
@@ -265,8 +272,9 @@ function validate()//检查和发布约拍
             //成功之后把进度条关了            
             success:function(data){
                 //decodeURI(data);  
-                alert('约拍创建成功!可以在“我的约拍”查看'); 
-                window.location.href="main.html";        
+                alert('约拍创建成功!可以在“我的约拍”查看');
+                window.history.back(-1);
+                //window.location.href="main.html?vali="+phone+"&id="+uid;       
             },
             error: function(){
                 alert('网络请求失败！');
@@ -333,8 +341,8 @@ var maxSize = 10 * 1024 * 1024;
                                 console.log('upload success');
                                 //alert('upload success');
                                 //images.serverIds.push(res.serverId);
-                                //document.getElementById("yuepai_contents")[0].value=res.serverId;;
-                                $("#yuepai_contents").val(res.serverId);
+                                //document.("yuepai_contents")[0].value=res.serverId;;
+                                //$("#yuepai_contents").val(res.serverId);
                                 //res.serverId;
                                 globalImgs.push(res.serverId);
                                 count++;

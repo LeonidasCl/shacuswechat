@@ -51,18 +51,18 @@
 
 	</div>
 	<!-- <div class="weui_media_text weui-cell" style="margin-top:5dp;">
-		<P><span>&nbsp&nbsp</span>这是一大段自我介绍首先，为什么要使用Elasticsearch？最开始的时候，我们的项目仅仅使用MySQL进行简单的搜索，然后一个不能索引的like语句，直接拉低MySQL的性能。后来，我们曾考虑过sphinx，并且sphinx也在之前的项目中成功实施过，但想想现在的数据量级，多台MySQL，以及搜索服务本身HA，还有后续扩容的问题，我们觉得sphinx并不是一个最优的选择。于是自然将目光放到了Elasticsearch上面。</P>	
+		<P><span>&nbsp&nbsp</span>这是一大段自我介绍</P>	
 	</div> -->
 
     <div class="weui-cell" id="fcom">
             <div class="weui-cell__bd weui_cell_primary">
-                <textarea id="textarea" class="weui-textarea" style="padding:6px" placeholder="分享你的约拍心得" rows="6">这是一大段自我介绍首先，为什么要使用Elasticsearch？最开始的时候，我们的项目仅仅使用MySQL进行简单的搜索，然后一个不能索引的like语句，直接拉低MySQL的性能。后来，我们曾考虑过sphinx，并且sphinx也在之前的项目中成功实施过，但想想现在的数据量级，多台MySQL，以及搜索服务本身HA，还有后续扩容的问题，我们觉得sphinx并不是一个最优的选择。于是自然将目光放到了Elasticsearch上面</textarea>
+                <textarea id="textarea" class="weui-textarea" style="padding:6px" placeholder="分享你的约拍心得" rows="6">在这里写下你的简要介绍</textarea>
             </div>
     </div>
     <div class="weui_opr_area" style="margin-bottom:0px">
         <p class="weui_btn_area">
             <!-- <a href="javascript:;" class="weui_btn weui_btn_default">暂不评价</a> -->
-            <a href="javascript:" onclick="server()" class="weui_btn weui_btn_primary">修改签名</a>
+            <a href="javascript:" onclick="server()" class="weui_btn weui_btn_primary">修改签名与图片</a>
         </p>
     </div>
 </body>
@@ -72,7 +72,7 @@
 
     var phone=GetQueryString("vail");
 
-     $.getJSON("http://www.shacus.top/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://www.shacus.top/static/yuepai_create.html&jsoncallback=?",
+     $.getJSON("http://www.shacus.top/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://www.shacus.top/static/UserDisplay.html?vali="+phone+"&jsoncallback=?",
       function(json){
         //console.log('done');
         var url=json.url;
@@ -151,7 +151,7 @@
                                 //alert('upload success');
                                 //images.serverIds.push(res.serverId);
                                 //document.getElementById("yuepai_contents")[0].value=res.serverId;;
-                                $("#yuepai_contents").val(res.serverId);
+                                //$("#yuepai_contents").val(res.serverId);
                                 //res.serverId;
                                 globalImgs.push(res.serverId);
                                 count++;
@@ -159,9 +159,9 @@
                                     upload();//递归的上传
                                 }
                             },
-                            fail: function (res) {
+                            fail: function (res){
                                 console.log('upload fail');
-                              alert('fail '+JSON.stringify(res));
+                              //alert('fail '+JSON.stringify(res));
                               $(previews[count]).find('.weui-uploader__file-content').html('<i class="weui_icon_warn"></i>');
                                 count++;//失败了不重试直接传下一张
                                 if (count < length) {
