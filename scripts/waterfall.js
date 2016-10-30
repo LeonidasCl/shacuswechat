@@ -33,12 +33,13 @@
 		        		statestr="已结束";
 		        	}
 
-		        	var html = "";		
+		        			
 
 wx.downloadImage({
     serverId: aplist[index].picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
     isShowProgressTips: 1, // 默认为1，显示进度提示
     success: function (res) {
+    	var html = "";
         var localId = res.localId; // 返回图片下载后的本地ID
 
 		        	if (aplist[index].sex==0) {	
@@ -49,15 +50,15 @@ wx.downloadImage({
 					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img src="'+localId+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 					}
-
+					$minUl = getMinUl(0);//增加到约模特那一列
+					//alert('$minUl.html');
+					$minUl.append(html);
     }
 });
 
 
 					//alert('getmin');
-					$minUl = getMinUl(0);//增加到约模特那一列
-					//alert('$minUl.html');
-					$minUl.append(html);
+
 
 		        }
 		      });
@@ -145,11 +146,12 @@ function loadMore(atype){
 		        	if (state>2) {
 		        		statestr="已结束";
 		        	}
-var html = "";
+
 wx.downloadImage({
     serverId: aplist[index].picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
     isShowProgressTips: 1, // 默认为1，显示进度提示
     success: function (res) {
+    	var html = "";
         var localId = res.localId; // 返回图片下载后的本地ID
 
 		        	
@@ -161,15 +163,15 @@ wx.downloadImage({
 					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img src="'+localId+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 					}
-
-    }
-});
-
-
 					//alert("getmin");
 					$minUl = getMinUl(0);//增加到约模特那一列
 					//alert("append");
 					$minUl.append(html);
+    }
+});
+
+
+
 
 		        }
 		      });
@@ -205,23 +207,24 @@ wx.downloadImage({
 		        	if (state>2) {
 		        		statestr="已结束";
 		        	}
-var html = "";
+
 wx.downloadImage({
     serverId: aplist[index].picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
     isShowProgressTips: 1, // 默认为1，显示进度提示
     success: function (res) {
+    	var html = "";
         var localId = res.localId; // 返回图片下载后的本地ID
 				html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img src="'+localId+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 
-
+					$minUl = getMinUl(1);//增加到约摄影师那一列
+					$minUl.append(html);
     }
 });
 
 		        				
 	
-					$minUl = getMinUl(1);//增加到约摄影师那一列
-					$minUl.append(html);
+
 
 		        }
 		      });
