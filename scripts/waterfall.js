@@ -83,22 +83,7 @@ wx.downloadImage({
 			loadMore(aptype);//加载新图片
 		}
 	});*/
-	function getMinUl(atype) {//每次获取最短的ul,将图片放到其后
-		if (atype==0) 
-		var $arrUl = $("#container1 .col");
-		else
-		var $arrUl = $("#container2 .col");
 
-		var $minUl = $arrUl.eq(0);
-		$arrUl.each(function(index, elem) {
-			//alert(elem.outerHTML);
-			//alert($(elem).height() +"   "+$minUl.height())
-			if ($(elem).height() < $minUl.height()) {
-				$minUl = $(elem);
-			}
-		});
-		return $minUl;
-	}
 	//点击更多加载
 	$("#loadMeinvMOre1").click(function() {
 		//alert("loadmore");
