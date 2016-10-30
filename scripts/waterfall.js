@@ -46,18 +46,7 @@
 					//alert('$minUl.html');
 					$minUl.append(html);
 
-wx.downloadImage({
-    serverId: aplist[index].picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
-    isShowProgressTips: 1, // 默认为1，显示进度提示
-    success: function (res) {
-
-    	alert("download success");
-    	alert(res.serverId);
-        var localId = res.localId; // 返回图片下载后的本地ID
-        $('#'+res.serverId).attr('src',localId);
-
-    }
-});
+					new downloadworker(aplist[index].picurl);
 
 		        }
 		      });
@@ -131,32 +120,23 @@ function loadMore(atype){
 		        		statestr="已结束";
 		        	}
 
-wx.downloadImage({
-    serverId: aplist[index].picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
-    isShowProgressTips: 1, // 默认为1，显示进度提示
-    success: function (res) {
-    	var html = "";
-        var localId = res.localId; // 返回图片下载后的本地ID
 
+    	var html = "";
 		        	
 		        	if (aplist[index].sex==0) {				
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img src="'+localId+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 					}
 					if (aplist[index].sex==1) {				
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img src="'+localId+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 					}
 					//alert("getmin");
 					$minUl = getMinUl(0);//增加到约模特那一列
 					//alert("append");
 					$minUl.append(html);
-    }
-});
 
-
-
-
+					new downloadworker(aplist[index].picurl);
 		        }
 		      });
 	}
@@ -192,23 +172,14 @@ wx.downloadImage({
 		        		statestr="已结束";
 		        	}
 
-wx.downloadImage({
-    serverId: aplist[index].picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
-    isShowProgressTips: 1, // 默认为1，显示进度提示
-    success: function (res) {
     	var html = "";
         var localId = res.localId; // 返回图片下载后的本地ID
-				html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img src="'+localId+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar.jpg"/><a href="" class="option_username">'
+				html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 
 					$minUl = getMinUl(1);//增加到约摄影师那一列
 					$minUl.append(html);
-    }
-});
-
-		        				
-	
-
+					new downloadworker(aplist[index].picurl);
 
 		        }
 		      });

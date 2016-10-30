@@ -258,8 +258,8 @@ function clkdvshow(){
 }
 
 var aptype=0;//0为页面在约模特
-var apid0_cur=-1;
-var apid1_cur=-1;
+var apid0_cur=0;
+var apid1_cur=0;
 var sign="";
 
 function personalinfo(){
@@ -456,8 +456,9 @@ function downloadworker(picurl){
     	alert("download success");
     	alert(res.serverId);
         var localId = res.localId; // 返回图片下载后的本地ID
-        //$('#'+res.serverId).attr('src',localId);document.getElementsByTagName('img')[0].setAttribute('src','7.jpg');
-        document.getElementById(picurl);
+        //$('#'+res.serverId).attr('src',localId);
+        //document.getElementsByTagName('img')[0]
+        document.getElementById(picurl).setAttribute('src',localId);
         alert("get "+picurl);
     }
 });
@@ -467,9 +468,9 @@ function toYuepai2(){
 	document.getElementById("yuepaib").style="background-color:#ededed;"; 
 	document.getElementById("yuepaia").style=""; 
 	$("#container2").show();
-	if (apid1_cur<=1) {
+	//if (apid1_cur<=1) {
 		//alert("photograph");
-				$.getJSON("http://www.shacus.top/weixin/appointment/listmodel?row=0&jsoncallback=?",
+				$.getJSON("http://www.shacus.top/weixin/appointment/listmodel?row="+apid1_cur+"&jsoncallback=?",
 					function(json){//在这里处理返回的列表并填充进html中
 
 						if (json.code==10211){
@@ -516,7 +517,7 @@ function toYuepai2(){
 
 						}
 					});
-	}
+	//}
 	$("#container1").hide(); 
 	aptype=1;
 }
