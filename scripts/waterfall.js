@@ -1,7 +1,7 @@
 // JavaScript Document
 	function initial(){
 
-		//alert("initial");
+		alert("initial");
 		apid0_cur=0;
 		apid1_cur=0;
 		$.getJSON("http://www.shacus.top/weixin/appointment/listphoto?row=0&jsoncallback=?",//待更换的网络请求
@@ -214,7 +214,7 @@ wx.downloadImage({
 				html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img src="'+localId+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 
-        
+
     }
 });
 
