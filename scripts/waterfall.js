@@ -71,7 +71,7 @@ wx.downloadImage({
 	//setInterval(initial(),5000);
 	//alert('finish');
 
-	/*//无限加载*/
+	/*//无限加载
 	$(window).on("scroll", function(){
 		$minUl = getMinUl(aptype);
 
@@ -82,7 +82,7 @@ wx.downloadImage({
 			//当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
 			loadMore(aptype);//加载新图片
 		}
-	});
+	});*/
 	function getMinUl(atype) {//每次获取最短的ul,将图片放到其后
 		if (atype==0) 
 		var $arrUl = $("#container1 .col");
@@ -117,7 +117,7 @@ function loadMore(atype){
 	if (atype==0)
 	{	cur=apid0_cur;
 		//cur=0;//为了测试用
-		$.getJSON("http://www.shacus.top/weixin/appointment/listmodel?row="+cur+"&jsoncallback=?",//待更换的网络请求
+		$.getJSON("http://www.shacus.top/weixin/appointment/listphoto?row="+cur+"&jsoncallback=?",//待更换的网络请求
 		      function(json){//在这里处理返回的列表并填充进html中
 
 		      	if (json.code==10211){
