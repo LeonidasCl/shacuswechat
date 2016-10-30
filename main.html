@@ -447,6 +447,22 @@ function toYuepai1(){
 	aptype=0;
 }
 
+function downloadworker(picurl){
+
+	wx.downloadImage({
+    serverId: picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
+    isShowProgressTips: 1, // 默认为1，显示进度提示
+    success: function (res) {
+    	alert("download success");
+    	alert(res.serverId);
+        var localId = res.localId; // 返回图片下载后的本地ID
+        //$('#'+res.serverId).attr('src',localId);document.getElementsByTagName('img')[0].setAttribute('src','7.jpg');
+        document.getElementById(picurl);
+        alert("get "+picurl);
+    }
+});
+}
+
 function toYuepai2(){
 	document.getElementById("yuepaib").style="background-color:#ededed;"; 
 	document.getElementById("yuepaia").style=""; 
@@ -496,18 +512,7 @@ function toYuepai2(){
 				$minUl = getMinUl(1);//增加到约摄影师那一列
 				$minUl.append(html);
 
-wx.downloadImage({
-    serverId: aplist[index].picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
-    isShowProgressTips: 1, // 默认为1，显示进度提示
-    success: function (res) {
-    	alert("download success");
-    	alert(res.serverId);
-        var localId = res.localId; // 返回图片下载后的本地ID
-        //$('#'+res.serverId).attr('src',localId);document.getElementsByTagName('img')[0].setAttribute('src','7.jpg');
-        document.getElementById(res.serverId);
-        alert("get");
-    }
-});
+				new downloadworker(aplist[index].picurl);
 
 						}
 					});
