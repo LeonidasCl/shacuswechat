@@ -283,7 +283,10 @@ checkCookie();
 function excitedid(excited){
     window.location.href=excited;
 }
+
+        wx.ready(function(){
 $(function (){
+
 
     //alert("get detail "+phone);
     $.getJSON("http://www.shacus.top/weixin/appointment/info?apid="+apid+"&phone="+phone+"&jsoncallback=?",
@@ -499,5 +502,5 @@ $(function (){
         $gallery.fadeOut(100);
     });
 });
-
+});
 </script>
