@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>追影-我的约拍</title>
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <link rel="stylesheet" href="style/weui-0.4.3.css"/>
+  <link rel="stylesheet" href="style/weui-0.4.css"/>
+      <script src="scripts/zepto.min.js"></script>
+      <script src="scripts/iscroll.js"></script>
+      <!--第一段代码，全局的初始化-->
+      <script>
+      //预留,整个文档加载完时自动调用
+      window.onload=function()
+      {
+
+      }
+      function GetQueryString(name)
+      {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+      }
+
+      </script>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;" >      
+
+            <!--二级页面：我的约拍-->
+            <div id="yuepai" class="page__bd page__bd_spacing" style="display:show;">
+                <div id="list_yuepai" class="weui_panel_bd" >
+                 
+                </div>
+            </div>
+
+  
+</body>
+</html>
+<!--第二段脚本，初始化并处理各功能模块的数据-->
+
+<script type="text/javascript">
+//var phone=GetQueryString("vali");
+//var phone = "MTUxNTE4NTg2Mjg=";
+var id=GetQueryString("id");
+
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg)){
+        return (arr[2]);}
+    else
+        return null;
+}
+var phone=getCookie("username");
+
+
+$.getJSON("http://www.shacus.top/weixin/appointment/UserAplist?id="+id+"&jsoncallback=?",
+function(json){//在这里处理返回的列表并填充进html中
+        if(json.code!=200){
+                  var str='<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg"><div class="weui_media_bd"><p class="weui_media_desc">没有参与活动！</p></div></div></a>';
+                $("#list_yuepai").append(str);
+        }
+        if (json.code==200) {
+            //alert(phone);
+            for(var i=0;i<json.contents.length;i++){
+            var url = 'yuepai_detail.html?vali='+phone+'&apid='+json.contents[i].id;
+            var str='<a class="weui_media_box weui_media_appmsg" href="'+url+'" ><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="'+json.contents[i].picurl+'" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">'+json.contents[i].title+'</h4><p class="weui_media_desc">'+json.contents[i].content+'</p></div></div></a>';
+              id=json.contents[i].id;
+              $("#list_yuepai").append(str);
+}}
+      });
+// </script>

@@ -1,0 +1,595 @@
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>追影</title>
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<link rel="stylesheet" href="style/weui-0.4.3.css"/>
+	<link rel="stylesheet" href="style/weui-0.4.css"/>
+	<link rel="stylesheet" type="text/css" href="style/public.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="style/media.css">
+        <script src="scripts/jweixin-1.0.0.js"></script>
+			<script src="scripts/zepto.min.js"></script>
+
+			<script src="scripts/iscroll.js"></script>
+
+			<!--第一段代码，全局的初始化-->
+			<script>
+			//预留,整个文档加载完时自动调用
+//alert("main-4");
+			window.onload=function()
+			{
+				$("#tab2").click();
+
+				//initial();
+			}
+			//初始化导航栏
+				$(function(){
+					TagNav('#tagnav',{
+							type: 'scrollToFirst',
+					});
+					/*TagNav('#tagnav2',{
+							type: 'scrollToFirst',
+					});*/
+						$('.weui_tab').tab();
+						});
+
+			function GetQueryString(name)
+			{
+				var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r!=null)return  unescape(r[2]); return null;
+			}
+//alert("main03");
+			</script>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">    
+		
+ <div class="weui_cells_title" style="height:45px;">&nbsp;</div>    
+<div class="weui_tab tab-bottom" >
+		<div class="weui_tab_bd">
+				<!--一级页面：教程-->
+				<div class="weui_tab_bd_item">
+
+							<div id="tagnav" class="weui-navigator weui-navigator-wrapper">
+								<!--<ul class="weui-navigator-list">
+										 <li><a onclick="toJiaocheng1();">基础教程</a></li>
+										 <li><a onclick="toJiaocheng2();">进阶教程</a></li>
+
+											<div id="jiaocheng1" class="page__hd page__bd_spacing">
+													<div id="list_jiaocheng_1" class="weui_panel_bd">
+														<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+																<div class="weui_media_hd">
+																		<img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
+																</div>
+																<div class="weui_media_bd">
+																		<h4 class="weui_media_title">教程 G级恒星</h4>
+																		<p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
+																</div>
+														</a>
+														<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+																<div class="weui_media_hd">
+																		<img class="weui_media_appmsg_thumb" src="http://img0.imgtn.bdimg.com/it/u=3997468270,1038299082&fm=21&gp=0.jpg" alt="">
+																</div>
+																<div class="weui_media_bd">
+																		<h4 class="weui_media_title">教程 A级恒星</h4>
+																		<p class="weui_media_desc">释放出很强的辐射，绝大多数生命都难以生存。</p>
+																</div>
+														</a>
+													</div>
+													<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+											</div>
+
+											<div id="jiaocheng2" class="page__bd page__bd_spacing" style="display:none;">
+													<div id="list_jiaocheng_2" class="weui_panel_bd">
+														<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+																<div class="weui_media_hd">
+																		<img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
+																</div>
+																<div class="weui_media_bd">
+																		<h4 class="weui_media_title">教程 G级恒星</h4>
+																		<p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
+																</div>
+														</a>
+													</div>
+													<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+											</div>
+								</ul>-->
+								<img src="images/jiaocheng_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">
+
+						</div>
+
+
+				</div>
+
+				<!--一级页面：约拍-->
+				<div class="weui_tab_bd_item"> 
+
+						<div id="tagnav2" class="weui-navigator weui-navigator-wrapper">
+								<ul class="weui-navigator-list">
+										 <li><a id="yuepaia" style="background-color:#ededed;" onclick="toYuepai1();">约模特</a></li>
+										 <li><a id="yuepaib" onclick="toYuepai2();">约摄影师</a></li>
+								</ul>
+			<div class="container" id="container1">
+				<ul class="col">
+
+				</ul>
+				<ul class="col" style="margin-right:0">
+
+				</ul>
+				<a href="javascript:" class="loadMeinvMOre" id="loadMeinvMOre1">加载更多</a>
+				</div>
+
+
+			<div class="container" id="container2" style="display:none;">
+				<ul class="col">
+
+				</ul>
+				<ul class="col" style="margin-right:0">
+
+				</ul>
+				<a href="javascript:" class="loadMeinvMOre" id="loadMeinvMOre2">加载更多</a>
+			</div>
+								
+								<!--<img src="images/yuepai_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">-->
+						</div>
+				
+
+
+						
+
+				</div>
+
+				<!--一级页面：活动-->
+				<div class="weui_tab_bd_item">
+						<div id="huodong" class="page__bd page__bd_spacing" style="display:show;">
+								<div id="list_huodong" class="weui_panel_bd">
+
+								</div>
+								<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+						</div>
+				</div>
+
+				<!--一级页面：我的-->
+				<div class="weui_tab_bd_item">
+						<div>
+								<div>
+										<center>
+												<br>
+												<img src="images/avatar_0.jpg" class="circle" id="userImage"  style="width:90px;height:90px">
+										</center>
+										<div style="text-align: center;">
+													<!-- <p style="margin-top:10px;"><span class="weui-media-box__title f11">&nbsp</span></p> -->
+													<p ><h4 id="username">加载中</h4></p>
+													<p style="margin-bottom:15px;" id="sign" onclick="personalinfo()" class="f13"><span class="f13">加载中</span></p>
+										</div>
+								</div>
+
+							<table border="0" cellspacing="0" width="100%">
+								<tr>
+									<td style="width:25%"><center><img src="images/activity.png" style="height:60px" onclick="myhuodong()"></center></td>
+									<td style="width:25%"><center><img src="images/myyuepai.png" style="height:60px" onclick="myyuepai()"></center></td>
+									<td style="width:25%"><center><img src="images/info.png" style="height:60px" onclick="editinfo()"></center></td>
+									<td style="width:25%"><center><img src="images/userdisplay.png" style="height:60px" onclick="userdisplay()"></center></td>
+								</tr>
+							</table>
+
+							<div id="bottom">
+									<div id="comment">
+										<div class="weui_media_box weui_media_text">
+													<!-- <h4 class="weui_media_title" id="commentTitle">标题一</h4>
+														<p class="weui_media_desc" id="commentIn">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+														<p class="weui_media_info" id="stars">
+																<span class="icon icon-48" id="star1"></span><span id="star2" class="icon icon-48"></span><span id="star3" class="icon icon-48"></span><span id="star4" class="icon icon-48"></span><span class="icon icon-48" id="star5"></span>
+																<span style="float:right;"><span>2016-10-11</span></span>
+														</p> -->  
+											</div>
+									</div>
+
+									<!-- <center> 
+											<a class="weui_panel_ft" href="javascript:void(0);" style="margin: 0 auto;"><center>查看更多</center></a>
+									</center> -->
+								</div>
+
+								<div id="nonecomment" style="margin-top:40%;display:none">
+										<center style="color:#a9a9a9">他还没有评论哦，来做第一个沙发</center>
+								</div>
+
+						</div>
+				</div>
+		</div>
+		<div id="btn_add" onclick="apcreate()" style="position:fixed;bottom:80px;right:20px;z-index:999999;"><img src="images/yuepaiadd.png" alt=""></div>
+						<div class="weui_tabbar ">
+								<a id="tab1" href="javascript:;" onclick="clkdvhide()" class="weui_tabbar_item weui_bar_item_on">
+										<div class="weui_tabbar_icon">
+												<img src="images/icon_jiaocheng.png" alt="">
+										</div>
+										<p class="weui_tabbar_label">教程</p>
+								</a>
+								<a id="tab2" href="javascript:;" onclick="clkdvshow()" class="weui_tabbar_item">
+										<div class="weui_tabbar_icon">
+												<img src="images/icon_yuepai.png" alt="">
+										</div>
+										<p class="weui_tabbar_label">约拍</p>
+								</a>
+								<a id="tab3" href="javascript:;" onclick="clkdvhide()" class="weui_tabbar_item">
+										<div class="weui_tabbar_icon">
+												<img src="images/icon_huodong.png" alt="">
+										</div>
+										<p class="weui_tabbar_label">活动</p>
+								</a>
+								<a href="javascript:;" onclick="clkdvhide()" class="weui_tabbar_item">
+										<div class="weui_tabbar_icon">
+												<img src="images/icon_nav_cell.png" alt="">
+										</div>
+										<p class="weui_tabbar_label">我的</p>
+								</a> 
+						</div>
+				</div>
+</body>
+</html>
+<!--第二段脚本，初始化并处理各功能模块的数据-->
+<script type="text/javascript">
+//alert("main-2");
+	function getMinUl(atype) {//每次获取最短的ul,将图片放到其后
+		if (atype==0) 
+		var $arrUl = $("#container1 .col");
+		else
+		var $arrUl = $("#container2 .col");
+
+		var $minUl = $arrUl.eq(0);
+		$arrUl.each(function(index, elem) {
+			//alert(elem.outerHTML);
+			//alert($(elem).height() +"   "+$minUl.height())
+			if ($(elem).height() < $minUl.height()) {
+				$minUl = $(elem);
+			}
+		});
+		return $minUl;
+	}
+
+function clkdvhide(){
+	$("#btn_add").hide();
+}
+
+function clkdvshow(){
+	$("#btn_add").show();
+}
+
+var aptype=0;//0为页面在约模特
+var apid0_cur=0;
+var apid1_cur=0;
+var sign="";
+var timestamp="";
+var nonceStr="";
+var signature="";
+//alert("main-1");
+function personalinfo(){
+	window.location.href="personalInfo.html?inf="+sign;
+}
+
+//读取cookies
+function getCookie(name)
+{
+		var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+		if(arr=document.cookie.match(reg)){
+				return (arr[2]);}
+		else
+				return null;
+}
+//alert("main.000");
+var phone=GetQueryString("vali");
+var id=GetQueryString("id");
+//var date=GetQueryString("date");
+//alert("main001");
+     $.getJSON("http://www.shacus.top/weixin/getsign?appsecret=ed3eee4636d9ab4068c7eb5ca14ddb59&type=http://www.shacus.top/static/main.html?vali="+phone+"-id="+id+"&jsoncallback=?",
+
+      function(json){
+        //console.log('done');
+        var url=json.url;
+        timestamp=json.timestamp;
+        nonceStr=json.nonceStr;
+        signature=json.signature;
+      //if(json.属性名==值){
+      // 执行代码
+            //}
+ //            alert("Sdds-main");
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: 'wx0c9dd1c77d3e5295', // 必填，公众号的唯一标识
+        timestamp: timestamp, // 必填，生成签名的时间戳
+        nonceStr: nonceStr, // 必填，生成签名的随机串
+        signature: signature,// 必填，签名，见附录1
+        jsApiList: ['chooseImage','previewImage','uploadImage','downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+    });
+
+
+    wx.error(function(res){
+        //config信息验证失败会执行error函数
+        alert('鉴权失败！请刷新！');
+    });
+
+
+
+function apcreate(){
+	window.location.href="yuepai_create.html?vali="+phone;
+}
+
+$.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+phone+"&type=1&jsoncallback=?",
+	function(json){
+		var code=json.code;
+		if(code==200 || code==20002){
+			//alert("code  "+code);
+			sign=json.sign;
+			if(sign.length>15){
+				var str_show = string.substr(0,13) + "…";
+				document.getElementById("sign").innerHTML = str_show;
+				window.location.href="PersonalInfo.html?personalinfo="+sign;  
+			}else{
+				document.getElementById("sign").innerHTML = sign;
+			}
+
+			var user=json.alais;
+			document.getElementById('username').innerHTML=user;
+			var sex=json.sex;
+				if (sex==0){
+                        sexurl="images/avatar_0.jpg";
+                        document.getElementById("userImage").src=sexurl;
+                    }
+                if (sex==1){
+                        sexurl="images/avatar_1.jpg";
+                        document.getElementById("userImage").src=sexurl;
+                    }
+
+			var comments=json.comments;
+			var commentIn=null;
+			var commentTitle=null;
+			var stars=0;
+			var time=null;
+			if(code==20002){//评论为空
+					$("#bottom").css("display","none");
+					$("#nonecomment").css("display","block");
+			}else{//评论不为空
+				for(var i=0;i<comments.length;i++){
+					commentTitle=comments[i].title;
+					commentIn=comments[i].comment;
+					stars=comments[i].score;
+					time=comments[i].time;
+					var str='<div class="weui_media_box weui_media_text"><h4 class="weui_media_title" id="commentTitle">'+commentTitle+'</h4><p class="weui_media_desc" id="commentIn">'+commentIn;
+						if(stars==5){
+							str+='</p><p class="weui_media_info" id="starts"><span class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span style="float:right;"><span>';
+						}else if(stars==4){
+							/*$("#star1").css("color","#ffdd99");
+							$("#star2").css("color","#ffdd99");
+							$("#star3").css("color","#ffdd99");
+							$("#star4").css("color","#ffdd99");*/
+							str+='</p><p class="weui_media_info" id="starts"><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span id="star3" class="icon icon-48" style="color:#ffdd99"></span><span id="star4" class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}else if(stars==3){
+							str+='</p><p class="weui_media_info" id="starts"><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}else if(stars==2){
+							str+='</p><p class="weui_media_info"><span class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48" ></span><span class="icon icon-48"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}else if(stars==1){
+							str+='</p><p class="weui_media_info"><span class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48"></span><span  class="icon icon-48" ></span><span class="icon icon-48"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}
+						str+='<span style="float:right;"><span>'+time+'</span></span></p></div>';
+						$("#comment").append(str);
+				}
+			}
+			//alert(code + "  ----2");
+		}else if(code==40001){
+			//alert(code + "  ---3该用户不存在");
+		}else if(code==40005){
+			//alert("获取评论用户出错");
+		}
+	});
+
+
+//alert("phone is "+phone);
+function checkCookie()
+{
+var username=getCookie('username');
+var uid=getCookie('id');
+//alert("username "+username);
+//alert("phone "+phone);
+if (username!=null && username!="" && username==phone)
+	{
+	//alert("您已经登陆过，现在进入系统");
+	}
+else
+	{//alert("请先注册或用自己的账号登录！");
+	window.location.href="index.html";
+	}
+
+}
+checkCookie();
+
+$.getJSON("http://www.shacus.top/weixin/user/changeinfo?utel="+phone+"&jsoncallback=?",//
+			function(json){//在这里处理返回的列表并填充进html中
+
+				if (json.code!=20001) {
+					alert("服务器错误！");
+					return;
+				}
+				if (json.choosed==1) {
+					$.toptips('您在一项约拍中被选中，请到“我的约拍”查看','ok');
+					//alert();
+				}
+
+				
+			});
+
+/*//从服务器初始化教程数据
+//从服务器初始化约拍数据
+
+//alert("asd");*/
+//从服务器初始化活动数据
+$.getJSON("http://www.shacus.top/weixin/activity/aclist?jsoncallback=?",//
+			function(json){//在这里处理返回的列表并填充进html中
+
+				if (json.code==10304) {
+					alert("服务器错误！");
+					return;
+				}
+
+				var aclist=[];
+				aclist=json.contents;
+				//alert(aclist[0].WACtitle);
+				for (var index in aclist) {
+					var url="huodong_detail.html?acid="+aclist[index].WACid+"&vali="+phone+"&date="+Date.parse(new Date());
+					var str='<a href="'+url+'" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="'+aclist[index].WACimgurl+'" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">'+aclist[index].WACtitle+'</h4><p class="weui_media_desc">'+aclist[index].WACcontent+'</p></div></a>';
+					$("#list_huodong").append(str);
+				}
+			});
+
+//各模块的显示与隐藏
+function toYuepai1(){
+	$("#container1").show();
+	document.getElementById("yuepaia").style="background-color:#ededed;"; 
+	document.getElementById("yuepaib").style=""; 
+	$("#container2").hide();
+	aptype=0;
+}
+
+function downloadworker(picurl){
+
+	wx.downloadImage({
+    serverId: picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
+    isShowProgressTips: 0, // 默认为1，显示进度提示
+    success: function (res) {
+    //	alert("download success");
+    //	alert(res.serverId);
+        var localId = res.localId; // 返回图片下载后的本地ID
+        //$('#'+res.serverId).attr('src',localId);document.getElementsByTagName('img')[0].setAttribute('src','7.jpg');
+       // document.getElementById(picurl);
+
+        //$('#'+res.serverId).attr('src',localId);
+        //document.getElementsByTagName('img')[0]
+
+        document.getElementById(picurl).setAttribute('src',localId);
+      //  alert("get "+picurl);
+    }
+});
+}
+
+function toYuepai2(){
+	document.getElementById("yuepaib").style="background-color:#ededed;"; 
+	document.getElementById("yuepaia").style=""; 
+	$("#container2").show();
+	//if (apid1_cur<=1) {
+		//alert("photograph");
+				$.getJSON("http://www.shacus.top/weixin/appointment/listmodel?row="+apid1_cur+"&jsoncallback=?",
+					function(json){//在这里处理返回的列表并填充进html中
+
+						if (json.code==10211){
+							//alert(json.contents);
+							return;
+						}
+                                                //alert("yuepai1");
+						var aplist=[];
+						aplist=json.contents;
+						//alert(aplist[0].WACtitle);
+						for (var index in aplist) {
+                                                       // alert("yurpai2");
+							apid1_cur++;
+
+							var state=aplist[index].status;
+							var statestr="加载中";
+							if (state==1){
+								statestr="报名中";
+							}
+
+							if (state==2){
+								statestr="进行中";
+							}
+
+							if (state>2){
+								statestr="已结束";
+							}
+
+							
+							var sex=aplist[index].sex;
+							var html = "";
+        							if (sex==0) {
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
+					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
+				}
+							if (sex==1) {
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
+					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
+				}
+                                //alert("yuepai3");
+				$minUl = getMinUl(1);//增加到约摄影师那一列
+				$minUl.append(html);
+                                //alert("yuepai4");
+
+			//	new downloadworker(aplist[index].picurl);
+
+						}
+				    var i = 0, length = aplist.length;
+    				function download() {
+    				  wx.downloadImage({
+    				    serverId: aplist[i].picurl,
+                                    isShowProgressTips: 0,
+    				    success: function (res) {
+    				    	//alert('downloaded '+aplist[i].picurl);
+    				    	document.getElementById(aplist[i].picurl).setAttribute('src',res.localId);
+    				      	i++;   	
+    				      	if (i < length) {
+    				        	download();
+    				      	}
+    				    }
+    				  });
+    				}
+    				//alert('downloading '+aplist[i].picurl);
+    				download();
+					});
+	//}
+	$("#container1").hide(); 
+	aptype=1;
+}
+
+
+function toJiaocheng1(){
+	$("#jiaocheng1").show(); 
+	$("#jiaocheng2").hide(); 
+}
+
+function toJiaocheng2(){
+	$("#jiaocheng2").show(); 
+	$("#jiaocheng1").hide(); 
+}
+
+function myyuepai(){
+	window.location.href="myyuepai.html?id="+id;
+}
+
+function myhuodong(){
+	window.location.href="myhuodong.html?id="+id;
+}
+
+function editinfo(){
+	window.location.href="editinfo.html?vali="+phone;
+}
+
+function userdisplay(){
+	//window.location.href="UserDisplay.html?vali="+phone;	
+}
+
+</script>
+<script type="text/javascript" src="scripts/waterfall.js"></script>
+<script type="text/javascript">
+	
+	    wx.ready(function(){
+//alert("cfg success");
+    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+    initial();
+});
+</script>

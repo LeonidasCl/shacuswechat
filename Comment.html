@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>评价</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<link rel="stylesheet" href="style/weui-0.4.3.css"/>
+	<link rel="stylesheet" href="style/weui-0.4.css"/>
+	<link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
+	<script src="scripts/zepto.min.js"></script>
+	<script src="scripts/iscroll.js"></script> 
+	<script type="text/javascript">
+		function GetQueryString(name)
+      {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+      }
+	</script>
+</head>
+<body>
+
+    <div class="weui_msg hide" id="msg1" style="display: block; opacity: 1;">
+        <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+        <div class="weui_text_area">
+            <h2 class="weui_msg_title">约拍结束成功</h2>
+            <p class="weui_msg_desc">请对本次约拍做出评价</p>
+        </div>
+		<div class="weui-cell">
+			<img src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" class="circle" id="userImage"  style="width:60px;height:60px">
+			<center>	
+				<div class="page-hd">
+				
+				 	<div class="weui-rater">
+						<a class="weui-rater-box" id="star1" onclick="star1()"> <span class="weui-rater-inner">★</span> </a>
+						<a class="weui-rater-box" id="star2" onclick="star2()"> <span class="weui-rater-inner">★</span> </a>
+						<a class="weui-rater-box" id="star3" onclick="star3()"> <span class="weui-rater-inner">★</span> </a>
+						<a class="weui-rater-box" id="star4" onclick="star4()"> <span class="weui-rater-inner">★</span> </a>
+						<a class="weui-rater-box" id="star5" onclick="star5()"> <span class="weui-rater-inner">★</span> </a>
+				    </div>
+				
+				</div>
+			</center>
+		</div>
+		<div class="weui-cell" id="fcom">
+
+	        <div class="weui-cell__bd weui_cell_primary">
+	            <textarea id="textarea" class="weui-textarea" style="padding:6px" placeholder="分享你的约拍心得" rows="6"></textarea>
+	            <div class="weui-textarea-counter"><span id="count">0</span>/<span id="count_max">140</span></div>
+	        </div>
+	    </div>
+
+
+        <div class="weui_opr_area" style="margin-bottom:0px">
+            <p class="weui_btn_area">
+                <!-- <a href="javascript:;" class="weui_btn weui_btn_default">暂不评价</a> -->
+                <a href="javascript:" onclick="server()" class="weui_btn weui_btn_primary">提交评价</a>
+            </p>
+        </div>
+        <div id="finishToast" style="display: none;">
+	        <div class="weui-mask_transparent"></div>
+	        <div class="weui-toast">
+	            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+	            <p id="success_hint" class="weui-toast__content">结束成功</p>
+	        </div>
+    	</div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" >
+
+	var score=0;
+        //读取cookies
+        function getCookie(name){
+		var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+		if(arr=document.cookie.match(reg)){
+				return (arr[2]);}
+		else
+				return null;
+        }
+
+        var uid=getCookie('id');
+	function star1(){
+		if(!$("#star1").hasClass("checked")){
+			$("#star1").addClass("checked");
+			score=1;
+		}
+	}
+
+	function star2(){
+		if (!$("#star2").hasClass("checked")) {
+			$("#star1").addClass("checked");
+			$("#star2").addClass("checked");
+			score=2;
+		}else if($("#star2").hasClass("checked")){
+			$("#star2").removeClass("checked");
+			$("#star3").removeClass("checked");
+			$("#star4").removeClass("checked");
+			$("#star5").removeClass("checked");
+			score=1;
+		}
+	}
+
+	function star3(){
+		if (!$("#star3").hasClass("checked")) {
+			$("#star1").addClass("checked");
+			$("#star2").addClass("checked");
+			$("#star3").addClass("checked");
+			score=3;
+		}else if($("#star3").hasClass("checked")){
+			$("#star3").removeClass("checked");
+			$("#star4").removeClass("checked");
+			$("#star5").removeClass("checked");
+			score=2;
+		}
+	}
+
+	function star4(){
+		if (!$("#star4").hasClass("checked")) {
+			$("#star1").addClass("checked");
+			$("#star2").addClass("checked");
+			$("#star3").addClass("checked");
+			$("#star4").addClass("checked");
+			score=4;
+		}else if($("#star3").hasClass("checked") && $("#star4").hasClass("checked")){
+			$("#star4").removeClass("checked");
+			$("#star5").removeClass("checked");
+			score=3;
+		}
+	}
+
+	function star5(){
+		if (!$("#star5").hasClass("checked")) {
+			$("#star1").addClass("checked");
+			$("#star2").addClass("checked");
+			$("#star3").addClass("checked");
+			$("#star4").addClass("checked");
+			$("#star5").addClass("checked");
+			score=5;
+		}else if($("#star4").hasClass("checked") && $("#star5").hasClass("checked")){
+			$("#star5").removeClass("checked");
+			score=4;
+		}
+	}
+
+	$(function(){
+	  	var max = $('#count_max').text();
+	  	$('#textarea').on('input', function(){
+			var text = $(this).val();
+			var len = text.length; 
+			$('#count').text(len);    
+			if(len > 130){
+				$('#count').css("color","red");
+				if(len > 140){
+					textarea.value = textarea.value.substring(0,max-1);
+				}
+			}    
+	  	});
+	});
+
+	var apid=GetQueryString("apid");
+	var utel=GetQueryString("utel");
+//	var utel="MTc3NTEwMzAwMzc=";
+
+	function server(){
+
+			if(score==0 || textarea.value==""){
+				if(score==0){
+					$.toptips("请对本次约拍评分");
+				}
+				if(textarea.value==""){
+					$.toptips("请对本次约拍评价");
+				}
+				
+			}else{
+					$.getJSON('http://www.shacus.top/weixin/appointment/comment?apid='+apid+'&utel='+utel+'&score='+score+'&comment='+textarea.value+'&jsoncallback=?',
+					function(json) {
+					var code=json.code;
+					if(code==40005){
+						//alert("该用户不存在");
+					}else if(code==200){
+						$.getJSON('http://www.shacus.top/weixin/appointment/finish?apid='+apid+'&phone='+utel+'&jsoncallback=?',
+							function(json){
+								if (json.code==10303) {
+									//alert(json.code + "sdads");
+									$('#finishToast').fadeIn(100);
+									setTimeout(function () {
+										
+				                        $('#finishToast').fadeOut(100);
+				                    }, 5000);
+									window.location.href="main.html?vali="+utel+ "&id="+uid;
+
+								}
+							});
+					}else if(code==40004){
+						alert("该约拍还未选择约拍对象或已失效");
+					}
+				});
+			}
+	}
+
+</script>

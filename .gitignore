@@ -7,3 +7,5 @@ ngrok.cfg
 /backup
 /static
 /examples
+.swo
+.swp

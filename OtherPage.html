@@ -1,0 +1,204 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title id="title"></title>
+    <link rel="stylesheet" href="style/weui-0.4.3.css"/>
+  	<link rel="stylesheet" href="style/weui-0.4.css"/>
+    <script src="scripts/zepto.min.js"></script>
+    <script src="scripts/iscroll.js"></script>
+    <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
+    <script type="text/javascript">
+		function GetQueryString(name)
+      {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+      }
+	</script>
+</head>
+<body style="background-color: #f8f8f8;">
+<div>
+		<div>
+			<center>
+                <br>
+                <img src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" class="circle" id="userImage"  style="width:90px;height:90px">
+            </center>
+            <div style="text-align: center;">
+						<!-- <p style="margin-top:10px;"><span class="weui-media-box__title f11">&nbsp</span></p> -->
+					<p style="margin-top: 5dp"><h4 id="username" style="font-family: 微软雅黑;font-size: 18px;font-weight:normal;">加载中</h4></p>
+					<p style="margin-bottom:15px;" id="sign" onclick="personalinfo()" class="f13"><span class="f13">加载中</span></p>
+			</div>
+		</div>
+		<table border="0" cellspacing="0" width="100%">
+			<tr>
+				<td style="width:50%"><center><img src="images/tahuodong.png" style="height:60px" onclick="himhuodong()"></center></td>
+				<td style="width:50%"><center><img src="images/tayuepai.png" style="height:60px" onclick="himyuepai()"></center></td>
+			</tr>
+		</table>
+	<!-- <div class="weui_tab_nav weui_media_box"> 
+		<a href="javascript:" class="weui_navbar_item weui_nav_green"> 我的约拍 </a> 
+		<a href="javascript:" class="weui_navbar_item weui_nav_green"> 我的活动 </a> 
+	</div> -->
+
+	<div class="weui_media_box" id="img">
+		<div class="weui_grids" id="imgshow">
+							    <!-- <a href="javascript:;" class="weui-grid" style="background-image:url(http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg);background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"></a>
+							    			<a href="javascript:;" class="weui-grid weui-uploader__file_status" style="background-image:url(http://desk.fd.zol-img.com.cn/t_s960x600c5/g4/M01/0D/04/Cg-4WVP_npmIY6GRAKcKYPPMR3wAAQ8LgNIuTMApwp4015.jpg);background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"><div class="weui-uploader__file weui-uploader__file_status weui-uploader__file-content" style="width:100%; height:100%;"><div class="weui-uploader__file-content f55">+</div></div></a> -->
+					</div> 
+	 	
+	</div>
+
+	<div id="bottom">
+			<div id="comment">
+			          <!-- <h4 class="weui_media_title" id="commentTitle">标题一</h4>
+			            <p class="weui_media_desc" id="commentIn">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+			            <p class="weui_media_info" id="stars">
+			                <span class="icon icon-48" id="star1"></span><span id="star2" class="icon icon-48"></span><span id="star3" class="icon icon-48"></span><span id="star4" class="icon icon-48"></span><span class="icon icon-48" id="star5"></span>
+			                <span style="float:right;"><span>2016-10-11</span></span>
+			            </p> -->  
+			</div>
+
+	        <!-- <center> 
+	            <a class="weui_panel_ft" href="javascript:void(0);" style="margin: 0 auto;"><center>查看更多</center></a>
+	      </center> -->
+	</div>
+	<div id="nonecomment" style="margin-top:40%;display:none">
+        <center style="color:#a9a9a9">他还没有评论哦，来做第一个沙发</center>
+    </div></div>
+    <div class="page__bd">
+		        <div class="weui-gallery" id="gallery">
+		            <span class="weui-gallery__img" id="galleryImg"></span>
+		            <div class="weui-gallery__opr">
+
+		        	</div>
+        		</div>
+        	</div>
+</body>
+</html>
+
+<script type="text/javascript">
+//	var utel = "MTc3NTEwMzAwMzc=";
+
+	var uid=GetQueryString("id");
+	var utel=GetQueryString("username");
+	var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
+
+
+    $swipebar = $("#imgshow");
+    $swipebar.on("click", "img", function(){
+        $galleryImg.attr("style", this.getAttribute("style"));
+        $gallery.fadeIn(100);
+    });
+
+    $gallery.on("click", function(){
+        $gallery.fadeOut(100);
+    });
+
+	$.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+utel+"&type=2&uid="+uid+"&jsoncallback=?",
+		function(json) {
+			var code=json.code;
+			if(code==200 || code==20002){
+				var sign=json.sign;
+				if(sign.length>15){
+					var str_show = string.substr(0,13) + "…";
+					document.getElementById("sign").innerHTML = str_show;  
+				}else{
+					document.getElementById("sign").innerHTML = sign;
+				}
+				var user=json.alais;
+      			document.getElementById('username').innerHTML=user;
+      			document.getElementById('title').innerHTML=user+'的主页';
+
+				var images=json.imgs;
+				var sex=json.sex;
+				if (sex==0){
+                        sexurl="images/avatar_0.jpg";
+                        document.getElementById("userImage").src=sexurl;
+                    }
+                if (sex==1){
+                        sexurl="images/avatar_1.jpg";
+                        document.getElementById("userImage").src=sexurl;
+                    }
+				if(images.length==0){
+					$("#img").css("display","none");
+				}
+				if(images.length>9){
+					for(var i=0; i<8;i++){
+						var str=images[i];
+						var temp='<a href="javascript:;" class="weui-grid" style="background-image:url('+str+');background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"></a>';
+						$("#imgshow").append(temp);
+					}
+					var index=images.length-9;
+					var temp='<a href="javascript:;" class="weui-grid weui-uploader__file_status" style="background-image:url('+images[8]+');background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"><div class="weui-uploader__file weui-uploader__file_status weui-uploader__file-content" style="width:100%; height:100%;"><div class="weui-uploader__file-content f55">'+index+'</div></div></a>'
+				}else{
+					for(var i=0;i<images.length;i++){
+						var str=images[i];
+						var temp='<a href="javascript:;" class="weui-grid" style="background-image:url('+str+');background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height:110px"></a>';
+						$("#imgshow").append(temp);
+					}
+				}
+				
+
+				var comments=json.comments;
+				var commentIn=null;
+				var commentTitle=null;
+				var stars=0;
+				var time=null;
+				if(code==20002){//评论为空
+					$("#bottom").css("display","none");
+					$("#nonecomment").css("display","block");
+				}else{//评论不为空
+					for(var i=0;i<comments.length;i++){
+						commentTitle=comments[i].title;
+						commentIn=comments[i].comment;
+						stars=comments[i].score;
+						time=comments[i].time;
+						var str='<div class="weui_media_box weui_media_text"><h4 class="weui_media_title" id="commentTitle">'+commentTitle+'</h4><p class="weui_media_desc" id="commentIn">'+commentIn;
+						if(stars==5){
+							str+='</p><p class="weui_media_info" id="starts"><span class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span style="float:right;"><span>';
+						}else if(stars==4){
+							/*$("#star1").css("color","#ffdd99");
+							$("#star2").css("color","#ffdd99");
+							$("#star3").css("color","#ffdd99");
+							$("#star4").css("color","#ffdd99");*/
+							str+='</p><p class="weui_media_info" id="starts"><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span id="star3" class="icon icon-48" style="color:#ffdd99"></span><span id="star4" class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}else if(stars==3){
+							str+='</p><p class="weui_media_info" id="starts"><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48" style="color:#ffdd99"></span><span class="icon icon-48"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}else if(stars==2){
+							str+='</p><p class="weui_media_info"><span class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48" ></span><span class="icon icon-48"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}else if(stars==1){
+							str+='</p><p class="weui_media_info"><span class="icon icon-48" style="color:#ffdd99"></span><span  class="icon icon-48"></span><span  class="icon icon-48" ></span><span class="icon icon-48"></span><span class="icon icon-48"></span><span style="float:right;"><span>';
+						}
+						str+='<span style="float:right;"><span>'+time+'</span></span></p></div>';
+						$("#comment").append(str);
+					}
+				}
+			}
+			var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),$swipebar = $("#imgshow");
+		    $swipebar.on("click", "a", function(){
+		    	var string = this.getAttribute("style");
+		    	var index = string.indexOf(')');
+		    	var style = string.substr(0,index+1);
+		        $galleryImg.attr("style", style);
+		        $gallery.fadeIn(100);
+		    });
+
+		    $gallery.on("click", function(){
+		        $gallery.fadeOut(100);
+		    });
+	});
+	function personalinfo(){
+		window.location.href="personalInfo.html?inf="+sign+"&date="+Date.parse(new Date());
+
+}
+	function himyuepai(){
+		window.location.href="myyuepai.html?id="+uid+"&date="+Date.parse(new Date());
+	}
+
+	function himhuodong(){
+		window.location.href="myhuodong.html?id="+uid+"&date="+Date.parse(new Date());
+	}
+
+</script>

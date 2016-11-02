@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title></title>
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <link rel="stylesheet" href="style/weui-0.4.3.css"/>
+  <link rel="stylesheet" href="style/weui-0.4.css"/>
+      <script src="scripts/zepto.min.js"></script>
+      <script>
+  $(function(){
+
+      
+      });   
+      function GetQueryString(name)
+      {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+      } 
+      
+      </script>
+</head>
+
+<body ontouchstart="" style="background-color: #f8f8f8;">
+       
+        
+
+                
+        
+        <div class="weui_cells_title">安全选项</div>
+        <div class="weui_cells weui_cells_access">
+
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_hd"><span class="icon icon-110" alt="" style="width:20px;margin-right:5px;display:block"></span></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>邮箱</p>
+                </div>
+                <div class="weui_cell_ft" id="email" value=" ">修改绑定邮箱</div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_hd"><span class="icon icon-115" alt="" style="width:20px;margin-right:5px;display:block"></span></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>密码</p>
+                </div>
+                <div href="javascript:void(0);" class="weui_cell_ft" onclick="changepsd()">修改密码</div>
+            </a>
+        </div>    
+
+
+<script type="text/javascript">
+
+
+var phone=GetQueryString("vali");
+//var phone = "MTc3NTEwMzAwMzc=";
+    $(document).on("click", "#email", function() {
+        $.prompt("请输入要绑定的邮箱", "邮箱绑定",function(text) {
+        $.getJSON("http://www.shacus.top/weixin/user/changeinfo?type=1&utel="+phone+"&mailbox="+text+"&jsoncallback=?",//网络请求
+
+      function(json){//在这里处理返回的列表并填充进html中
+
+         if(json.code==20001){
+                $.alert("绑定邮箱成功");
+                
+                
+        }
+          if(json.code==40001){
+                $.alert("邮箱格式错误！");
+        }
+
+
+       });
+   
+      //     var str = '<div class="weui_cell_ft" id="email" value=" ">'+text+'</div>';
+      //     $("#email").append(str);
+         }, function() {
+     
+    });
+    });
+
+    function changepsd(){
+      window.location.href="changepsd.html?vali="+phone;
+    }
+</script>
+
+</body></html>
+<script type="text/javascript">
+
+//从服务器初始化约拍数据
+// $.getJSON("http://114.215.94.95/weixin/appointment/list",//网络请求
+
+//       function(json){//在这里处理返回的列表并填充进html中
+//         var jsondata={'contents':['content','title','piurl','detialurl']};
+//         var str='<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="'+jsondata.piurl+'" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">'+jsondata.title+'</h4><p class="weui_media_desc">'+jsondata.content+'</p><div style="padding: 7px 150px;"><span class="icon icon-106" style="padding: 7px 10px;"></span>2016.10.10</div>';
+//           url=jsondata.detialurl;
+//           $("#list_yuepai").append(str);
+
+//       });
+</script>
