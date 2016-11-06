@@ -6,19 +6,7 @@
   <link rel="stylesheet" href="style/weui-0.4.3.css"/>
   <link rel="stylesheet" href="style/weui-0.4.css"/>
       <script src="scripts/zepto.min.js"></script>
-      <script>
-  $(function(){
-
-      
-      });   
-      function GetQueryString(name)
-      {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-      } 
-      
-      </script>
+      <script src="scripts/shacus.js"></script>
 </head>
 
 <body ontouchstart="" style="background-color: #f8f8f8;">
@@ -78,7 +66,7 @@ var phone=GetQueryString("vali");
     });
 
     function changepsd(){
-      window.location.href="changepsd.html?vali="+phone;
+      window.location.href="changepsd.html?vali="+phone+"&date="+Math.round(new Date().getTime());
     }
 </script>
 

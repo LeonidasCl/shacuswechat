@@ -8,8 +8,10 @@
 <title>追影</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
-      <script src="static/scripts/zepto.min.js"></script>
-      <script src="static/scripts/iscroll.js"></script>
+      <!--<script src="static/scripts/zepto.min.js"></script>
+      <script src="static/scripts/iscroll.js"></script>-->
+      <script src="scripts/zepto.min.js"></script>
+      <script src="scripts/iscroll.js"></script>
       <!--<script src="http://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>-->
       <!--第一段代码，全局的初始化-->
       <script>
@@ -30,6 +32,13 @@ function getCookie(name)
         return null;
 }
 
+//写cookies
+function setCookie(c_name, value, expiredays){
+ 　　　　var exdate=new Date();
+　　　　exdate.setDate(exdate.getDate() + expiredays);
+　　　　document.cookie=c_name+ "=" + value + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+        //alert(document.cookie);
+}
 
 function checkCookie()
 {
@@ -42,10 +51,12 @@ var uid=getCookie('id');
         //var url=json.url;
 
         if (json.code==10500)
-{// var temp=Date.parse(new Date());
- // alert(temp);
-        window.location.href="static/main.html?vali="+username+"&id="+uid;
- }   });
+        {
+        setCookie('username',username,14);
+        setCookie('id',uid,3);
+        window.location.href="main.html?vali="+username+"&id="+uid+"&date="+Math.round(new Date().getTime());
+        }   
+});
 
 }
 
@@ -180,7 +191,8 @@ var uid=getCookie('id');
 
 <div class="weui-footer weui-footer-fixed-bottom" style="margin-top: 20px">
             <p class="weui-footer-links">
-                <a href="static/findpwd.html" class="weui-footer-link">忘记密码</a>
+                <!--<a href="static/findpwd.html" class="weui-footer-link">忘记密码</a>-->
+                <a href="findpwd.html" class="weui-footer-link">忘记密码</a>
             </p>
             <p class="weui-footer__text">Copyright &copy; 2016 追影</p>
 </div>
@@ -191,17 +203,6 @@ var state=1;//1为注册第一步，2为注册第二步,3为注册第三步
 var $loadingToast = $('#loadingToast');
 var $finishToast = $('#finishToast');
 var phone=-1;
-
-//写cookies
-function setCookie(c_name, value, expiredays){
- 　　　　var exdate=new Date();
-　　　　exdate.setDate(exdate.getDate() + expiredays);
-　　　　document.cookie=c_name+ "=" + value + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
-        //alert(document.cookie);
-}
-
-
-
 
 
     $(function(){
@@ -308,11 +309,10 @@ function setCookie(c_name, value, expiredays){
             var uid=json.contents.id;
             setCookie('username',token,14);
             setCookie('id',uid,3);
- //           var temp=Date.parse(new Date());
-   //         alert(temp);
-            window.location.href="static/main.html?vali="+token+"&id="+uid;
-            //state=3;
-            //return;
+
+            //window.location.href="static/main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+            window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+
         }
         else{
           alert("请求失败!");
@@ -366,7 +366,8 @@ function setCookie(c_name, value, expiredays){
         setCookie('id',uid,3);
      //   var temp=Date.parse(new Date());
        // alert(temp);
-        window.location.href="static/main.html?vali="+token+"&id="+uid;
+        //window.location.href="static/main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+        window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
         //$("#yuepai_contents").val();
         //$("button_getvercode").setAttribute("disabled",true);
 

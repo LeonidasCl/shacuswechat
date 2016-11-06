@@ -15,12 +15,7 @@
       {
 
       }
-      function GetQueryString(name)
-      {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-      }
+
 
       </script>
 </head>
@@ -50,20 +45,15 @@
 <!--第二段脚本，初始化并处理各功能模块的数据-->
 
 <script type="text/javascript">
-var id=GetQueryString("id");
-//alert(id);
-//var phone = "MTUxNTE4NTg2Mjg=";
-
-function getCookie(name)
+function GetQueryString(name)
 {
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-
-    if(arr=document.cookie.match(reg)){
-        return (arr[2]);}
-    else
-        return null;
+  var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+  var r = window.location.search.substr(1).match(reg);
+  if(r!=null)return  unescape(r[2]); return null;
 }
-var phone=getCookie("username");
+
+var id=GetQueryString("id");
+var phone=GetQueryString("vali");
 
 $.getJSON("http://www.shacus.top/weixin/appointment/UserAclist?id="+id+"&jsoncallback=?",
 function(json){//在这里处理返回的列表并填充进html中

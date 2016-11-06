@@ -8,6 +8,7 @@
   	<link rel="stylesheet" href="style/weui-0.4.css"/>
     <script src="scripts/zepto.min.js"></script>
     <script src="scripts/iscroll.js"></script>
+    <script src="scripts/shacus.js"></script>
     <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
 </head>
 <body>
@@ -20,12 +21,6 @@
 </html>
 
 <script type="text/javascript">
-      function GetQueryString(name)
-      {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-      }
     
     var str=GetQueryString("inf");
     //alert(str);

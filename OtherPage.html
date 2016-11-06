@@ -8,14 +8,10 @@
   	<link rel="stylesheet" href="style/weui-0.4.css"/>
     <script src="scripts/zepto.min.js"></script>
     <script src="scripts/iscroll.js"></script>
+
     <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
     <script type="text/javascript">
-		function GetQueryString(name)
-      {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-      }
+
 	</script>
 </head>
 <body style="background-color: #f8f8f8;">
@@ -42,13 +38,25 @@
 		<a href="javascript:" class="weui_navbar_item weui_nav_green"> 我的活动 </a> 
 	</div> -->
 
-	<div class="weui_media_box" id="img">
-		<div class="weui_grids" id="imgshow">
-							    <!-- <a href="javascript:;" class="weui-grid" style="background-image:url(http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg);background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"></a>
-							    			<a href="javascript:;" class="weui-grid weui-uploader__file_status" style="background-image:url(http://desk.fd.zol-img.com.cn/t_s960x600c5/g4/M01/0D/04/Cg-4WVP_npmIY6GRAKcKYPPMR3wAAQ8LgNIuTMApwp4015.jpg);background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"><div class="weui-uploader__file weui-uploader__file_status weui-uploader__file-content" style="width:100%; height:100%;"><div class="weui-uploader__file-content f55">+</div></div></a> -->
-					</div> 
-	 	
-	</div>
+<!-- 	<div class="weui_media_box" id="img">
+	<div class="weui_grids" id="imgshow">
+						    <a href="javascript:;" class="weui-grid" style="background-image:url(http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg);background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"></a>
+						    			<a href="javascript:;" class="weui-grid weui-uploader__file_status" style="background-image:url(http://desk.fd.zol-img.com.cn/t_s960x600c5/g4/M01/0D/04/Cg-4WVP_npmIY6GRAKcKYPPMR3wAAQ8LgNIuTMApwp4015.jpg);background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"><div class="weui-uploader__file weui-uploader__file_status weui-uploader__file-content" style="width:100%; height:100%;"><div class="weui-uploader__file-content f55">+</div></div></a>
+				</div> 
+ 	
+</div> -->
+	<div class="weui-cell__bd">
+                    <div class="weui-uploader">
+                        <div class="weui-uploader__bd">
+                            <ul class="weui-uploader__files js_previews" id="uploaderFiles">
+								   <!-- <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png) ;width:30%;height:110px;"></li> -->
+		                                <!-- <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png);width:30%;height:110px;"></li>
+		                                <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png);width:30%;height:110px;"></li>
+		                                <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png);width:30%;height:110px;"></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
 	<div id="bottom">
 			<div id="comment">
@@ -79,22 +87,85 @@
 </html>
 
 <script type="text/javascript">
-//	var utel = "MTc3NTEwMzAwMzc=";
+
+function GetQueryString(name)
+{
+  var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+  var r = window.location.search.substr(1).match(reg);
+  if(r!=null)return  unescape(r[2]); return null;
+}
+
+function convertImgToBase64(url, callback, outputFormat){
+    var canvas = document.createElement('CANVAS'),
+        ctx = canvas.getContext('2d'),
+        img = new Image;
+    img.crossOrigin = 'Anonymous';
+    img.onload = function(){
+    	//alert("onload");
+        canvas.height = img.height;
+        canvas.width = img.width;
+        ctx.drawImage(img,0,0);
+        var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+        callback.call(this, dataURL);
+        canvas = null; 
+    };
+    img.onerror = function(){
+    	//alert("onerror");
+        callback.call(this, "images/pic_161.png");
+    };
+    //alert("try");
+    img.src = url;
+    //alert("set");
+}
 
 	var uid=GetQueryString("id");
 	var utel=GetQueryString("username");
-	var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
 
+	// var maxCount = 16;//
+    var globalImgs =[];////
+    var globalImgId=0;/////
+    ///////////////////////
 
-    $swipebar = $("#imgshow");
-    $swipebar.on("click", "img", function(){
-        $galleryImg.attr("style", this.getAttribute("style"));
-        $gallery.fadeIn(100);
-    });
+		$.getJSON('http://www.shacus.top/weixin/appointment/Ugetimages?'+'id='+uid+'&jsoncallback=?',
+        function(json){
+            alert(json);
+            var code=json.code;
+            alert("downloadimg");
+            alert(code);
+            if(code==10612){
+                alert("json success");
+                globalImgs=json.contents;
 
-    $gallery.on("click", function(){
-        $gallery.fadeOut(100);
-    });
+                for(var i=0;i<globalImgs.length;i++){
+                	globalImgId=i;
+                	$preview = $('<li id='+globalImgId+' class="weui-uploader__file" style="background-image:url("images/pic_160.png");width:30%;height:110px;"></li>');
+       				$('.weui-uploader__files').append($preview);
+                }
+
+        var i = 0, length = globalImgs.length;
+        globalImgId=0;
+        function download() {
+            convertImgToBase64(globalImgs[i], function(base64Img){
+                //alert("converted idx "+i);
+                //alert("converted id "+piclist[i]);
+                //alert("converted  "+base64Img);
+                document.getElementById(globalImgId).setAttribute('style','background-image:url("'+base64Img+'");width:30%;height:110px;');
+                i++;
+                globalImgId++;
+                if (i < length) {
+                    download();
+                }
+            });
+        }
+        download();
+
+                if(length>9){
+                	var temp = '<div class="weui-uploader__file-content f55">'+'+'+length-9+'</div>';
+                	document.getElementById("8").innerHTML=temp;
+                	document.getElementById("8").setAttribute('className','weui-uploader__file weui-uploader__file_status');
+                }
+            }
+        });
 
 	$.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+utel+"&type=2&uid="+uid+"&jsoncallback=?",
 		function(json) {
@@ -111,7 +182,7 @@
       			document.getElementById('username').innerHTML=user;
       			document.getElementById('title').innerHTML=user+'的主页';
 
-				var images=json.imgs;
+				// var images=json.imgs;
 				var sex=json.sex;
 				if (sex==0){
                         sexurl="images/avatar_0.jpg";
@@ -121,24 +192,7 @@
                         sexurl="images/avatar_1.jpg";
                         document.getElementById("userImage").src=sexurl;
                     }
-				if(images.length==0){
-					$("#img").css("display","none");
-				}
-				if(images.length>9){
-					for(var i=0; i<8;i++){
-						var str=images[i];
-						var temp='<a href="javascript:;" class="weui-grid" style="background-image:url('+str+');background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"></a>';
-						$("#imgshow").append(temp);
-					}
-					var index=images.length-9;
-					var temp='<a href="javascript:;" class="weui-grid weui-uploader__file_status" style="background-image:url('+images[8]+');background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height: 110px"><div class="weui-uploader__file weui-uploader__file_status weui-uploader__file-content" style="width:100%; height:100%;"><div class="weui-uploader__file-content f55">'+index+'</div></div></a>'
-				}else{
-					for(var i=0;i<images.length;i++){
-						var str=images[i];
-						var temp='<a href="javascript:;" class="weui-grid" style="background-image:url('+str+');background-size: 98% 98%;background-position:center center;background-repeat: no-repeat;height:110px"></a>';
-						$("#imgshow").append(temp);
-					}
-				}
+
 				
 
 				var comments=json.comments;
@@ -176,8 +230,9 @@
 					}
 				}
 			}
-			var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),$swipebar = $("#imgshow");
-		    $swipebar.on("click", "a", function(){
+			var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),$uploaderInput = $("#uploaderInput"),
+    			$uploaderFiles = $("#uploaderFiles");
+		    $uploaderFiles.on("click", "li", function(){
 		    	var string = this.getAttribute("style");
 		    	var index = string.indexOf(')');
 		    	var style = string.substr(0,index+1);
@@ -190,15 +245,15 @@
 		    });
 	});
 	function personalinfo(){
-		window.location.href="personalInfo.html?inf="+sign+"&date="+Date.parse(new Date());
+		window.location.href="personalInfo.html?inf="+sign+"&date="+Math.round(new Date().getTime());
 
 }
 	function himyuepai(){
-		window.location.href="myyuepai.html?id="+uid+"&date="+Date.parse(new Date());
+		window.location.href="myyuepai.html?id="+uid+"&date="+Math.round(new Date().getTime());
 	}
 
 	function himhuodong(){
-		window.location.href="myhuodong.html?id="+uid+"&date="+Date.parse(new Date());
+		window.location.href="myhuodong.html?id="+uid+"&date="+Math.round(new Date().getTime());
 	}
 
 </script>

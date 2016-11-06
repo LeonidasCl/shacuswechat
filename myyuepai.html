@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style/weui-0.4.css"/>
       <script src="scripts/zepto.min.js"></script>
       <script src="scripts/iscroll.js"></script>
+      <script src="scripts/shacus.js"></script>
       <!--第一段代码，全局的初始化-->
       <script>
       //预留,整个文档加载完时自动调用
@@ -15,12 +16,7 @@
       {
 
       }
-      function GetQueryString(name)
-      {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-      }
+
 
       </script>
 </head>
@@ -40,21 +36,13 @@
 <!--第二段脚本，初始化并处理各功能模块的数据-->
 
 <script type="text/javascript">
-//var phone=GetQueryString("vali");
-//var phone = "MTUxNTE4NTg2Mjg=";
+
+
+
 var id=GetQueryString("id");
-
-function getCookie(name)
-{
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-
-    if(arr=document.cookie.match(reg)){
-        return (arr[2]);}
-    else
-        return null;
-}
 var phone=getCookie("username");
 
+//alert("query phpne"+phone);
 
 $.getJSON("http://www.shacus.top/weixin/appointment/UserAplist?id="+id+"&jsoncallback=?",
 function(json){//在这里处理返回的列表并填充进html中
@@ -65,7 +53,7 @@ function(json){//在这里处理返回的列表并填充进html中
         if (json.code==200) {
             //alert(phone);
             for(var i=0;i<json.contents.length;i++){
-            var url = 'yuepai_detail.html?vali='+phone+'&apid='+json.contents[i].id;
+            var url = 'yuepai_detail.html?vali='+phone+'&apid='+json.contents[i].id+'&date='+Math.round(new Date().getTime())+'';
             var str='<a class="weui_media_box weui_media_appmsg" href="'+url+'" ><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="'+json.contents[i].picurl+'" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">'+json.contents[i].title+'</h4><p class="weui_media_desc">'+json.contents[i].content+'</p></div></div></a>';
               id=json.contents[i].id;
               $("#list_yuepai").append(str);

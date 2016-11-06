@@ -9,13 +9,9 @@
 	<link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
 	<script src="scripts/zepto.min.js"></script>
 	<script src="scripts/iscroll.js"></script> 
+	<script src="scripts/shacus.js"></script>
 	<script type="text/javascript">
-		function GetQueryString(name)
-      {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-      }
+
 	</script>
 </head>
 <body>
@@ -189,7 +185,7 @@
 										
 				                        $('#finishToast').fadeOut(100);
 				                    }, 5000);
-									window.location.href="main.html?vali="+utel+ "&id="+uid;
+									window.location.href="main.html?vali="+utel+ "&id="+uid+"&date="+Math.round(new Date().getTime());
 
 								}
 							});
@@ -199,5 +195,6 @@
 				});
 			}
 	}
+
 
 </script>

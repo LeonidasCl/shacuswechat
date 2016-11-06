@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 
@@ -13,9 +13,8 @@
 	<link rel="stylesheet" type="text/css" href="style/public.css">
 	<link rel="stylesheet" type="text/css" href="style/style.css">
 	<link rel="stylesheet" type="text/css" href="style/media.css">
-        <script src="scripts/jweixin-1.0.0.js"></script>
 			<script src="scripts/zepto.min.js"></script>
-
+			<script src="scripts/shacus.js"></script>
 			<script src="scripts/iscroll.js"></script>
 
 			<!--第一段代码，全局的初始化-->
@@ -25,8 +24,8 @@
 			window.onload=function()
 			{
 				$("#tab2").click();
-
-				//initial();
+//alert("load");
+				initial();
 			}
 			//初始化导航栏
 				$(function(){
@@ -39,12 +38,6 @@
 						$('.weui_tab').tab();
 						});
 
-			function GetQueryString(name)
-			{
-				var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-				var r = window.location.search.substr(1).match(reg);
-				if(r!=null)return  unescape(r[2]); return null;
-			}
 //alert("main03");
 			</script>
 </head>
@@ -237,7 +230,7 @@
 <!--第二段脚本，初始化并处理各功能模块的数据-->
 <script type="text/javascript">
 //alert("main-2");
-	function getMinUl(atype) {//每次获取最短的ul,将图片放到其后
+	function getMinUl(atype){//每次获取最短的ul,将图片放到其后
 		if (atype==0) 
 		var $arrUl = $("#container1 .col");
 		else
@@ -271,56 +264,20 @@ var nonceStr="";
 var signature="";
 //alert("main-1");
 function personalinfo(){
-	window.location.href="personalInfo.html?inf="+sign;
+	window.location.href="personalInfo.html?inf="+sign+"&date="+Math.round(new Date().getTime());
 }
 
-//读取cookies
-function getCookie(name)
-{
-		var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-
-		if(arr=document.cookie.match(reg)){
-				return (arr[2]);}
-		else
-				return null;
-}
 //alert("main.000");
 var phone=GetQueryString("vali");
 var id=GetQueryString("id");
 //var date=GetQueryString("date");
 //alert("main001");
-     $.getJSON("http://www.shacus.top/weixin/getsign?appsecret=ed3eee4636d9ab4068c7eb5ca14ddb59&type=http://www.shacus.top/static/main.html?vali="+phone+"-id="+id+"&jsoncallback=?",
 
-      function(json){
-        //console.log('done');
-        var url=json.url;
-        timestamp=json.timestamp;
-        nonceStr=json.nonceStr;
-        signature=json.signature;
-      //if(json.属性名==值){
-      // 执行代码
-            //}
- //            alert("Sdds-main");
-    wx.config({
-        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        appId: 'wx0c9dd1c77d3e5295', // 必填，公众号的唯一标识
-        timestamp: timestamp, // 必填，生成签名的时间戳
-        nonceStr: nonceStr, // 必填，生成签名的随机串
-        signature: signature,// 必填，签名，见附录1
-        jsApiList: ['chooseImage','previewImage','uploadImage','downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-        });
-    });
-
-
-    wx.error(function(res){
-        //config信息验证失败会执行error函数
-        alert('鉴权失败！请刷新！');
-    });
 
 
 
 function apcreate(){
-	window.location.href="yuepai_create.html?vali="+phone;
+	window.location.href="yuepai_create.html?vali="+phone+"&date="+Math.round(new Date().getTime());
 }
 
 $.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+phone+"&type=1&jsoncallback=?",
@@ -332,7 +289,7 @@ $.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+phone+"&type=1&
 			if(sign.length>15){
 				var str_show = string.substr(0,13) + "…";
 				document.getElementById("sign").innerHTML = str_show;
-				window.location.href="PersonalInfo.html?personalinfo="+sign;  
+				window.location.href="PersonalInfo.html?personalinfo="+sign+"&date="+Math.round(new Date().getTime());  
 			}else{
 				document.getElementById("sign").innerHTML = sign;
 			}
@@ -392,44 +349,10 @@ $.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+phone+"&type=1&
 	});
 
 
-//alert("phone is "+phone);
-function checkCookie()
-{
-var username=getCookie('username');
-var uid=getCookie('id');
-//alert("username "+username);
-//alert("phone "+phone);
-if (username!=null && username!="" && username==phone)
-	{
-	//alert("您已经登陆过，现在进入系统");
-	}
-else
-	{//alert("请先注册或用自己的账号登录！");
-	window.location.href="index.html";
-	}
 
-}
-checkCookie();
+//toptips();
 
-$.getJSON("http://www.shacus.top/weixin/user/changeinfo?utel="+phone+"&jsoncallback=?",//
-			function(json){//在这里处理返回的列表并填充进html中
 
-				if (json.code!=20001) {
-					alert("服务器错误！");
-					return;
-				}
-				if (json.choosed==1) {
-					$.toptips('您在一项约拍中被选中，请到“我的约拍”查看','ok');
-					//alert();
-				}
-
-				
-			});
-
-/*//从服务器初始化教程数据
-//从服务器初始化约拍数据
-
-//alert("asd");*/
 //从服务器初始化活动数据
 $.getJSON("http://www.shacus.top/weixin/activity/aclist?jsoncallback=?",//
 			function(json){//在这里处理返回的列表并填充进html中
@@ -443,7 +366,7 @@ $.getJSON("http://www.shacus.top/weixin/activity/aclist?jsoncallback=?",//
 				aclist=json.contents;
 				//alert(aclist[0].WACtitle);
 				for (var index in aclist) {
-					var url="huodong_detail.html?acid="+aclist[index].WACid+"&vali="+phone+"&date="+Date.parse(new Date());
+					var url="huodong_detail.html?acid="+aclist[index].WACid+"&vali="+phone+"&date="+Math.round(new Date().getTime());
 					var str='<a href="'+url+'" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="'+aclist[index].WACimgurl+'" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">'+aclist[index].WACtitle+'</h4><p class="weui_media_desc">'+aclist[index].WACcontent+'</p></div></a>';
 					$("#list_huodong").append(str);
 				}
@@ -456,27 +379,6 @@ function toYuepai1(){
 	document.getElementById("yuepaib").style=""; 
 	$("#container2").hide();
 	aptype=0;
-}
-
-function downloadworker(picurl){
-
-	wx.downloadImage({
-    serverId: picurl, // 需要下载的图片的服务器端ID，由uploadImage接口获得
-    isShowProgressTips: 0, // 默认为1，显示进度提示
-    success: function (res) {
-    //	alert("download success");
-    //	alert(res.serverId);
-        var localId = res.localId; // 返回图片下载后的本地ID
-        //$('#'+res.serverId).attr('src',localId);document.getElementsByTagName('img')[0].setAttribute('src','7.jpg');
-       // document.getElementById(picurl);
-
-        //$('#'+res.serverId).attr('src',localId);
-        //document.getElementsByTagName('img')[0]
-
-        document.getElementById(picurl).setAttribute('src',localId);
-      //  alert("get "+picurl);
-    }
-});
 }
 
 function toYuepai2(){
@@ -518,39 +420,36 @@ function toYuepai2(){
 							var sex=aplist[index].sex;
 							var html = "";
         							if (sex==0) {
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 				}
 							if (sex==1) {
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 				}
                                 //alert("yuepai3");
 				$minUl = getMinUl(1);//增加到约摄影师那一列
 				$minUl.append(html);
-                                //alert("yuepai4");
-
-			//	new downloadworker(aplist[index].picurl);
 
 						}
-				    var i = 0, length = aplist.length;
-    				function download() {
-    				  wx.downloadImage({
-    				    serverId: aplist[i].picurl,
-                                    isShowProgressTips: 0,
-    				    success: function (res) {
-    				    	//alert('downloaded '+aplist[i].picurl);
-    				    	document.getElementById(aplist[i].picurl).setAttribute('src',res.localId);
-    				      	i++;   	
-    				      	if (i < length) {
-    				        	download();
-    				      	}
-    				    }
-    				  });
-    				}
-    				//alert('downloading '+aplist[i].picurl);
-    				download();
-					});
+
+        			var i = 0, length = aplist.length;
+        			function download() {
+        			    convertImgToBase64(aplist[i].picurl, function(base64Img){
+        		//alert("converted idx "+i);
+                //alert("converted id "+aplist[i].picurl);
+                //alert("converted  "+base64Img);
+							document.getElementById(aplist[i].picurl).setAttribute('src',base64Img);
+        			        //document.getElementById(aplist[i]).setAttribute('style','background-image:url("'+base64Img+'")');
+        			        i++;
+        			        if (i < length) {
+        			            download();
+        			        }  
+        			    });
+        			}
+        			//alert("start converte");
+        			download();
+				});
 	//}
 	$("#container1").hide(); 
 	aptype=1;
@@ -568,28 +467,22 @@ function toJiaocheng2(){
 }
 
 function myyuepai(){
-	window.location.href="myyuepai.html?id="+id;
+	//alert("goto vali"+phone);
+	window.location.href="myyuepai.html?vali="+phone+"&id="+id+"&date="+Math.round(new Date().getTime());
 }
 
 function myhuodong(){
-	window.location.href="myhuodong.html?id="+id;
+	window.location.href="myhuodong.html?vali="+phone+"&id="+id+"&date="+Math.round(new Date().getTime());
 }
 
 function editinfo(){
-	window.location.href="editinfo.html?vali="+phone;
+	window.location.href="editinfo.html?vali="+phone+"&date="+Math.round(new Date().getTime());
 }
 
 function userdisplay(){
-	//window.location.href="UserDisplay.html?vali="+phone;	
+	//alert("userdisplay");
+	window.location.href="UserDisplay.html?vali="+phone+"&id="+id+"&date="+Math.round(new Date().getTime());	
 }
 
 </script>
 <script type="text/javascript" src="scripts/waterfall.js"></script>
-<script type="text/javascript">
-	
-	    wx.ready(function(){
-//alert("cfg success");
-    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-    initial();
-});
-</script>
