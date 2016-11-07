@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title id="ac_title">约拍标题</title>
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <link rel="stylesheet" href="style/weui-0.4.3.css"/>
+  <link rel="stylesheet" href="style/weui-0.4.css"/>
+<script src="scripts/zepto.min.js"></script>
+<script src="scripts/shacus.js"></script>
+<link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
+      <!--第一段代码，全局的初始化-->
+      <script>
+      //预留,整个文档加载完时自动调用
+      window.onload=function()
+      {
+
+      }
+
+      function GetQueryString(name)
+      {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+      }
+      //初始化导航栏
+    
+      </script>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+        <div class="weui-cells__title">请点击头像查看用户信息，点击右边按钮选择约拍对象，一旦选择，不可更改！</div>
+        <div  class="weui-cell">
+            <ul id="userlist" style="width: 100%;height: auto;">
+                <!--<li style="list-style-type:none;">
+                <ul style="width: 100%;height: auto;float: left;">
+                <li style="width: 20px;height: 20px;float: left;list-style-type:none;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="images/male.png"/></li>
+                <li style="width: 40px;height: 40px;float: left;list-style-type:none;padding-left:8px;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="images/avatar.jpg"/></li>
+                <li style="width: 100px;height: 40px;float: left;list-style-type:none;padding-top: 8px;padding-left: 8px"><label id="alias" tyle="font-size:18px;">发起者</label></li>
+                <li style="float: right;list-style-type:none;padding-top: 8px;"><a onclick="select_regists(0,phone,'习习蛤蛤')" class="weui_btn weui_btn_mini weui_btn_warn">  选 择  </a></li>
+                </ul>
+                </li>-->
+            </ul>
+        </div>
+</body>
+</html>
+<script type="text/javascript">
+
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg))
+
+        return (arr[2]);
+    else
+        return null;
+}
+
+var phone=GetQueryString("vali");
+var apid=GetQueryString("apid");
+var issponsor=GetQueryString("sponsor");//是否是自己发起的
+var status=GetQueryString("status");//处于何种状态，1为报名中，2为进行中，3为已结束
+var aptype=GetQueryString("type");
+var selfid=getCookie('id');
+
+
+function select_regists(uid,vali,name){
+    //alert(uid+" "+vali);
+    $.confirm("确定选择 "+name+" 为约拍对象吗？一旦选择，不可更改！", "确认选择", function(){
+          //$.toast("删除成功!");
+              $.getJSON("http://www.shacus.top/weixin/appointment/select?phone="+vali+"&apid="+apid+"&registid="+uid+"&type="+aptype+"&jsoncallback=?",//待更换的网络请求
+              function(json){//在这里处理返回的列表并填充进html中
+                //alert("selected");
+                if (json.code!=10293){
+                   // alert(json.contents);
+                    return;
+                }
+                if (json.code==10293){
+                    $.toast("选择成功!");
+                    status++;
+                    //window.history.back(-2);
+                    alert("您选择的用户，联系方式是 "+json.contents+" ，对方将收到短信提醒，您也可根据联系方式添加微信。");
+                   // window.location.href="select_apuser.html?vali="+vali+"&apid="+apid+"&sponsor="+issponsor+"&status="+status+"&type="+aptype;
+                    window.history.back(-2);
+                    return;
+                }             
+                
+    }, function() {
+          //取消操作
+        });
+    });
+}
+
+    //alert("get select");
+    $.getJSON("http://www.shacus.top/weixin/appointment/selectlist?phone="+phone+"&apid="+apid+"&jsoncallback=?",
+              function(json){//在这里处理返回的列表并填充进html中
+
+                if (json.code!=10281){
+                   // alert(json.contents);
+                    return;
+                }
+        
+                var aplist=[];
+                aplist=json.contents;
+                for (var index in aplist) {
+
+                    var sex=aplist[index].Usex;
+                    var sexurl="";
+                    var avatarurl="";
+                    if (sex==0){
+                        sexurl="images/female.png";avatarurl="images/avatar_0.jpg";}
+                    if (sex==1) {
+                        sexurl="images/male.png";avatarurl="images/avatar_1.jpg";}
+                    //var tel=aplist[index].Utel;
+                    var name=aplist[index].Ualais;
+                    //var Utel=aplist[index].Utel;
+                    var uid=aplist[index].Uid;
+                    detailstr="";
+                    if (selfid!=uid)
+                      detailstr="OtherPage.html?id="+uid+"&username="+phone;
+                    
+
+                    var html = "";
+                    if (issponsor==1)//是自己发起的
+                    {
+                        if (status==1)
+                        html='<li><ul style="width: 100%;height: auto;float: left;"><li style="width: 20px;height: 20px;float: left;list-style-type:none;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+sexurl+'"/></li><li style="width: 40px;height: 40px;float: left;list-style-type:none;padding-left:8px;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+avatarurl+'" onclick=excitedid(\"'+detailstr+'\") /></li><li style="width: 100px;height: 40px;float: left;list-style-type:none;padding-top: 8px;padding-left: 8px"><label id="alias" tyle="font-size:18px;">'+name+'</label></li><li style="float: right;list-style-type:none;padding-top: 8px;"><a onclick=select_regists('+uid+',\"'+phone+'\",\"'+name+'\") class="weui_btn weui_btn_mini weui_btn_warn">  选 择  </a></li></ul></li><div class="weui-cells__title">联系方式：'+aplist[index].Utel+'</div>';
+                        if (status>1)
+                        {
+                            var chooseId=json.choosedid;
+                            if (chooseId==uid) {
+                            html='<li><ul style="width: 100%;height: auto;float: left;"><li style="width: 20px;height: 20px;float: left;list-style-type:none;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+sexurl+'"/></li><li style="width: 40px;height: 40px;float: left;list-style-type:none;padding-left:8px;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+avatarurl+'" onclick=excitedid(\"'+detailstr+'\") /></li><li style="width: 100px;height: 40px;float: left;list-style-type:none;padding-top: 8px;padding-left: 8px"><label id="alias" tyle="font-size:18px;">'+name+'</label></li><li style="float: right;list-style-type:none;padding-top: 8px;"><a onclick="" class="weui_btn weui_btn_mini weui_btn_warn">  已 选 择  </a></li></ul></li>';
+                                }
+                            if (chooseId!=uid) {
+                            html='<li><ul style="width: 100%;height: auto;float: left;"><li style="width: 20px;height: 20px;float: left;list-style-type:none;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+sexurl+'"/></li><li style="width: 40px;height: 40px;float: left;list-style-type:none;padding-left:8px;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+avatarurl+'" onclick=excitedid(\"'+detailstr+'\") /></li><li style="width: 100px;height: 40px;float: left;list-style-type:none;padding-top: 8px;padding-left: 8px"><label id="alias" tyle="font-size:18px;">'+name+'</label></li></ul></li>';
+                            }
+                        }
+                    }
+                    if (issponsor==0) {//不是自己发起的
+                        var chooseId=json.choosedid;
+                            if (chooseId==uid) {
+                            html='<li><ul style="width: 100%;height: auto;float: left;"><li style="width: 20px;height: 20px;float: left;list-style-type:none;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+sexurl+'"/></li><li style="width: 40px;height: 40px;float: left;list-style-type:none;padding-left:8px;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+avatarurl+'" onclick=excitedid(\"'+detailstr+'\") /></li><li style="width: 100px;height: 40px;float: left;list-style-type:none;padding-top: 8px;padding-left: 8px"><label id="alias" tyle="font-size:18px;">'+name+'</label></li><li style="float: right;list-style-type:none;padding-top: 8px;"><a onclick="" class="weui_btn weui_btn_mini weui_btn_warn">  已 选 择  </a></li></ul></li>';
+                                }
+                            if (chooseId!=uid) {
+                            html='<li><ul style="width: 100%;height: auto;float: left;"><li style="width: 20px;height: 20px;float: left;list-style-type:none;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+sexurl+'"/></li><li style="width: 40px;height: 40px;float: left;list-style-type:none;padding-left:8px;"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+avatarurl+'" onclick=excitedid(\"'+detailstr+'\") /></li><li style="width: 100px;height: 40px;float: left;list-style-type:none;padding-top: 8px;padding-left: 8px"><label id="alias" tyle="font-size:18px;">'+name+'</label></li></ul></li>';
+                                }
+                    }
+                    //alert('getmin');
+                    $minUl = $("#userlist");
+                    //alert('$minUl.html');
+                    $minUl.append(html);
+
+                }
+    });
+
+</script>
