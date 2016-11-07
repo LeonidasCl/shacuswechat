@@ -132,8 +132,7 @@ function validate()//检查和发布约拍
     }
 
 //alert('上传的约拍信息是:\n'+title+'\n'+type+'\n'+price+'\n'+time+'\n'+location+'\n'+content+'\n'+pics);
-
-      $.ajax({
+ $.ajax({
             type:"GET",
             url:"http://www.shacus.top/weixin/appointment/Uchangeimages",
             //提交的数据
@@ -157,18 +156,41 @@ function validate()//检查和发布约拍
                     return;
                 }
 
-                //alert("img success");
-                $.getJSON('http://www.shacus.top/weixin/user/changeinfo?'+'utel='+phone+'&type=3'+'&sign='+content+'&jsoncallback=?',
-                            function(json) {
-                            var code = json.code;
+
+
+      $.ajax({
+            type:"GET",
+            url:"http://www.shacus.top/weixin/user/changeinfo",
+            //提交的数据
+            data:{utel:phone,
+                type:3,
+                sign:content
+            },
+            //返回数据的格式
+            datatype: "jsonp",//"xml", "html", "script", "json", "jsonp", "text".
+            jsonp:"jsoncallback", 
+            //在请求之前，打开进度条
+            beforeSend:function(){
+                
+            },
+            //成功之后把进度条关了            
+            success:function(data){
+                            var data = $.parseJSON(data);
+                            var code = data.code;
                             if(code==20003){
                                 alert('修改成功!'); 
                                 window.history.back(-1); 
                             }else{
-                                alert(code.contents);
+                                alert(data.contents);
                                 return;
                             }
-                    });      
+    
+            },
+            error: function(){
+                alert('网络请求失败！');
+            }        
+         });
+    
             },
             error: function(){
                 alert('网络请求失败！');
