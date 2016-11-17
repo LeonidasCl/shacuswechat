@@ -92,7 +92,7 @@ a.duarr_close{ width:32px; height:32px; background:url(../images/du_arr.png) 0 -
 .container ul li img{width:100%;height:auto;border-radius:8px 8px 0 0;vertical-align:bottom;}
 .water_user{color:#666;font-size:18px;line-height:22px;color:#575757;border-bottom:1px #dadada solid;}
 .pdp4{padding:4% 0 3% 6%;}
-.water_option{font-size:20px;padding:1% 0 4% 1%;border-radius:0 0 8px 2px;}
+.water_option{font-size:20px;padding:1% 0 4% 8%;border-radius:0 0 8px 2px;}
 .water_option:after{content:"";display:block;clear:both;visibility:hidden;}
 .option_item{color:#3e88cd;text-decoration:none;margin-right:2%;color:#a7a7a7;padding-left:4%;margin-bottom:9px;}
 

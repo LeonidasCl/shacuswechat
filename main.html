@@ -10,6 +10,7 @@
  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 	<link rel="stylesheet" href="style/weui-0.4.3.css"/>
 	<link rel="stylesheet" href="style/weui-0.4.css"/>
+	<link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
 	<link rel="stylesheet" type="text/css" href="style/public.css">
 	<link rel="stylesheet" type="text/css" href="style/style.css">
 	<link rel="stylesheet" type="text/css" href="style/media.css">
@@ -23,21 +24,24 @@
 //alert("main-4");
 			window.onload=function()
 			{
-				//$("#tab2").click();
+				$("#tab2").click();
+				//$("#tab1").click();
 //alert("load");
 				initial();
-			$.getJSON("http://www.shacus.top/weixin/appointment/Ugetimages?id="+id+"&jsoncallback=?",//
-            function(json){//在这里处理返回的列表并填充进html中                   
-                if (json.code!=10612) {
-                    alert(json.contents);
-                    return;
-                }
-                for (var index in json.contents) {
-                $preview = $('<li id='+globalImgId+' class="weui-uploader__file" style="background-image:url('+json.contents[index]+');"></li>');
-                        $('.weui-uploader__files').append($preview);
-                }
-            });
-
+				$.getJSON("http://www.shacus.top/weixin/appointment/Ugetimages?id="+id+"&jsoncallback=?",//
+    			        function(json){//在这里处理返回的列表并填充进html中 
+    			        //alert("return");                  
+    			            if (json.code!=10612) {
+    			                alert(json.contents);
+    			                return;
+    			            }
+    			            for (var index in json.contents) {
+    			            $preview = $('<li id='+index+' class="weui-uploader__file" style="background-image:url('+json.contents[index]+');"></li>');
+    			            //alert("inserting");
+    			            //alert($preview);
+    			                    $('.weui-uploader__files').append($preview);
+    			            }
+    			        });
 			}
 			//初始化导航栏
 				$(function(){
@@ -166,7 +170,6 @@
 								<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
 						</div>
 				</div>
-
 				<!--一级页面：我的-->
 				<div class="weui_tab_bd_item">
 
@@ -191,28 +194,21 @@
 								</tr>
 							</table>
 
-                <div class="weui-cell__bd">
-                    <div class="weui-uploader">
-                        <div class="weui-uploader__hd">
-                            <p class="weui-uploader__title">个人展示图</p>
-                        </div>
-							<div class="weui-uploader__bd">
-                        	    <ul class="weui-uploader__files js_previews" id="uploaderFiles">
-                        	    <li class="weui-uploader__file" style="background-image:url(images/pic_160.png)"></li>
-                        	     <!--   <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
-                        	            <div class="weui-uploader__file-content">
-                        	                <i class="weui-icon-warn"></i>
-                        	            </div>
-                        	        </li>
-                        	        <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
-                        	            <div class="weui-uploader__file-content">50%</div>
-                        	        </li>-->
-                        	    </ul>
-                        	</div>
-                     </div>
-                </div>
+					<div class="weui-cells weui-cells_form">
+            			<div class="weui-cell">
+            			    <div class="weui-cell__bd">
+            			        <div class="weui-uploader">
+            			            <div class="weui-uploader__bd">
+            			                <ul class="weui-uploader__files js_previews" id="uploaderFiles">
+            			                </ul>
+            			            </div>
+            			        </div>
+            			    </div>
+            			</div>
+        			</div>
 
 							<div id="bottom">
+
 									<div id="comment">
 										<div class="weui_media_box weui_media_text">
 													<!-- <h4 class="weui_media_title" id="commentTitle">标题一</h4>
@@ -236,8 +232,9 @@
 
 				</div>
 		</div>
-					<div id="btn_add" onclick="apcreate()" style="position:fixed;margin:auto;left:0;height:80px;width:80px;right:0;bottom:0;z-index:999999">
-						<img src="images/yuepaiadd.png" alt="">
+					<div id="btn_add" onclick="apcreate()" style="position:fixed;margin:auto;left:0;height:85px;width:80px;right:0;bottom:0;z-index:999999">
+						<div style="height:65px;width:65px;bottom: 4px" class="weui_tabbar_icon"><img src="images/yuepaiadd.png" alt="">
+						<p class="weui_tabbar_label" style="font-size: 14px">发 起</p></div>
 					</div>
 						<div class="weui_tabbar ">
 								<a id="tab1" href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
@@ -246,13 +243,13 @@
 										</div>
 										<p class="weui_tabbar_label">教程</p>
 								</a>
-								<a id="tab2" href="javascript:;" style="padding-right: 80px" class="weui_tabbar_item">
+								<a id="tab2" href="javascript:;" style="padding-right: 40px" class="weui_tabbar_item">
 										<div class="weui_tabbar_icon">
 												<img src="images/icon_yuepai.png" alt="">
 										</div>
 										<p class="weui_tabbar_label">约拍</p>
 								</a>
-								<a id="tab3" href="javascript:;" style="padding-left: 80px" class="weui_tabbar_item">
+								<a id="tab3" href="javascript:;" style="padding-left: 40px" class="weui_tabbar_item">
 										<div class="weui_tabbar_icon">
 												<img src="images/icon_huodong.png" alt="">
 										</div>
@@ -330,7 +327,6 @@ $(function (){
     });
 
 });
-
 
 
 function apcreate(){
@@ -478,11 +474,11 @@ function toYuepai2(){
 							var html = "";
         							if (sex==0) {
 					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
-					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
+					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item" style="font-size: 14px">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 				}
 							if (sex==1) {
 					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
-					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
+					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item" style="font-size: 14px">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 				}
                                 //alert("yuepai3");
 				$minUl = getMinUl(1);//增加到约摄影师那一列
