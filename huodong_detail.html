@@ -154,7 +154,7 @@ var $finishToast = $('#finishToast');
             document.getElementById("loading_hint").innerHTML="报名中";
             $loadingToast.fadeIn(50);
             //alert("join "+phone);
-            $.getJSON("http://www.shacus.top/weixin/activity/regist?wacid=1&phone="+phone+"&jsoncallback=?",
+            $.getJSON("http://www.shacus.top/weixin/activity/regist?wacid="+acid+"&phone="+phone+"&jsoncallback=?",
             function(json){
                 if (json.code==10306||json.code==10312) {
                     $loadingToast.fadeOut(100);
@@ -179,7 +179,7 @@ var $finishToast = $('#finishToast');
             document.getElementById("loading_hint").innerHTML="正在取消";
             $loadingToast.fadeIn(50);
             //alert("cancel "+phone);
-            $.getJSON("http://www.shacus.top/weixin/activity/quitregist?wacid=1&phone="+phone+"&jsoncallback=?",
+            $.getJSON("http://www.shacus.top/weixin/activity/quitregist?wacid="+acid+"&phone="+phone+"&jsoncallback=?",
             function(json){
                 if (json.code==10310) {
                     $loadingToast.fadeOut(100);
@@ -205,7 +205,7 @@ var $finishToast = $('#finishToast');
 $(function (){
 
     //alert("get detail "+phone);
-    $.getJSON("http://www.shacus.top/weixin/activity/detail?acid=1&phone="+phone+"&jsoncallback=?",
+    $.getJSON("http://www.shacus.top/weixin/activity/detail?acid="+acid+"&phone="+phone+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;

@@ -8,8 +8,8 @@
 <title>追影</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
-      <script src="scripts/zepto.min.js"></script>
-      <script src="scripts/iscroll.js"></script>
+      <script src="static/scripts/zepto.min.js"></script>
+      <script src="static/scripts/iscroll.js"></script>
       <!--<script src="scripts/zepto.min.js"></script>
       <script src="scripts/iscroll.js"></script>-->
       <!--第一段代码，全局的初始化-->
@@ -53,7 +53,7 @@ var uid=getCookie('id');
         {
         setCookie('username',username,14);
         setCookie('id',uid,3);
-        window.location.href="main.html?vali="+username+"&id="+uid+"&date="+Math.round(new Date().getTime());
+        window.location.href="static/main.html?vali="+username+"&id="+uid+"&date="+Math.round(new Date().getTime());
         }   
 });
 
@@ -309,7 +309,7 @@ var phone=-1;
             setCookie('username',token,14);
             setCookie('id',uid,3);
 
-            window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+            window.location.href="static/main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
             //window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
 
         }
@@ -365,7 +365,7 @@ var phone=-1;
         setCookie('id',uid,3);
      //   var temp=Date.parse(new Date());
        // alert(temp);
-        window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+        window.location.href="static/main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
         //window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
 
         }
