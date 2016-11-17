@@ -23,9 +23,21 @@
 //alert("main-4");
 			window.onload=function()
 			{
-				$("#tab2").click();
+				//$("#tab2").click();
 //alert("load");
 				initial();
+			$.getJSON("http://www.shacus.top/weixin/appointment/Ugetimages?id="+id+"&jsoncallback=?",//
+            function(json){//在这里处理返回的列表并填充进html中                   
+                if (json.code!=10612) {
+                    alert(json.contents);
+                    return;
+                }
+                for (var index in json.contents) {
+                $preview = $('<li id='+globalImgId+' class="weui-uploader__file" style="background-image:url('+json.contents[index]+');"></li>');
+                        $('.weui-uploader__files').append($preview);
+                }
+            });
+
 			}
 			//初始化导航栏
 				$(function(){
@@ -43,7 +55,13 @@
 </head>
 
 <body ontouchstart style="background-color: #f8f8f8;">    
-		
+	
+        <div class="weui-gallery" id="gallery">
+            <span class="weui-gallery__img" id="galleryImg"></span>
+            <div class="weui-gallery__opr">
+            </div>
+        </div>
+
  <div class="weui_cells_title" style="height:45px;">&nbsp;</div>    
 <div class="weui_tab tab-bottom" >
 		<div class="weui_tab_bd">
@@ -151,7 +169,7 @@
 
 				<!--一级页面：我的-->
 				<div class="weui_tab_bd_item">
-						<div>
+
 								<div>
 										<center>
 												<br>
@@ -172,6 +190,27 @@
 									<td style="width:25%"><center><img src="images/userdisplay.png" style="height:60px" onclick="userdisplay()"></center></td>
 								</tr>
 							</table>
+
+                <div class="weui-cell__bd">
+                    <div class="weui-uploader">
+                        <div class="weui-uploader__hd">
+                            <p class="weui-uploader__title">个人展示图</p>
+                        </div>
+							<div class="weui-uploader__bd">
+                        	    <ul class="weui-uploader__files js_previews" id="uploaderFiles">
+                        	    <li class="weui-uploader__file" style="background-image:url(images/pic_160.png)"></li>
+                        	     <!--   <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                        	            <div class="weui-uploader__file-content">
+                        	                <i class="weui-icon-warn"></i>
+                        	            </div>
+                        	        </li>
+                        	        <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                        	            <div class="weui-uploader__file-content">50%</div>
+                        	        </li>-->
+                        	    </ul>
+                        	</div>
+                     </div>
+                </div>
 
 							<div id="bottom">
 									<div id="comment">
@@ -194,30 +233,32 @@
 										<center style="color:#a9a9a9">他还没有评论哦，来做第一个沙发</center>
 								</div>
 
-						</div>
+
 				</div>
 		</div>
-		<div id="btn_add" onclick="apcreate()" style="position:fixed;bottom:80px;right:20px;z-index:999999;"><img src="images/yuepaiadd.png" alt=""></div>
+					<div id="btn_add" onclick="apcreate()" style="position:fixed;margin:auto;left:0;height:80px;width:80px;right:0;bottom:0;z-index:999999">
+						<img src="images/yuepaiadd.png" alt="">
+					</div>
 						<div class="weui_tabbar ">
-								<a id="tab1" href="javascript:;" onclick="clkdvhide()" class="weui_tabbar_item weui_bar_item_on">
+								<a id="tab1" href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
 										<div class="weui_tabbar_icon">
 												<img src="images/icon_jiaocheng.png" alt="">
 										</div>
 										<p class="weui_tabbar_label">教程</p>
 								</a>
-								<a id="tab2" href="javascript:;" onclick="clkdvshow()" class="weui_tabbar_item">
+								<a id="tab2" href="javascript:;" style="padding-right: 80px" class="weui_tabbar_item">
 										<div class="weui_tabbar_icon">
 												<img src="images/icon_yuepai.png" alt="">
 										</div>
 										<p class="weui_tabbar_label">约拍</p>
 								</a>
-								<a id="tab3" href="javascript:;" onclick="clkdvhide()" class="weui_tabbar_item">
+								<a id="tab3" href="javascript:;" style="padding-left: 80px" class="weui_tabbar_item">
 										<div class="weui_tabbar_icon">
 												<img src="images/icon_huodong.png" alt="">
 										</div>
 										<p class="weui_tabbar_label">活动</p>
 								</a>
-								<a href="javascript:;" onclick="clkdvhide()" class="weui_tabbar_item">
+								<a href="javascript:;" class="weui_tabbar_item">
 										<div class="weui_tabbar_icon">
 												<img src="images/icon_nav_cell.png" alt="">
 										</div>
@@ -247,14 +288,6 @@
 		return $minUl;
 	}
 
-function clkdvhide(){
-	$("#btn_add").hide();
-}
-
-function clkdvshow(){
-	$("#btn_add").show();
-}
-
 var aptype=0;//0为页面在约模特
 var apid0_cur=0;
 var apid1_cur=0;
@@ -273,6 +306,30 @@ var id=GetQueryString("id");
 //var date=GetQueryString("date");
 //alert("main001");
 
+$(function (){
+    var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
+    $uploaderInput = $("#uploaderInput"),
+    $uploaderFiles = $("#uploaderFiles");
+    $uploaderFiles.on("click", "li", function(){
+    //console.log('binding '+this);
+    //console.log('outerHTML'+'   '+this['outerHTML']);
+
+    var regx=/([0-9]{1,3})/;
+    var str=this['outerHTML'];
+    //alert('search in '+str);
+    var rs=str.match(regx);
+    //console.log('match '+rs[0]);
+    //$("#"+rs[0]+"").remove(); //匹配到相应id后删除对应元素
+    deleteID=rs[0];
+    $galleryImg.attr("style", this.getAttribute("style"));
+    $gallery.fadeIn(100);
+    });
+
+    $gallery.on("click", function(){
+        $gallery.fadeOut(100);
+    });
+
+});
 
 
 

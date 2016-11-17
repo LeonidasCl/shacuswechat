@@ -117,7 +117,7 @@
 
 
         <div class="weui-cell__bd">
-        	<a id="btn_change" onclick="yuepai_change()" style="visibility: none" class="weui-btn weui-btn_primary">修改约拍信息</a>
+        	<a id="btn_change" onclick="yuepai_change()" style="display: none" class="weui-btn weui-btn_primary">修改约拍信息</a>
             <a id="btn_choose" onclick="look_regists()" class="weui-btn weui-btn_primary">查看报名用户</a>
             <a id="btn_acjoin" onclick="join_yuepai()" class="weui-btn weui-btn_primary">报名</a>
         </div>
@@ -365,7 +365,7 @@ $(function (){
                 document.getElementById("btn_choose").innerHTML="选择报名用户"; 
                 //$("#/").setAttribute("disabled",true);
                 document.getElementById("btn_acjoin").innerHTML="删除约拍"; 
-                document.getElementById("btn_change").setAttribute('style',"visibility:visible;");
+                document.getElementById("btn_change").setAttribute('style',"display:visible;");
             }
             if (isregist==1) {
                 //alert("setting cancel");btn_choose
