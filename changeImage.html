@@ -67,22 +67,6 @@
     // var up_circle_btn = document.querySelector("#up_circle_btn");
 
 
-    var headimgurl = "images/pic_160.png";
-
-    $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncallback=?",//
-            function(json){//在这里处理返回的列表并填充进html中
-
-                if (json.code!=11100) {
-                    alert("服务器错误！");
-                    return;
-                }
-
-                headimgurl=json.contents;
-                document.getElementById("crop_result").setAttribute('src',headimgurl);
-
-
-            });
-
     function showToolPanel() {
         crop_result.style.display = "block";
         crop_circle_btn.style.display = "block";
@@ -136,14 +120,14 @@
                                 crop_result.appendChild(canvas);
                                 crop_result.querySelector("canvas").style.borderRadius = "50%";
                                 index++;
-                                alert("裁剪成功了");
+                                // alert("裁剪成功了");
                                 b64 = base64;
                                 console.log(b64);
                                 showToolPanel();
                                 if(index==1){
                                     var btn1 = document.getElementById("crop_circle_btn");
                                     btn1.addEventListener("click",function(){
-                                        alert("被点了要传base64了");
+                                        // alert("被点了要传base64了");
                                         putb64();
                                     });
                                 }
@@ -203,7 +187,7 @@
         function putb64(){
             var index = b64.indexOf(',');
             var base64 = b64.substr(index+1);
-            alert(base64);
+            // alert(base64);
             var pic = base64;
             var url = "http://upload.qiniu.com/putb64/-1";
             var xhr = new XMLHttpRequest();
@@ -219,9 +203,9 @@
                     $.getJSON('http://www.shacus.top/weixin/user/headimage?vali='+phone+'&key='+data.key+'&jsoncallback=?',
                         function(json){
                             if(json.code==11100){
-                                alert("成功了！")
-                                $finishToast.fadeIn(100);
-                                $finishToast.fadeOut(5000);
+                                alert("上传成功");
+                                // $finishToast.fadeIn(100);
+                                // $finishToast.fadeOut(5000);
                             }else if(json.code==11101){
                                 alert("上传失败，请重试");
                             }
@@ -233,5 +217,19 @@
             xhr.setRequestHeader("Authorization", "UpToken " + uptoken);
             xhr.send(pic);
         }
+
+    $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncallback=?",//
+            function(json){//在这里处理返回的列表并填充进html中
+
+                if (json.code!=11100) {
+                    alert("服务器错误！");
+                    return;
+                }
+
+                var headimgurl=json.contents;
+                document.getElementById("crop_result").setAttribute('src',headimgurl);
+
+
+            });
 
 </script>
