@@ -46,6 +46,24 @@
     			                    $('.weui-uploader__files').append($preview);
     			            }
     			        });
+
+$.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncallback=?",//
+			function(json){//在这里处理返回的列表并填充进html中
+
+				if (json.code!=11100) {
+					alert("服务器错误！");
+					return;
+				}
+
+				var headimgurl=json.contents;
+				//alert(headimgurl);
+
+				//$("#userImage").attr("src",headimgurl);
+				document.getElementById("userImage").setAttribute('src',headimgurl);
+
+
+			});
+				
 			}
 			//初始化导航栏
 				$(function(){
@@ -177,7 +195,7 @@
 								<div>
 										<center>
 												<br>
-												<img src="images/avatar_0.jpg" class="circle" id="userImage" onclick="changeImage()"  style="width:90px;height:90px">
+												<img src="images/pic_160.png" class="circle" id="userImage" onclick="changeImage()"  style="width:90px;height:90px">
 										</center>
 										<div style="text-align: center;">
 													<!-- <p style="margin-top:10px;"><span class="weui-media-box__title f11">&nbsp</span></p> -->
@@ -301,8 +319,11 @@ function personalinfo(){
 //alert("main.000");
 var phone=GetQueryString("vali");
 var id=GetQueryString("id");
+//var headimgurl="images/pic_160.png";
 //var date=GetQueryString("date");
 //alert("main001");
+
+
 
 $(function (){
     var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
@@ -474,7 +495,7 @@ function toYuepai2(){
 							
 							//var sex=aplist[index].sex;
 							var html = "";
-							html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="'+aplist[index].headimg+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
+							html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="'+aplist[index].headimg+'"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item" style="font-size: 14px">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
 
                                 //alert("yuepai3");

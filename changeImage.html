@@ -48,6 +48,7 @@
     var nonceStr='nonen';
     var signature='nones';
     var phone=GetQueryString("vali");
+    var id=GetQueryString("id");
     var uptoken = 'yzAza_Cm87nXkh9IyFfpg7LL7qKJ097VK5IOpLj0:DxfhlbX-4xxOwXANgzH_rmPHFb4=:eyJtaW1lTGltaXQiOiJpbWFnZS8qIiwic2NvcGUiOiJzaGFjdXMiLCJkZWFkbGluZSI6MTQ4MDA4MjAzMH0=';
     /*$.getJSON('http://www.shacus.top/weixin/appointment/getToken?vali='+phone+'&jsoncallback=?',
         function(json){
@@ -64,6 +65,23 @@
     var crop_result = document.querySelector("#crop_result");
     var crop_circle_btn = document.querySelector("#crop_circle_btn");
     // var up_circle_btn = document.querySelector("#up_circle_btn");
+
+
+    var headimgurl = "images/pic_160.png";
+
+    $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncallback=?",//
+            function(json){//在这里处理返回的列表并填充进html中
+
+                if (json.code!=11100) {
+                    alert("服务器错误！");
+                    return;
+                }
+
+                headimgurl=json.contents;
+                document.getElementById("crop_result").setAttribute('src',headimgurl);
+
+
+            });
 
     function showToolPanel() {
         crop_result.style.display = "block";

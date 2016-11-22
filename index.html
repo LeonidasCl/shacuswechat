@@ -9,8 +9,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 
 <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
-      <script src="scripts/zepto.min.js"></script>
-      <script src="scripts/iscroll.js"></script>
+      <script src="static/scripts/zepto.min.js"></script>
+      <script src="static/scripts/iscroll.js"></script>
       <!--<script src="scripts/zepto.min.js"></script>
       <script src="scripts/iscroll.js"></script>-->
       <!--第一段代码，全局的初始化-->
@@ -374,7 +374,7 @@ $androidDialog1 = $('#androidDialog1')
         setCookie('username',token,3);
         setCookie('id',uid,3);
      //   var temp=Date.parse(new Date());
-       alert(json.upic);
+      // alert(json.upic);
        if (json.upic==0){
    		/*$.confirm("您没有上传形象墙图片，进行约拍对象选择时对方无法看到您的形象，想要现在上传吗？", "提示", function(){
    			window.location.href="UserDisplay.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
@@ -385,7 +385,7 @@ $androidDialog1 = $('#androidDialog1')
     	$androidDialog1.fadeIn(200);
     	//return;
    		}else{
-        	window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+        	window.location.href="static/main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
     	}
 
         }
@@ -443,11 +443,11 @@ $androidDialog1 = $('#androidDialog1')
     }
 
 function uploadInfo(){
-	window.location.href="UserDisplay.html?vali="+validate+"&id="+userid+"&date="+Math.round(new Date().getTime());
+	window.location.href="static/UserDisplay.html?vali="+validate+"&id="+userid+"&date="+Math.round(new Date().getTime());
 }
 
 function onCreateMain(){
-	window.location.href="main.html?vali="+validate+"&id="+userid+"&date="+Math.round(new Date().getTime());
+	window.location.href="static/main.html?vali="+validate+"&id="+userid+"&date="+Math.round(new Date().getTime());
 }
 
 function checkCookie()
@@ -473,7 +473,7 @@ var uid=getCookie('id');
     	userid=uid;
     	$androidDialog1.fadeIn(200);
    		}else{
-   			window.location.href="main.html?vali="+username+"&id="+uid+"&date="+Math.round(new Date().getTime());
+   			window.location.href="static/main.html?vali="+username+"&id="+uid+"&date="+Math.round(new Date().getTime());
    		}
     }
 });

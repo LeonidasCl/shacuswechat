@@ -76,6 +76,22 @@
         }
 
         var uid=getCookie('id');
+
+
+/*    $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+id+ "&jsoncallback=?",//
+		function(json){//在这里处理返回的列表并填充进html中
+
+			if (json.code!=11100) {
+				alert("服务器错误！");
+				return;
+			}
+
+			headimgurl=json.contents;
+			userImage.attr("src",headimgurl);
+
+
+		});*/
+
 	function star1(){
 		if(!$("#star1").hasClass("checked")){
 			$("#star1").addClass("checked");

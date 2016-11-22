@@ -19,7 +19,7 @@
 		<div>
 			<center>
                 <br>
-                <img src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" class="circle" id="userImage"  style="width:90px;height:90px">
+                <img src="images/pic_160.png" class="circle" id="userImage"  style="width:90px;height:90px">
             </center>
             <div style="text-align: center;">
 						<!-- <p style="margin-top:10px;"><span class="weui-media-box__title f11">&nbsp</span></p> -->
@@ -108,6 +108,9 @@ function convertImgToBase64(url, callback, outputFormat){
         var dataURL = canvas.toDataURL(outputFormat || 'image/png');
         callback.call(this, dataURL);
         canvas = null; 
+
+
+
     };
     img.onerror = function(){
     	//alert("onerror");
@@ -183,8 +186,8 @@ function convertImgToBase64(url, callback, outputFormat){
       			document.getElementById('title').innerHTML=user+'的主页';
 
 				// var images=json.imgs;
-                sexurl=json.headimg;
-                document.getElementById("userImage").src=sexurl;
+                // sexurl=json.headimg;
+                // document.getElementById("userImage").src=sexurl;
 
 				var comments=json.comments;
 				var commentIn=null;
@@ -235,10 +238,13 @@ function convertImgToBase64(url, callback, outputFormat){
 		        $gallery.fadeOut(100);
 		    });
 	});
+
+
+
 	function personalinfo(){
 		window.location.href="personalInfo.html?vali="+utel+"&inf="+sign+"&date="+Math.round(new Date().getTime());
 
-}
+	}
 	function himyuepai(){
 		window.location.href="myyuepai.html?vali="+utel+"&id="+uid+"&date="+Math.round(new Date().getTime());
 	}
@@ -247,4 +253,19 @@ function convertImgToBase64(url, callback, outputFormat){
 		window.location.href="myhuodong.html?vali="+utel+"&id="+uid+"&date="+Math.round(new Date().getTime());
 	}
 
+	$.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ uid + "&jsoncallback=?",//
+			function(json){//在这里处理返回的列表并填充进html中
+
+				if (json.code!=11100) {
+					alert("服务器错误！");
+					return;
+				}
+
+				var headimgurl=json.contents;
+				// userImage.attr("src",headimgurl);
+				document.getElementById("userImage").setAttribute('src',headimgurl);
+
+
+
+			});
 </script>
