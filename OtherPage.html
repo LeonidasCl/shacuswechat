@@ -183,17 +183,8 @@ function convertImgToBase64(url, callback, outputFormat){
       			document.getElementById('title').innerHTML=user+'的主页';
 
 				// var images=json.imgs;
-				var sex=json.sex;
-				if (sex==0){
-                        sexurl="images/avatar_0.jpg";
-                        document.getElementById("userImage").src=sexurl;
-                    }
-                if (sex==1){
-                        sexurl="images/avatar_1.jpg";
-                        document.getElementById("userImage").src=sexurl;
-                    }
-
-				
+                sexurl=json.headimg;
+                document.getElementById("userImage").src=sexurl;
 
 				var comments=json.comments;
 				var commentIn=null;

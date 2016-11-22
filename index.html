@@ -7,6 +7,7 @@
 <meta http-equiv="Expires" content="0" />
 <title>追影</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
 <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
       <script src="static/scripts/zepto.min.js"></script>
       <script src="static/scripts/iscroll.js"></script>
@@ -39,33 +40,25 @@ function setCookie(c_name, value, expiredays){
         //alert(document.cookie);
 }
 
-function checkCookie()
-{
-var username=getCookie('username');
-var uid=getCookie('id');
-//alert("auto return");
-     $.getJSON("http://www.shacus.top/weixin/user/judge?id="+uid+"&phone="+username+"&jsoncallback=?",
-      function(json){
-        //console.log('done');
-        //var url=json.url;
-
-        if (json.code==10500)
-        {
-        setCookie('username',username,14);
-        setCookie('id',uid,3);
-        window.location.href="static/main.html?vali="+username+"&id="+uid+"&date="+Math.round(new Date().getTime());
-        }   
-});
-
-}
-
 
    
       </script>
 </head>
 
 <body ontouchstart style="background-color: #f8f8f8;">    
-
+<div class="js_dialog" id="androidDialog1" style="display: none;">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog weui-skin_android">
+        <div class="weui-dialog__hd"><strong class="weui-dialog__title">提示</strong></div>
+        <div class="weui-dialog__bd">
+            您没有上传形象墙图片，进行约拍对象选择时对方无法看到您的形象，想要现在上传吗？
+        </div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" onclick="onCreateMain()" class="weui-dialog__btn weui-dialog__btn_default">以后吧</a>
+            <a href="javascript:;" onclick="uploadInfo()" class="weui-dialog__btn weui-dialog__btn_primary">就是现在</a>
+        </div>
+    </div>
+</div>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <!-- loading toast -->
@@ -151,6 +144,14 @@ var uid=getCookie('id');
                       <input id="regist_password" class="weui-input" type="text" placeholder="请输入密码">
                   </div>
                 </div>
+                <div class="weui-cell">
+                  <div class="weui-cell__hd">
+                      <label class="weui-label">线上联系方式</label>
+                  </div>
+                  <div class="weui-cell__bd">
+                      <input id="regist_contact" class="weui-input" type="text" placeholder="QQ、微信等，便于约拍前联系">
+                  </div>
+                </div>
                 <div class="weui-cell__bd">
                   <a id="btn_regist_b" onclick="manageRegist()" class="weui-btn weui-btn_primary">注册</a>
                 </div>
@@ -190,7 +191,7 @@ var uid=getCookie('id');
 
 <div class="weui-footer weui-footer-fixed-bottom" style="margin-top: 20px">
             <p class="weui-footer-links">
-                <a href="static/findpwd.html" class="weui-footer-link">忘记密码</a>
+                <a href="findpwd.html" class="weui-footer-link">忘记密码</a>
                 <!--<a href="findpwd.html" class="weui-footer-link">忘记密码</a>-->
             </p>
             <p class="weui-footer__text">Copyright &copy; 2016 追影</p>
@@ -202,17 +203,19 @@ var state=1;//1为注册第一步，2为注册第二步,3为注册第三步
 var $loadingToast = $('#loadingToast');
 var $finishToast = $('#finishToast');
 var phone=-1;
-
+var userid;
+var validate;
+$androidDialog1 = $('#androidDialog1')
 
     $(function(){
       //$("#uploaderInput")
-        $('#item_regist').on('click', function () {
+        $('#item_regist').on('click', function (){
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             $("#div_regist").show(); 
             $("#div_login").hide();
         });
 
-        $('#item_login').on('click', function () {
+        $('#item_login').on('click', function (){
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             $("#div_login").show(); 
             $("#div_regist").hide();
@@ -271,6 +274,7 @@ var phone=-1;
       if (state==3) {
         var nickname=document.getElementById("regist_nickname").value;
         var password=document.getElementById("regist_password").value;
+        var contact=document.getElementById("regist_contact").value;
         var sex=document.getElementById("sex").selectedIndex;
         if(sex) sex=0;
         else sex=1;
@@ -283,7 +287,7 @@ var phone=-1;
           return;
         }
       $loadingToast.fadeIn(100);
-      $.getJSON("http://www.shacus.top/weixin/regist?type=10003&phone="+phone+"&password="+password+"&nickName="+nickname+"&sex="+sex+"&jsoncallback=?",
+      $.getJSON("http://www.shacus.top/weixin/regist?type=10003&phone="+phone+"&password="+password+"&nickName="+nickname+"&sex="+sex+"&contact="+contact+"&jsoncallback=?",
       function(json){
         //alert(json);
         var code=json.code;
@@ -309,9 +313,15 @@ var phone=-1;
             setCookie('username',token,14);
             setCookie('id',uid,3);
 
-            window.location.href="static/main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+   			/*$.confirm("您没有上传形象墙图片，进行约拍对象选择时对方无法看到您的形象，想要现在上传吗？", "提示", function(){
+   				window.location.href="UserDisplay.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+   				return;
+    		});*/
+    		validate=token;
+    		userid=uid;
+    		$androidDialog1.fadeIn(200);
             //window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
-
+            //window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
         }
         else{
           alert("请求失败!");
@@ -352,7 +362,7 @@ var phone=-1;
           $loadingToast.fadeOut(100);
           return;
         }
-        if (code==10004) {
+        if (code==10004){
         
         $loadingToast.fadeOut(100);
         $finishToast.fadeIn(100);
@@ -364,9 +374,19 @@ var phone=-1;
         setCookie('username',token,3);
         setCookie('id',uid,3);
      //   var temp=Date.parse(new Date());
-       // alert(temp);
-        window.location.href="static/main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
-        //window.location.href="main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+       alert(json.upic);
+       if (json.upic==0){
+   		/*$.confirm("您没有上传形象墙图片，进行约拍对象选择时对方无法看到您的形象，想要现在上传吗？", "提示", function(){
+   			window.location.href="UserDisplay.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+   			return;
+    	});*/
+    	validate=token;
+    	userid=uid;
+    	$androidDialog1.fadeIn(200);
+    	//return;
+   		}else{
+        	window.location.href="static/main.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+    	}
 
         }
         else{
@@ -421,6 +441,43 @@ var phone=-1;
     });
 
     }
+
+function uploadInfo(){
+	window.location.href="static/UserDisplay.html?vali="+validate+"&id="+userid+"&date="+Math.round(new Date().getTime());
+}
+
+function onCreateMain(){
+	window.location.href="static/main.html?vali="+validate+"&id="+userid+"&date="+Math.round(new Date().getTime());
+}
+
+function checkCookie()
+{
+var username=getCookie('username');
+var uid=getCookie('id');
+//alert("auto return");
+     $.getJSON("http://www.shacus.top/weixin/user/judge?id="+uid+"&phone="+username+"&jsoncallback=?",
+      function(json){
+        //console.log('done');
+        //var url=json.url;
+    if (json.code==10500)
+    {
+        setCookie('username',username,14);
+        setCookie('id',uid,3);
+
+       if (json.upic==0){
+   		/*$.confirm("您没有上传形象墙图片，进行约拍对象选择时对方无法看到您的形象，想要现在上传吗？", "提示", function(){
+   			window.location.href="UserDisplay.html?vali="+token+"&id="+uid+"&date="+Math.round(new Date().getTime());
+   			return;
+    	});*/
+    	validate=username;
+    	userid=uid;
+    	$androidDialog1.fadeIn(200);
+   		}else{
+   			window.location.href="static/main.html?vali="+username+"&id="+uid+"&date="+Math.round(new Date().getTime());
+   		}
+    }
+});
+}
 
 </script>
 </body>

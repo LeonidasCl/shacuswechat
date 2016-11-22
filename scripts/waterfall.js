@@ -34,12 +34,9 @@
 		        	}
 
 		        	var html = "";	
-		        	if (aplist[index].sex==0) {	
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a  class="option_username">'+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a class="option_item" style="font-size: 14px">'+statestr+'</a> <a class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
-					}
-					if (aplist[index].sex==1) {	
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a class="option_username">'+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a class="option_item" style="font-size: 14px">'+statestr+'</a> <a class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
-					}
+
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="'+aplist[index].headimg+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a  class="option_username">'+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a class="option_item" style="font-size: 14px">'+statestr+'</a> <a class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
+
 					$minUl = getMinUl(0);//增加到约模特那一列
 					//alert('$minUl.html');
 					$minUl.append(html);
@@ -138,14 +135,9 @@ function loadMore(atype){
 		        	}
 
 
-    	var html = "";
-		        	
-		        	if (aplist[index].sex==0) {				
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a class="option_username">'+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a class="option_item" style="font-size: 14px">'+statestr+'</a> <a class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
-					}
-					if (aplist[index].sex==1) {				
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a class="option_username">'+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a class="option_item" style="font-size: 14px">'+statestr+'</a> <a class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
-					}
+    	var html = "";			
+					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="'+aplist[index].headimg+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a class="option_username">'+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a class="option_item" style="font-size: 14px">'+statestr+'</a> <a class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
+
 					//alert("getmin");
 					$minUl = getMinUl(0);//增加到约模特那一列
 					//alert("append");
@@ -197,16 +189,11 @@ function loadMore(atype){
                             }
 
                             
-                            var sex=aplist[index].sex;
                             var html = "";
-                                    if (sex==0) {
-                    html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
+
+                    html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="'+aplist[index].headimg+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
                     +aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item" style="font-size: 14px">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
-                }
-                            if (sex==1) {
-                    html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
-                    +aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item" style="font-size: 14px">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
-                }
+
                 $minUl = getMinUl(1);
                 $minUl.append(html);
               //  new downloadworker(aplist[index].picurl);

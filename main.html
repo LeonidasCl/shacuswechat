@@ -24,7 +24,7 @@
 //alert("main-4");
 			window.onload=function()
 			{
-				$("#tab2").click();
+				//$("#tab2").click();
 				//$("#tab1").click();
 //alert("load");
 				initial();
@@ -34,6 +34,10 @@
     			            if (json.code!=10612) {
     			                alert(json.contents);
     			                return;
+    			            }
+    			            if (json.contents.length==0) {
+    			            	document.getElementById("uploaderFiles").innerHTML = "您的形象墙为空，请到“形象展示”设置~";
+    			            	return;
     			            }
     			            for (var index in json.contents) {
     			            $preview = $('<li id='+index+' class="weui-uploader__file" style="background-image:url('+json.contents[index]+');"></li>');
@@ -68,7 +72,42 @@
 
  <div class="weui_cells_title" style="height:45px;">&nbsp;</div>    
 <div class="weui_tab tab-bottom" >
+
 		<div class="weui_tab_bd">
+				<!--一级页面：约拍-->
+				<div class="weui_tab_bd_item"> 
+
+						<div id="tagnav2" class="weui-navigator weui-navigator-wrapper">
+								<ul class="weui-navigator-list">
+										 <li><a id="yuepaia" style="background-color:#ededed;" onclick="toYuepai1();">约模特</a></li>
+										 <li><a id="yuepaib" onclick="toYuepai2();">约摄影师</a></li>
+								</ul>
+			<div class="container" id="container1">
+				<ul class="col">
+
+				</ul>
+				<ul class="col" style="margin-right:0">
+
+				</ul>
+				<a href="javascript:" class="loadMeinvMOre" id="loadMeinvMOre1">加载更多</a>
+				</div>
+
+
+			<div class="container" id="container2" style="display:none;">
+				<ul class="col">
+
+				</ul>
+				<ul class="col" style="margin-right:0">
+
+				</ul>
+				<a href="javascript:" class="loadMeinvMOre" id="loadMeinvMOre2">加载更多</a>
+			</div>
+								
+								<!--<img src="images/yuepai_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">-->
+						</div>
+
+				</div>
+
 				<!--一级页面：教程-->
 				<div class="weui_tab_bd_item">
 
@@ -123,44 +162,6 @@
 
 				</div>
 
-				<!--一级页面：约拍-->
-				<div class="weui_tab_bd_item"> 
-
-						<div id="tagnav2" class="weui-navigator weui-navigator-wrapper">
-								<ul class="weui-navigator-list">
-										 <li><a id="yuepaia" style="background-color:#ededed;" onclick="toYuepai1();">约模特</a></li>
-										 <li><a id="yuepaib" onclick="toYuepai2();">约摄影师</a></li>
-								</ul>
-			<div class="container" id="container1">
-				<ul class="col">
-
-				</ul>
-				<ul class="col" style="margin-right:0">
-
-				</ul>
-				<a href="javascript:" class="loadMeinvMOre" id="loadMeinvMOre1">加载更多</a>
-				</div>
-
-
-			<div class="container" id="container2" style="display:none;">
-				<ul class="col">
-
-				</ul>
-				<ul class="col" style="margin-right:0">
-
-				</ul>
-				<a href="javascript:" class="loadMeinvMOre" id="loadMeinvMOre2">加载更多</a>
-			</div>
-								
-								<!--<img src="images/yuepai_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">-->
-						</div>
-				
-
-
-						
-
-				</div>
-
 				<!--一级页面：活动-->
 				<div class="weui_tab_bd_item">
 						<div id="huodong" class="page__bd page__bd_spacing" style="display:show;">
@@ -176,7 +177,7 @@
 								<div>
 										<center>
 												<br>
-												<img src="images/avatar_0.jpg" class="circle" id="userImage"  style="width:90px;height:90px">
+												<img src="images/avatar_0.jpg" class="circle" id="userImage" onclick="changeImage()"  style="width:90px;height:90px">
 										</center>
 										<div style="text-align: center;">
 													<!-- <p style="margin-top:10px;"><span class="weui-media-box__title f11">&nbsp</span></p> -->
@@ -237,17 +238,17 @@
 						<p class="weui_tabbar_label" style="font-size: 14px">发 起</p></div>
 					</div>
 						<div class="weui_tabbar ">
-								<a id="tab1" href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
-										<div class="weui_tabbar_icon">
-												<img src="images/icon_jiaocheng.png" alt="">
-										</div>
-										<p class="weui_tabbar_label">教程</p>
-								</a>
-								<a id="tab2" href="javascript:;" style="padding-right: 40px" class="weui_tabbar_item">
+								<a id="tab2" href="javascript:;" class="weui_tabbar_item">
 										<div class="weui_tabbar_icon">
 												<img src="images/icon_yuepai.png" alt="">
 										</div>
 										<p class="weui_tabbar_label">约拍</p>
+								</a>
+								<a id="tab1" href="javascript:;" style="padding-right: 40px" class="weui_tabbar_item weui_bar_item_on">
+										<div class="weui_tabbar_icon">
+												<img src="images/icon_jiaocheng.png" alt="">
+										</div>
+										<p class="weui_tabbar_label">教程</p>
 								</a>
 								<a id="tab3" href="javascript:;" style="padding-left: 40px" class="weui_tabbar_item">
 										<div class="weui_tabbar_icon">
@@ -349,7 +350,7 @@ $.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+phone+"&type=1&
 
 			var user=json.alais;
 			document.getElementById('username').innerHTML=user;
-			var sex=json.sex;
+			/*var sex=json.sex;
 				if (sex==0){
                         sexurl="images/avatar_0.jpg";
                         document.getElementById("userImage").src=sexurl;
@@ -357,7 +358,8 @@ $.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+phone+"&type=1&
                 if (sex==1){
                         sexurl="images/avatar_1.jpg";
                         document.getElementById("userImage").src=sexurl;
-                    }
+                    }*/
+            document.getElementById("userImage").src=json.headimg;
 
 			var comments=json.comments;
 			var commentIn=null;
@@ -470,19 +472,14 @@ function toYuepai2(){
 							}
 
 							
-							var sex=aplist[index].sex;
+							//var sex=aplist[index].sex;
 							var html = "";
-        							if (sex==0) {
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
+							html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="'+aplist[index].headimg+'"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_0.jpg"/><a href="" class="option_username">'
 					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item" style="font-size: 14px">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
-				}
-							if (sex==1) {
-					html='<li><div><a href="yuepai_detail.html?vali='+phone+'&apid='+aplist[index].id+'&date='+Math.round(new Date().getTime())+''+'"><img id="'+aplist[index].picurl+'" src="images/pic_160.png"/></a></div><div class="water_option_user"><img style="padding-left:4%;width:30px; height:30px; border-radius:50%; overflow:hidden;" src="images/avatar_1.jpg"/><a href="" class="option_username">'
-					+aplist[index].alais+'</a></div><div class="water_user pdp4">'+aplist[index].title+'</div><div class="water_option"> <a href="" class="option_item" style="font-size: 14px">'+statestr+'</a> <a href="" class="option_item option_comt">'+aplist[index].registn+'</a> </div></li>';
-				}
+
                                 //alert("yuepai3");
-				$minUl = getMinUl(1);//增加到约摄影师那一列
-				$minUl.append(html);
+							$minUl = getMinUl(1);//增加到约摄影师那一列
+							$minUl.append(html);
 
 						}
 
@@ -508,6 +505,9 @@ function toYuepai2(){
 	aptype=1;
 }
 
+function changeImage(){
+	window.location.href="changeImage.html?vali="+phone+"&id="+id+"&date="+Math.round(new Date().getTime());
+} 
 
 function toJiaocheng1(){
 	$("#jiaocheng1").show(); 

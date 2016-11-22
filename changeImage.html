@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="scripts/zepto.min.js"></script>
+<script src="scripts/qiniu.min.js"></script>
+<script src="scripts/plupload.full.min.js"></script>
+<script src="scripts/shacus.js"></script>
+<script src="scripts/alloy_crop.js"></script>
+<script src="scripts/transform.js"></script>
+<script src="scripts/alloy_finger.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>修改头像</title>
+    <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
+    <link rel="stylesheet" href="style/weui-0.4.3.css"/>
+	<link rel="stylesheet" href="style/weui-0.4.css"/>
+</head>
+<body>
+	<div id="loadingToast" style="display:none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+            <p class="weui-toast__content">正在上传</p>
+        </div>
+    </div>
+
+    <div id="finishToast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">修改成功</p>
+        </div>
+    </div>
+
+    <div id="crop_result" style="text-align: center; padding-top: 30px; height: 230px; line-height: 300px;" src="images/avatar_0.jpg"></div>
+    
+
+    <div class="page-bd-15">
+        <a id="crop_circle_btn" class="weui-btn weui-btn_primary">上传图片</a>
+        <!-- <a id="up_circle_btn" class="weui-btn weui-btn_primary" style="display:none">上传头像</a> -->
+    </div>
+</body>
+</html>
+
+<script language="javascript">
+    var timestamp='nonet';
+    var nonceStr='nonen';
+    var signature='nones';
+    var phone=GetQueryString("vali");
+    var uptoken = 'yzAza_Cm87nXkh9IyFfpg7LL7qKJ097VK5IOpLj0:DxfhlbX-4xxOwXANgzH_rmPHFb4=:eyJtaW1lTGltaXQiOiJpbWFnZS8qIiwic2NvcGUiOiJzaGFjdXMiLCJkZWFkbGluZSI6MTQ4MDA4MjAzMH0=';
+    /*$.getJSON('http://www.shacus.top/weixin/appointment/getToken?vali='+phone+'&jsoncallback=?',
+        function(json){
+            alert(json);
+        });*/
+    // alert(uptoken);
+
+
+    var $loadingToast = $('#loadingToast');
+    var $finishToast = $('#finishToast');
+
+    
+
+    var crop_result = document.querySelector("#crop_result");
+    var crop_circle_btn = document.querySelector("#crop_circle_btn");
+    // var up_circle_btn = document.querySelector("#up_circle_btn");
+
+    function showToolPanel() {
+        crop_result.style.display = "block";
+        crop_circle_btn.style.display = "block";
+        // up_circle_btn.style.display= "block";
+    }
+
+    function hideToolPanel() {
+        crop_result.style.display = "none";
+        crop_circle_btn.style.display = "none";
+        crop_result.innerHTML = "";
+    }
+    var src="";
+    var b64="";
+    //判断是否剪裁成功
+    var index=0;
+
+	//var num = $('.weui-uploader__file').length-1;
+            //引入Plupload 、qiniu.js后
+        var uploader = Qiniu.uploader({
+            runtimes: 'html5,html4',    //上传模式,依次退化
+            browse_button: 'crop_result',       //上传选择的点选按钮，**必需**
+            //uptoken_url: 'http://www.shacus.top/weixin/appointment/getToken?vali='+phone,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+            uptoken : 'yzAza_Cm87nXkh9IyFfpg7LL7qKJ097VK5IOpLj0:DxfhlbX-4xxOwXANgzH_rmPHFb4=:eyJtaW1lTGltaXQiOiJpbWFnZS8qIiwic2NvcGUiOiJzaGFjdXMiLCJkZWFkbGluZSI6MTQ4MDA4MjAzMH0=', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+            // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+            // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+            domain: 'http://oci8c6557.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+            multi_selection: false, //是否允许同时选择多文件
+            get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+            max_file_size: '10mb',           //最大文件体积限制
+            flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+            max_retries: 0,                   //上传失败最大重试次数
+            dragdrop: false,                   //开启可拖曳上传
+            chunk_size: '4mb',                //分块上传时，每片的体积
+            auto_start: false,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+            init: {
+                'FilesAdded': function(up, files){
+                    //获得图片的地址
+                    var img = new o.Image();
+                    img.onload = function(){
+                        src = this.getAsDataURL();
+                        hideToolPanel();
+                        new AlloyCrop({
+                            image_src:src,
+                            circle: true,
+                            width: 200,
+                            height: 200,
+                            ok: function (base64, canvas) {
+                                while(crop_result.hasChildNodes()){
+                                    crop_result.removeChild(crop_result.firstChild);
+                                }
+                                crop_result.appendChild(canvas);
+                                crop_result.querySelector("canvas").style.borderRadius = "50%";
+                                index++;
+                                alert("裁剪成功了");
+                                b64 = base64;
+                                console.log(b64);
+                                showToolPanel();
+                                if(index==1){
+                                    var btn1 = document.getElementById("crop_circle_btn");
+                                    btn1.addEventListener("click",function(){
+                                        alert("被点了要传base64了");
+                                        putb64();
+                                    });
+                                }
+                                
+                                return;
+                            },
+                            cancel: function () {
+                                showToolPanel();
+                                return;
+                            }
+                        });
+                    }
+                    img.load(files[0].getSource());
+                },
+                'BeforeUpload': function(up, file) {
+                       // 每个文件上传前,处理相关的事情
+                },
+                'UploadProgress': function(up, file) {
+                       // 每个文件上传时,处理相关的事情
+                       // $loadingToast.fadeIn(100);
+                },
+                'FileUploaded': function(up, file, info) {
+                        console.log("uploaded one ");
+                       // 每个文件上传成功后,处理相关的事情
+                       // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                       // {
+                       //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                       //    "key": "gogopher.jpg"
+                       //  }
+                       // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+                       
+                       ///////////////////////////////////////////////////
+
+
+                },
+                'Error': function(up, err, errTip){
+                       //上传出错时,处理相关的事情
+                       alert("上传错误:"+errTip)
+                       console.log("error");
+                },
+                'UploadComplete': function(){
+                       //队列文件处理完毕后,处理相关的事情
+                        $loadingToast.fadeOut(100);
+                },
+                'Key': function(up, file) {
+                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                    console.log("key");
+                    //var key = phone+"/ap"+Date.parse(new Date());;
+                    var key = phone+"/ap"+Math.round(new Date().getTime())+"/"+file['id'];
+                    //alert("key "+key)
+                    return key;
+               }
+            }
+        });	
+        
+        function putb64(){
+            var index = b64.indexOf(',');
+            var base64 = b64.substr(index+1);
+            alert(base64);
+            var pic = base64;
+            var url = "http://upload.qiniu.com/putb64/-1";
+            var xhr = new XMLHttpRequest();
+            $loadingToast.fadeIn(100);
+            xhr.onreadystatechange=function(){
+                if (xhr.readyState==4){
+                    //这里可以判断图片上传成功,而且可以通过responseText获取图片链接
+                    var data = JSON.parse(xhr.responseText);
+                    var str = xhr.responseText;
+                    console.log(data);
+                    $loadingToast.fadeOut(100);
+                    //图片链接就是yourcdnpath.xx/data.key
+                    $.getJSON('http://www.shacus.top/weixin/user/headimage?vali='+phone+'&key='+data.key+'&jsoncallback=?',
+                        function(json){
+                            if(json.code==11100){
+                                alert("成功了！")
+                                $finishToast.fadeIn(100);
+                                $finishToast.fadeOut(5000);
+                            }else if(json.code==11101){
+                                alert("上传失败，请重试");
+                            }
+                        });
+                }
+            }
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/octet-stream");
+            xhr.setRequestHeader("Authorization", "UpToken " + uptoken);
+            xhr.send(pic);
+        }
+
+</script>

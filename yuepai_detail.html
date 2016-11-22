@@ -298,11 +298,8 @@ $(function (){
         sponsorid=json.sponsorid;
         var surl="OtherPage.html?id="+sponsorid+"&username="+phone;
         var avatarurl="";
-        if (json.sex==0)
-        	avatarurl="images/avatar_0.jpg";
-        else
-        	avatarurl="images/avatar_1.jpg";
-        document.getElementById("sponsorimg").innerHTML='<img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+avatarurl+'"/>';
+
+        document.getElementById("sponsorimg").innerHTML='<img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+json.headimg+'"/>';
         //document.getElementById("sponsorul").onclick='excitedid(\"'+surl+'\");';
         $('#sponsorul').attr('onclick','excitedid(\"'+surl+'\");');
         //$sponsorurl=$('<span></span>');
@@ -379,10 +376,8 @@ $(function (){
                 document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
                 document.getElementById("btn_acjoin").innerHTML="完成约拍"; 
                 var selecturl="";
-                if (json.user.Usex==0) 
-                	selecturl="images/avatar_0.jpg";
-                else
-                	selecturl="images/avatar_1.jpg";
+                selecturl=json.user.headimg;
+
                 var seurl="OtherPage.html?id="+json.user.Uid+"&username="+phone+"&date="+Math.round(new Date().getTime())+"";
                 $selected=$('<div class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" ><a href="'+seurl+'"><ul id="selectedul" style="width: 100%;height: auto;float: left;"><li style="width:70px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label style="font-size:14px">约拍对象</label></li><li style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+selecturl+'"/></li><li style="width: 80px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">'+json.user.Ualais+'</label></li><p id="ap_registN" class="weui-media-box__desc" style="overflow:visible" >对方联系方式仅您可见<br>'+json.user.Utel+'</p></ul></a></div>');
                 //alert("insert");
@@ -395,10 +390,7 @@ $(function (){
                         document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
                         document.getElementById("btn_acjoin").innerHTML="完成约拍"; 
                         var selecturl="";
-                		if (json.user.Usex==0) 
-                			selecturl="images/avatar_0.jpg";
-                		else
-                			selecturl="images/avatar_1.jpg";
+                		selecturl=json.user.headimg;
                 var seurl="OtherPage.html?id="+json.user.Uid+"&username="+phone+"&date="+Math.round(new Date().getTime())+"";
                 $selected=$('<div class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" ><a href="'+seurl+'" ><ul id="selectedul" style="width: 100%;height: auto;float: left;"><li style="width:70px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label  tyle="font-size:14px">约拍对象</label></li><li style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+selecturl+'"/></li><li style="width: 80px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">'+json.user.Ualais+'</label></li><p id="ap_registN" class="weui-media-box__desc" style="overflow:visible" >对方联系方式仅您可见<br>'+json.user.Utel+'</p></ul></a></div>');
                 
@@ -426,10 +418,7 @@ $(function (){
                 document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
                 document.getElementById("btn_acjoin").innerHTML="您已完成，等待对方完成"; 
                 var selecturl="";
-                if (json.user.Usex==0) 
-                	selecturl="images/avatar_0.jpg";
-                else
-                	selecturl="images/avatar_1.jpg";
+                	selecturl=json.user.headimg;
                 $selected=$('<div class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" ><ul id="selectedul" style="width: 100%;height: auto;float: left;"><li style="width:60px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label  tyle="font-size:14px">约拍对象</label></li><li style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+selecturl+'"/></li><li style="width: 80px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">'+json.user.Ualais+'</label></li><p id="ap_registN" class="weui-media-box__desc" style="overflow:visible" >对方联系方式仅您可见<br>'+json.user.Utel+'</p></ul></div>');
                 var seurl="OtherPage.html?id="+json.user.Uid+"&username="+phone;
                 $('#selectedul').attr('onclick','excitedid(\"'+seurl+'\");');
@@ -443,10 +432,7 @@ $(function (){
                         document.getElementById("btn_choose").innerHTML="查看选择的用户"; 
                         document.getElementById("btn_acjoin").innerHTML="约拍已完成"; 
                         var selecturl="";
-                		if (json.user.Usex==0) 
-                			selecturl="images/avatar_0.jpg";
-                		else
-                			selecturl="images/avatar_1.jpg";
+                			selecturl=json.user.headimg;
                 $selected=$('<div class="weui-label-list" style="padding-top: 5px;height:40px;padding-bottom: 5px;" ><ul id="selectedul" style="width: 100%;height: auto;float: left;"><li style="width:60px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label  tyle="font-size:14px">约拍对象</label></li><li style="width: 60px;height: 40px;list-style-type:none;float: left;padding-left: 10px"><img style="padding-left:3%;width:40px; height:40px; border-radius:50%;" src="'+selecturl+'"/></li><li style="width: 80px;height: 40px;float: left;list-style-type:none;padding-top: 8px"><label id="alias" tyle="font-size:18px;">'+json.user.Ualais+'</label></li><p id="ap_registN" class="weui-media-box__desc" style="overflow:visible" >对方联系方式仅您可见<br>'+json.user.Utel+'</p></ul></div>');
                 var seurl="OtherPage.html?id="+json.user.Uid+"&username="+phone;
                 $('#selectedul').attr('onclick','excitedid(\"'+seurl+'\");');
