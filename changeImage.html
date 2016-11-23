@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <div id="crop_result" style="text-align: center; padding-top: 30px; height: 230px; line-height: 300px;" src="images/avatar_0.jpg"></div>
+    <div id="crop_result" style="text-align: center; padding-top: 30px; height: 230px; line-height: 300px;"><img src="images/pic_160.png" id="oldimage" class="circle"></div>
     
 
     <div class="page-bd-15">
@@ -227,7 +227,7 @@
                 }
 
                 var headimgurl=json.contents;
-                document.getElementById("crop_result").setAttribute('src',headimgurl);
+                document.getElementById("oldimage").setAttribute('src',headimgurl);
 
 
             });
