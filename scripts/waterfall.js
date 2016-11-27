@@ -98,6 +98,34 @@
 		$minUl = getMinUl(1);
 		loadMore(1);
 	});
+	$("#loadMeinvMOre3").click(function() {
+		$.getJSON("http://www.shacus.top/weixin/dynamic/list?vali="+ phone + "&row="+topic_cur+"&jsoncallback=?",//
+			function(json){//在这里处理返回的列表并填充进html中
+
+				if (json.code!=20011) {
+					alert("服务器错误！");
+					return;
+				}
+
+				for (var index in json.contents) {
+
+					var detailstr="OtherPage.html?id="+json.contents[index].uid+"&username="+phone;
+
+					var topic_before='<div class="weui_cell moments__post"><div class="weui_cell_hd"><img class="circle" style="width: 40px;height: 40px" src="'+json.contents[index].headimg+'" onclick=excitedid(\"'+detailstr+'\") /></div><div class="weui_cell_bd"><a  onclick=excitedid(\"'+detailstr+'\") class="title" href="javascript:;"><span>'+json.contents[index].alias+'</span></a><p id="paragraph'+json.contents[index].did+'" class="paragraph">'+json.contents[index].contents+'</p><a id="paragraphExtender'+json.contents[index].did+'" class="paragraphExtender">显示全文</a><div class="thumbnails" id="thumbnail'+json.contents[index].did+'">';
+					var topic_after='</div><div class="toolbar"><p class="timestamp">'+json.contents[index].dtime+'</p></div></div></div>';
+					var topic_imgs="";
+					for (var img in json.contents[index].dimgs_abb) {
+						topic_imgs+='<li class="weui-uploader__file" style="background-image:url('+json.contents[index].dimgs_abb[img]+')" detail="background-image:url('+json.contents[index].dimgs[img]+')"/>';
+					}
+            		
+					var singletopic=topic_before+topic_imgs+topic_after;
+					$("#topic_list").append(singletopic);
+					hidetext(json.contents[index].did);
+					bindgallery(json.contents[index].did);
+					topic_cur++;
+				}
+			});
+	});
 
 function loadMore(atype){
 
