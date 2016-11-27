@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
 <head>
 
@@ -63,16 +63,13 @@ $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncall
 
 
 			});
-				
+
 			}
 			//初始化导航栏
 				$(function(){
-					TagNav('#tagnav',{
+					/*TagNav('#tagnav',{
 							type: 'scrollToFirst',
-					});
-					/*TagNav('#tagnav2',{
-							type: 'scrollToFirst',
-					});*/
+					});调用此功能后将不能上下滑动*/
 						$('.weui_tab').tab();
 						});
 
@@ -95,7 +92,7 @@ $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncall
 				<!--一级页面：约拍-->
 				<div class="weui_tab_bd_item"> 
 
-						<div id="tagnav2" class="weui-navigator weui-navigator-wrapper">
+						<div class="weui-navigator weui-navigator-wrapper">
 								<ul class="weui-navigator-list">
 										 <li><a id="yuepaia" style="background-color:#ededed;" onclick="toYuepai1();">约模特</a></li>
 										 <li><a id="yuepaib" onclick="toYuepai2();">约摄影师</a></li>
@@ -126,58 +123,12 @@ $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncall
 
 				</div>
 
-				<!--一级页面：教程-->
+				<!--一级页面：动态-->
 				<div class="weui_tab_bd_item">
-
-							<div id="tagnav" class="weui-navigator weui-navigator-wrapper">
-								<!--<ul class="weui-navigator-list">
-										 <li><a onclick="toJiaocheng1();">基础教程</a></li>
-										 <li><a onclick="toJiaocheng2();">进阶教程</a></li>
-
-											<div id="jiaocheng1" class="page__hd page__bd_spacing">
-													<div id="list_jiaocheng_1" class="weui_panel_bd">
-														<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-																<div class="weui_media_hd">
-																		<img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
-																</div>
-																<div class="weui_media_bd">
-																		<h4 class="weui_media_title">教程 G级恒星</h4>
-																		<p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
-																</div>
-														</a>
-														<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-																<div class="weui_media_hd">
-																		<img class="weui_media_appmsg_thumb" src="http://img0.imgtn.bdimg.com/it/u=3997468270,1038299082&fm=21&gp=0.jpg" alt="">
-																</div>
-																<div class="weui_media_bd">
-																		<h4 class="weui_media_title">教程 A级恒星</h4>
-																		<p class="weui_media_desc">释放出很强的辐射，绝大多数生命都难以生存。</p>
-																</div>
-														</a>
-													</div>
-													<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
-											</div>
-
-											<div id="jiaocheng2" class="page__bd page__bd_spacing" style="display:none;">
-													<div id="list_jiaocheng_2" class="weui_panel_bd">
-														<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-																<div class="weui_media_hd">
-																		<img class="weui_media_appmsg_thumb" src="http://img5.imgtn.bdimg.com/it/u=3780274376,4212295351&fm=21&gp=0.jpg" alt="">
-																</div>
-																<div class="weui_media_bd">
-																		<h4 class="weui_media_title">教程 G级恒星</h4>
-																		<p class="weui_media_desc">一般还有30-50亿年的寿命,很适合生命居住。</p>
-																</div>
-														</a>
-													</div>
-													<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
-											</div>
-								</ul>-->
-								<img src="images/jiaocheng_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">
-
-						</div>
-
-
+      				<div id="topic_list" class="weui_cells moments">
+							
+					</div>
+					<a href="javascript:" class="loadMeinvMOre" id="loadMeinvMOre3">加载更多</a>
 				</div>
 
 				<!--一级页面：活动-->
@@ -230,12 +181,7 @@ $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncall
 
 									<div id="comment">
 										<div class="weui_media_box weui_media_text">
-													<!-- <h4 class="weui_media_title" id="commentTitle">标题一</h4>
-														<p class="weui_media_desc" id="commentIn">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-														<p class="weui_media_info" id="stars">
-																<span class="icon icon-48" id="star1"></span><span id="star2" class="icon icon-48"></span><span id="star3" class="icon icon-48"></span><span id="star4" class="icon icon-48"></span><span class="icon icon-48" id="star5"></span>
-																<span style="float:right;"><span>2016-10-11</span></span>
-														</p> -->  
+
 											</div>
 									</div>
 
@@ -307,6 +253,7 @@ $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncall
 var aptype=0;//0为页面在约模特
 var apid0_cur=0;
 var apid1_cur=0;
+var topic_cur=0;
 var sign="";
 var timestamp="";
 var nonceStr="";
@@ -323,23 +270,61 @@ var id=GetQueryString("id");
 //var date=GetQueryString("date");
 //alert("main001");
 
+function hidetext(did){
+	//定义文本
+const paragraph = $('#paragraph'+did);
+const paragraphText = paragraph.text();
+const paragraphLength = paragraph.text().length;
+//定义文章长度
+const maxParagraphLength = 80;
+//定义全文按钮
+const paragraphExtender = $('#paragraphExtender'+did);
+var toggleFullParagraph = false;
 
+//定义全文按钮
+if (paragraphLength < maxParagraphLength) {
+  paragraphExtender.hide();
+} else {
+  paragraph.html(paragraphText.substring(0, maxParagraphLength) + '...');
+  paragraphExtender.click(function(){
+    if (toggleFullParagraph) {
+      toggleFullParagraph = false;
+      paragraphExtender.html('显示全文');
+      paragraph.html(paragraphText.substring(0, maxParagraphLength) + '...');
+    } else {
+      toggleFullParagraph = true;
+      paragraphExtender.html('收起');
+      paragraph.html(paragraphText);
+    }
+  });
+};
+const menu = $('#actionMenu');
+const menuBtn = $('#actionToggle');
+menuBtn.click(function(){menu.toggleClass('active')});
+
+}
+
+function bindgallery(did){
+	var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
+    $uploaderFiles = $("#thumbnail"+did);
+    $uploaderFiles.on("click", "li", function(){
+    //console.log('binding '+this);
+    //console.log('outerHTML'+'   '+this['outerHTML']);
+    $galleryImg.attr("style", this.getAttribute("detail"));
+    $gallery.fadeIn(100);
+    });
+
+    $gallery.on("click", function(){
+        $gallery.fadeOut(100);
+    });
+}
 
 $(function (){
     var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
-    $uploaderInput = $("#uploaderInput"),
     $uploaderFiles = $("#uploaderFiles");
     $uploaderFiles.on("click", "li", function(){
     //console.log('binding '+this);
     //console.log('outerHTML'+'   '+this['outerHTML']);
-
-    var regx=/([0-9]{1,3})/;
-    var str=this['outerHTML'];
-    //alert('search in '+str);
-    var rs=str.match(regx);
-    //console.log('match '+rs[0]);
-    //$("#"+rs[0]+"").remove(); //匹配到相应id后删除对应元素
-    deleteID=rs[0];
     $galleryImg.attr("style", this.getAttribute("style"));
     $gallery.fadeIn(100);
     });
@@ -351,8 +336,26 @@ $(function (){
 });
 
 
+
 function apcreate(){
-	window.location.href="yuepai_create.html?vali="+phone+"&date="+Math.round(new Date().getTime());
+$.actions({
+          actions: [
+            {
+              text: "发布约拍",
+              className: "bg-blue f-white",
+              onClick: function() {
+                window.location.href="yuepai_create.html?vali="+phone+"&date="+Math.round(new Date().getTime());
+              }
+            },
+            {
+              text: "发布动态",
+              className: "bg-green f-white",
+              onClick: function() {
+                window.location.href="topic_create.html?vali="+phone+"&date="+Math.round(new Date().getTime());
+              }
+            }
+          ]
+        });
 }
 
 $.getJSON("http://www.shacus.top/weixin/userpage/selfinfo?utel="+phone+"&type=1&jsoncallback=?",
@@ -446,6 +449,43 @@ $.getJSON("http://www.shacus.top/weixin/activity/aclist?jsoncallback=?",//
 					var str='<a href="'+url+'" class="weui_media_box weui_media_appmsg"><div class="weui_media_hd"><img class="weui_media_appmsg_thumb" src="'+aclist[index].WACimgurl+'" alt=""></div><div class="weui_media_bd"><h4 class="weui_media_title">'+aclist[index].WACtitle+'</h4><p class="weui_media_desc">'+aclist[index].WACcontent+'</p></div></a>';
 					$("#list_huodong").append(str);
 				}
+			});
+
+
+
+$.getJSON("http://www.shacus.top/weixin/dynamic/list?vali="+ phone + "&row="+topic_cur+"&jsoncallback=?",//
+			function(json){//在这里处理返回的列表并填充进html中
+
+				if (json.code!=20011) {
+					alert("服务器错误！");
+					return;
+				}
+				//alert("topic return");
+				//alert(json);
+				for (var index in json.contents) {
+
+					var detailstr="OtherPage.html?id="+json.contents[index].uid+"&username="+phone;
+
+					var topic_before='<div class="weui_cell moments__post"><div class="weui_cell_hd"><img class="circle" style="width: 40px;height: 40px" src="'+json.contents[index].headimg+'" onclick=excitedid(\"'+detailstr+'\") /></div><div class="weui_cell_bd"><a  onclick=excitedid(\"'+detailstr+'\") class="title" href="javascript:;"><span>'+json.contents[index].alias+'</span></a><p id="paragraph'+json.contents[index].did+'" class="paragraph">'+json.contents[index].contents+'</p><a id="paragraphExtender'+json.contents[index].did+'" class="paragraphExtender">显示全文</a><div class="thumbnails" id="thumbnail'+json.contents[index].did+'">';
+					var topic_after='</div><div class="toolbar"><p class="timestamp">'+json.contents[index].dtime+'</p></div></div></div>';
+					var topic_imgs="";
+					for (var img in json.contents[index].dimgs_abb) {
+						topic_imgs+='<li class="weui-uploader__file" style="background-image:url('+json.contents[index].dimgs_abb[img]+')" detail="background-image:url('+json.contents[index].dimgs[img]+')"/>';
+					}
+            		
+					var singletopic=topic_before+topic_imgs+topic_after;
+					$("#topic_list").append(singletopic);
+					hidetext(json.contents[index].did);
+					bindgallery(json.contents[index].did);
+					topic_cur++;
+
+				}
+				//var headimgurl=json.contents;
+				//alert(headimgurl);
+				//$("#userImage").attr("src",headimgurl);
+				//document.getElementById("userImage").setAttribute('src',headimgurl);
+
+
 			});
 
 //各模块的显示与隐藏

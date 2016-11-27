@@ -29,11 +29,11 @@
         <div class="weui-mask_transparent"></div>
         <div class="weui-toast">
             <i class="weui-icon-success-no-circle weui-icon_toast"></i>
-            <p class="weui-toast__content">修改成功</p>
+            <p id="success_hint" class="weui-toast__content">修改成功</p>
         </div>
     </div>
 
-    <div id="crop_result" style="text-align: center; padding-top: 30px; height: 230px; line-height: 300px;"><img src="images/pic_160.png" id="oldimage" class="circle"></div>
+    <div id="crop_result" style="text-align: center; padding-top: 30px; height: 230px; line-height: 300px;"><img src="images/pic_160.png" id="oldimage" class="circle" style="height:200px; width:200px "></div>
     
 
     <div class="page-bd-15">
@@ -88,8 +88,8 @@
         var uploader = Qiniu.uploader({
             runtimes: 'html5,html4',    //上传模式,依次退化
             browse_button: 'crop_result',       //上传选择的点选按钮，**必需**
-            //uptoken_url: 'http://www.shacus.top/weixin/appointment/getToken?vali='+phone,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
-            uptoken : 'yzAza_Cm87nXkh9IyFfpg7LL7qKJ097VK5IOpLj0:DxfhlbX-4xxOwXANgzH_rmPHFb4=:eyJtaW1lTGltaXQiOiJpbWFnZS8qIiwic2NvcGUiOiJzaGFjdXMiLCJkZWFkbGluZSI6MTQ4MDA4MjAzMH0=', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+            uptoken_url: 'http://www.shacus.top/weixin/appointment/getToken?vali='+phone,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+            //uptoken : 'yzAza_Cm87nXkh9IyFfpg7LL7qKJ097VK5IOpLj0:DxfhlbX-4xxOwXANgzH_rmPHFb4=:eyJtaW1lTGltaXQiOiJpbWFnZS8qIiwic2NvcGUiOiJzaGFjdXMiLCJkZWFkbGluZSI6MTQ4MDA4MjAzMH0=', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
             // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
             // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
             domain: 'http://oci8c6557.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
@@ -203,9 +203,16 @@
                     $.getJSON('http://www.shacus.top/weixin/user/headimage?vali='+phone+'&key='+data.key+'&jsoncallback=?',
                         function(json){
                             if(json.code==11100){
-                                alert("上传成功");
+                                // alert("上传成功");
                                 // $finishToast.fadeIn(100);
                                 // $finishToast.fadeOut(5000);
+
+                                $('#finishToast').fadeIn(100);
+                                    setTimeout(function () {
+                                        $('#finishToast').fadeOut(100);
+                                    }, 5000);
+                                window.location.href="main.html?vali="+phone+ "&id="+id+"&date="+Math.round(new Date().getTime());
+                                    
                             }else if(json.code==11101){
                                 alert("上传失败，请重试");
                             }
@@ -230,6 +237,10 @@
                 document.getElementById("oldimage").setAttribute('src',headimgurl);
 
 
+                /*setTimeout(function(){
+                    alert("点击图片修改头像");
+                },1000);*/
+                $.toptips('点击图片修改头像','info');
             });
 
 </script>
