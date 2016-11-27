@@ -146,15 +146,15 @@ function validate()//检查和发布动态
             //成功之后把进度条关了            
             success:function(data){
                 //decodeURI(data);  
-                if (data.code==20002) {
+                //if (data.code==20002) {
                 alert('发表成功'); 
                // window.location.href="main.html";
                 window.history.back(-1);
-                } else{
+                /*} else{
                 alert('发表失败'); 
                // window.location.href="main.html";
                 window.history.back(-1);
-                }    
+                } */   
             },
             error: function(){
                 alert('网络请求失败！');
