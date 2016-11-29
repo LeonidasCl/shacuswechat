@@ -229,7 +229,7 @@
             xhr.setRequestHeader("Authorization", "UpToken " + uptoken);
             xhr.send(pic);
         }
-    $(function(){
+/*    $(function(){
 		pushHistory(); 
 	    window.addEventListener("popstate", function(e) { 
 	      alert("我监听到了返回按钮事件啦");//根据自己的需求实现自己的功能 
@@ -243,7 +243,7 @@
 	      window.history.pushState(state, "title", "#"); 
 	    }
 
-    });
+    });*/
 
     $.getJSON('http://www.shacus.top/weixin/appointment/getToken?vali='+phone,
         function(json){
