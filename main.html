@@ -64,6 +64,24 @@ $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncall
 
 			});
 
+window.onhashchange = function() {
+	//alert("state change");
+	var pagehash;
+    if (location.hash.length > 0) {//自己把location.hash取出来，拿出里面的状态并转成整形来判断
+        pagehash = parseInt(location.hash.replace('#',''),10);     
+    }
+    //alert(pagehash);
+    if (pagehash==1){//在打开大图后点击了返回键
+    	$("#gallery").fadeOut(100);//关掉弹出层，然后什么都不做
+    	return;
+    }
+    if (pagehash==2) {//打开了大图
+    	return;//什么都不做
+    }
+    //其它情况下点返回键就是返回
+    window.history.go(-1);
+}
+
 			}
 			//初始化导航栏
 				$(function(){
@@ -230,8 +248,9 @@ $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncall
 				</div>
 </body>
 </html>
-<!--第二段脚本，初始化并处理各功能模块的数据-->
+<!--第一段脚本，初始化并处理各功能模块的数据-->
 <script type="text/javascript">
+location.hash=1;//初始化位置
 //alert("main-2");
 	function getMinUl(atype){//每次获取最短的ul,将图片放到其后
 		if (atype==0) 
@@ -249,7 +268,7 @@ $.getJSON("http://www.shacus.top/weixin/user/getheadimage?uid="+ id + "&jsoncall
 		});
 		return $minUl;
 	}
-
+location.hash=1;//初始化位置
 var aptype=0;//0为页面在约模特
 var apid0_cur=0;
 var apid1_cur=0;
@@ -312,6 +331,8 @@ function bindgallery(did){
     //console.log('outerHTML'+'   '+this['outerHTML']);
     $galleryImg.attr("style", this.getAttribute("detail"));
     $gallery.fadeIn(100);
+    location.hash=2;
+    //alert("sethash");
     });
 
     $gallery.on("click", function(){
@@ -327,6 +348,7 @@ $(function (){
     //console.log('outerHTML'+'   '+this['outerHTML']);
     $galleryImg.attr("style", this.getAttribute("style"));
     $gallery.fadeIn(100);
+    location.hash=2;
     });
 
     $gallery.on("click", function(){

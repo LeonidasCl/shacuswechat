@@ -102,7 +102,7 @@ a.duarr_close{ width:32px; height:32px; background:url(../images/du_arr.png) 0 -
 
 .option_coll{background-size:auto 85%;}
 .option_comt{background:url(../images/icon_comt.gif) no-repeat left center;padding-left:20%;background-size:auto 85%;}
-.loadMeinvMOre{height:36px;line-height:34px;margin-bottom:20px;color:#999;text-align:center;background:#f9f9f9;display:block;clear:both;text-decoration:none;}
+.loadMeinvMOre{height:36px;line-height:34px;margin-bottom:28px;color:#999;text-align:center;background:#f9f9f9;display:block;clear:both;text-decoration:none;}
 .loadMeinvMOre:hover{ background:#f0f0f0;color:#666;}
 
 .addyuepai{width:100%;
