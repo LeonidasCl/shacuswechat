@@ -14,7 +14,23 @@
       //预留,整个文档加载完时自动调用
       window.onload=function()
       {
-
+            window.onhashchange = function() {
+            //alert("state change");
+            var pagehash;
+            if (location.hash.length > 0) {//自己把location.hash取出来，拿出里面的状态并转成整形来判断
+                pagehash = parseInt(location.hash.replace('#',''),10);     
+            }
+            //alert(pagehash);
+            if (pagehash==1){//在打开大图后点击了返回键
+                $("#gallery").fadeOut(100);//关掉弹出层，然后什么都不做
+                return;
+            }
+            if (pagehash==2) {//打开了大图
+                return;//什么都不做
+            }
+            //其它情况下点返回键就是返回
+            window.history.go(-1);
+        }
       }
      
       </script>
@@ -124,6 +140,7 @@
 </body>
 </html>
 <script type="text/javascript">
+location.hash=1;
 var title='';
 var phone=GetQueryString("vali");
 var apid=GetQueryString("apid");
@@ -474,6 +491,7 @@ $(function (){
     //$("#"+rs[0]+"").remove(); //匹配到相应id后删除对应元素
     $galleryImg.attr("style", this.getAttribute("style"));
     $gallery.fadeIn(100);
+    location.hash=2;
     });
 
     $gallery.on("click", function(){
