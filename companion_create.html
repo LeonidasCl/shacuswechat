@@ -131,6 +131,7 @@ function validate()//检查和发布动态
     var title=document.getElementById("input_title").value;//标题
     var url=document.getElementById("input_url").value;//URL
     var fetchcode=document.getElementById("input_fetchcode").value;//发布码
+    var requestcode='10900';
     //content=stripscript(content);
     
     if (content.length>100||content.length==0){
@@ -158,7 +159,7 @@ function validate()//检查和发布动态
             url:"http://114.215.16.151:81/appointment/companion",
             //提交的数据
             data:{companionImgs:pics,
-            	type='10900',
+            	type:requestcode,
                 content:content,
                 companionUrl:url,
                 vali:phone
