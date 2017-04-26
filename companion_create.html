@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="scripts/zepto.min.js"></script>
+<script src="scripts/qiniu.min.js"></script>
+<script src="scripts/plupload.full.min.js"></script>
+<script src="scripts/shacus.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <title>发布约拍伴侣</title>
+        <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
+        
+    </head>
+    <body>
+
+    <div id="loadingToast" style="display:none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+            <p class="weui-toast__content">正在上传</p>
+        </div>
+    </div>
+    <div id="finishToast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">发表成功</p>
+        </div>
+    </div>
+
+        <div class="weui-cells__title">请确保您是追影合作个人/商家，且已获得发布码，如需发布约拍伴侣信息，请联系追影客服索取</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">标题</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input id="input_title" class="weui_input" placeholder="请输入约拍伴侣标题"/>
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">宣传文案连接</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input id="input_url" class="weui_input" placeholder="填写微信推文/个人介绍页面的链接有助于您的推广"/>
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">发布码</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input id="input_fetchcode" class="weui_input" placeholder="请输入发布码"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <textarea id="topic_contents" class="weui-textarea" onkeydown="messageChange(this)" onkeyup="messageChange(this)" onfocus="messageChange(this)" onblur="messageChange(this)" placeholder="内容描述..." rows="5"></textarea>
+                    <div class="weui-textarea-counter">0/100</div>
+                </div>
+            </div>
+        </div>
+
+    <div class="page__bd">
+        <div class="weui-gallery" id="gallery">
+            <span class="weui-gallery__img" id="galleryImg"></span>
+            <div class="weui-gallery__opr">
+                <a onclick="deleteImage();" class="weui-gallery__del">
+                    <i class="weui-icon-delete weui-icon_gallery-delete"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <div class="weui-uploader">
+                        <div class="weui-uploader__hd">
+                            <p class="weui-uploader__title">简要说明图片（最多3张）</p>
+                            <div class="weui-uploader__info js_counter">0/3</div>
+                        </div>
+                        <div class="weui-uploader__bd">
+                            <ul class="weui-uploader__files js_previews" id="uploaderFiles">
+                            <!--<li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+                                <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                    <div class="weui-uploader__file-content">
+                                        <i class="weui-icon-warn"></i>
+                                    </div>
+                                </li>
+                                <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                    <div class="weui-uploader__file-content">50%</div>
+                                </li>-->
+                            </ul>
+                            <div class="weui-uploader__input-box">
+                                <!--<input id="uploaderInput" class="weui-uploader__input js_file" type="file" accept="image/*" multiple />-->
+                                <li id="uploaderInput" style="list-style-type:none" class="weui-uploader__file" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="weui-cell__bd">
+            <a id="AjaxGet" onclick="validate()" class="weui-btn weui-btn_primary">发表</a>
+        </div>
+    </body>
+</html>
+
+
+<script language="javascript">
+    var timestamp='nonet';
+    var nonceStr='nonen';
+    var signature='nones';
+
+var $loadingToast = $('#loadingToast');
+var $finishToast = $('#finishToast');
+
+var phone=GetQueryString("vali");
+
+///////////////////////////////////
+/////////要上传的图片列表//////////
+///////////////////////////////////
+var maxCount = 3;
+var globalImgs =[];////////////////
+var globalImgId=0;
+var uploadingImgId=-1;
+//////////////////////////////////
+//////////////////////////////////
+
+function validate()//检查和发布动态
+{
+
+    var content=document.getElementById("topic_contents").value;//内容描述
+    var title=document.getElementById("input_title").value;//标题
+    var url=document.getElementById("input_url").value;//URL
+    var fetchcode=document.getElementById("input_fetchcode").value;//发布码
+    //content=stripscript(content);
+    
+    if (content.length>100||content.length==0){
+    	alert('文字长度不符');
+    	return;
+    }
+    if (title.length>15||title.length==0){
+        alert('标题长度不能超过15字');
+        return;
+    }
+
+    var pics=[];
+    for (var index in globalImgs) {
+        if (globalImgs[index].length>2)
+            pics.push(globalImgs[index]);
+    }
+
+    if (pics.length==0){
+        alert('至少需要上传一张图片');
+        return;
+    }
+
+      $.ajax({
+            type:"GET",
+            url:"http://114.215.16.151:81/appointment/companion",
+            //提交的数据
+            data:{companionImgs:pics,
+            	type='10900',
+                content:content,
+                companionUrl:url,
+                vali:phone
+            },
+            //返回数据的格式
+            datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+            jsonp:"jsoncallback", 
+            //在请求之前，打开进度条
+            beforeSend:function(){
+                
+            },
+            //成功之后把进度条关了            
+            success:function(data){
+                //decodeURI(data);  
+                //if (data.code==20002) {
+                alert('发表成功'); 
+               // window.location.href="main.html";
+                window.history.back(-1);
+                /*} else{
+                alert('发表失败'); 
+               // window.location.href="main.html";
+                window.history.back(-1);
+                } */   
+            },
+            error: function(){
+                alert('网络请求失败！');
+            }        
+         });
+
+}
+//var num = $('.weui-uploader__file').length-1;
+            //引入Plupload 、qiniu.js后
+        var uploader = Qiniu.uploader({
+            runtimes: 'html5,html4',    //上传模式,依次退化
+            browse_button: 'uploaderInput',       //上传选择的点选按钮，**必需**
+            uptoken_url: 'http://www.shacus.top/weixin/appointment/getToken?vali='+phone,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+            //uptoken : 'yzAza_Cm87nXkh9IyFfpg7LL7qKJ097VK5IOpLj0:E7dNqAJ67S0SN2VDBwjL0nxlE2U=:eyJtaW1lTGltaXQiOiJpbWFnZS8qIiwic2NvcGUiOiJzaGFjdXMiLCJkZWFkbGluZSI6MTUxMTYxODc3NX0=', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+            // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+            // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+            domain: 'http://oci8c6557.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+            get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+            max_file_size: '20mb',           //最大文件体积限制
+            flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+            max_retries: 0,                   //上传失败最大重试次数
+            dragdrop: false,                   //开启可拖曳上传
+            chunk_size: '4mb',                //分块上传时，每片的体积
+            auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+            init: {
+                'FilesAdded': function(up, files){
+                    plupload.each(files, function(file) {
+                        // 文件添加进队列后,处理相关的事情
+                        console.log("file added ");
+                        console.log(file);
+                        $loadingToast.fadeIn(100);
+                    });
+                },
+                'BeforeUpload': function(up, file) {
+                       // 每个文件上传前,处理相关的事情
+                       console.log("before upload ");
+                },
+                'UploadProgress': function(up, file) {
+                       // 每个文件上传时,处理相关的事情
+                       console.log("uploading ");
+                },
+                'FileUploaded': function(up, file, info) {
+
+                        console.log("uploaded one ");
+                       // 每个文件上传成功后,处理相关的事情
+                       // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                       // {
+                       //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                       //    "key": "gogopher.jpg"
+                       //  }
+                       // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+                       var num = $('.weui-uploader__file').length-1;
+                       if (num>=maxCount) {
+                          alert('最多只能上传3张图片！多余的图片将不会被上传！');
+                          return;
+                       }
+                       var domain = up.getOption('domain');
+                       var res = $.parseJSON(info);
+
+                        $.getJSON("http://www.shacus.top/weixin/getpicurl?vali="+phone+"&key="+res.key+"&jsoncallback=?",//
+                                    function(json){//在这里处理返回的列表并填充进html中
+                        
+                                        if (json.code!=10901) {
+                                            alert(json.contents);
+                                            return;
+                                        }
+                                        //alert("downloaded"+json.contents);
+                                        console.log(json.contents);
+                                        $preview = $('<li id='+globalImgId+' class="weui-uploader__file" style="background-image:url('+json.contents+');"></li>');
+                                                $('.weui-uploader__files').append($preview);
+                                                globalImgId++;
+                                        var num = $('.weui-uploader__file').length-2;
+                                        $('.js_counter').text(num+1 + '/' + maxCount);
+                                        globalImgs.push(json.key);
+                                    });
+
+
+                },
+                'Error': function(up, err, errTip){
+                       //上传出错时,处理相关的事情
+                       alert("上传错误:"+errTip)
+                       console.log("error");
+                },
+                'UploadComplete': function(){
+                       //队列文件处理完毕后,处理相关的事情
+                        $loadingToast.fadeOut(100);
+                },
+                'Key': function(up, file) {
+                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                    console.log("key");
+                    //var key = phone+"/ap"+Date.parse(new Date());;
+                    var key = phone+"/ap"+Math.round(new Date().getTime())+"/"+file['id'];
+                    //alert("key "+key)
+                    return key;
+               }
+            }
+        });
+
+
+function deleteImage(){
+    //alert('delete!');
+    var count = $('.weui-uploader__file').length-1;//把数量展示减一
+    $('.js_counter').text(count-1 + '/' + maxCount);
+    $("#"+deleteID+"").remove();
+    globalImgs[deleteID]='#';//设置对应的id为无效
+    //alert('now the global is  '+globalImgs);
+}
+
+</script>
+
+<script type="text/javascript">
+var deleteID=-1;
+$.showLoading();
+$(function (){
+    var $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
+    $uploaderInput = $("#uploaderInput"),
+    $uploaderFiles = $("#uploaderFiles");
+    $uploaderFiles.on("click", "li", function(){
+    //console.log('binding '+this);
+    //console.log('outerHTML'+'   '+this['outerHTML']);
+
+    var regx=/([0-9]{1,3})/;
+    var str=this['outerHTML'];
+    //alert('search in '+str);
+    var rs=str.match(regx);
+    //console.log('match '+rs[0]);
+    //$("#"+rs[0]+"").remove(); //匹配到相应id后删除对应元素
+    deleteID=rs[0];
+    $galleryImg.attr("style", this.getAttribute("style"));
+    $gallery.fadeIn(100);
+    });
+
+    $gallery.on("click", function(){
+        $gallery.fadeOut(100);
+    });
+
+});
+
+$(".weui_loading_toast").hide();
+
+</script>
