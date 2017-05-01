@@ -8,9 +8,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
         <title>发布约拍伴侣</title>
-        <!--<link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>-->
-          <link rel="stylesheet" href="style/weui-0.4.3.css"/>
-  			<link rel="stylesheet" href="style/weui-0.4.css"/>
+        <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
     </head>
     <body>
 
@@ -31,22 +29,28 @@
 
         <div class="weui-cells__title">请确保您是追影合作个人/商家，且已获得发布码，如需发布约拍伴侣信息，请联系追影客服索取</div>
         <div class="weui-cells weui-cells_form">
-            <div class="weui_cell">
-                <div class="weui_cell_hd"><label class="weui_label">标题</label></div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <input id="input_title" class="weui_input" placeholder="请输入约拍伴侣标题"/>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">标题</label></div>
+                <div class="weui-cell__bd">
+                    <input id="input_title" class="weui-input" placeholder="请输入约拍伴侣标题"/>
                 </div>
             </div>
-            <div class="weui_cell">
-                <div class="weui_cell_hd"><label class="weui_label">宣传文案连接</label></div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <input id="input_url" class="weui_input" placeholder="填写微信推文/个人介绍页面的链接有助于您的推广"/>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">宣传文案连接</label></div>
+                <div class="weui-cell__bd">
+                    <input id="input_url" class="weui-input" placeholder="填写微信推文/个人介绍页面的链接有助于您的推广"/>
                 </div>
             </div>
-            <div class="weui_cell">
-                <div class="weui_cell_hd"><label class="weui_label">发布码</label></div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <input id="input_fetchcode" class="weui_input" placeholder="请输入发布码"/>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">用户/组织名</label></div>
+                <div class="weui-cell__bd">
+                    <input id="input_orgnazation" class="weui-input" placeholder="约拍伴侣主体的商户名或用户名"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">发布码</label></div>
+                <div class="weui-cell__bd">
+                    <input id="input_fetchcode" class="weui-input" placeholder="请输入发布码"/>
                 </div>
             </div>
             <div class="weui-cell">
@@ -133,6 +137,7 @@ function validate()//检查和发布动态
     var url=document.getElementById("input_url").value;//URL
     var fetchcode=document.getElementById("input_fetchcode").value;//发布码
     var requestcode='10900';
+    var org=document.getElementById("input_orgnazation").value;//用户或组织名
     //content=stripscript(content);
     
     if (content.length>100||content.length==0){
@@ -141,6 +146,10 @@ function validate()//检查和发布动态
     }
     if (title.length>15||title.length==0){
         alert('标题长度不能超过15字');
+        return;
+    }
+    if (org.length>15||org.length==0){
+        alert('用户名或组织名长度不能超过15字');
         return;
     }
 
@@ -157,16 +166,17 @@ function validate()//检查和发布动态
 
       $.ajax({
             type:"GET",
-            url:"http://114.215.16.151:81/appointment/companion",
+            url:"http://www.shacus.top/weixin/appointment/companion",
             //提交的数据
             data:{companionImgs:pics,
             	type:requestcode,
+            	title:title,
                 content:content,
-                companionUrl:url,
-                vali:phone
+                orgnazation:org,
+                companionUrl:url
             },
             //返回数据的格式
-            datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+            datatype: "jsonp",//"xml", "html", "script", "json", "jsonp", "text".
             jsonp:"jsoncallback", 
             //在请求之前，打开进度条
             beforeSend:function(){
