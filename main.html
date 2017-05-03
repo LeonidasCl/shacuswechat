@@ -377,6 +377,12 @@ $.actions({
               }
             },
             {
+              text: "发布活动",
+              className: "bg-red f-white",
+              onClick: function() {
+                window.location.href="huodong_create.html?vali="+phone+"&date="+Math.round(new Date().getTime());
+              },
+            {
               text: "发布约拍伴侣",
               className: "bg-green f-white",
               onClick: function() {
