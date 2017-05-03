@@ -185,7 +185,7 @@ function validate()//检查和发布动态
             //成功之后把进度条关了            
             success:function(data){
                 //decodeURI(data);  
-            if (data.code==10900) {
+            if (data.code==10900||data.code=="10900") {
                 alert('发表成功'); 
                // window.location.href="main.html";
                 window.history.back(-1);
