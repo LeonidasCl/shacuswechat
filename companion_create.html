@@ -152,6 +152,10 @@ function validate()//检查和发布动态
         alert('用户名或组织名长度不能超过15字');
         return;
     }
+    if (fetchcode.length==0){
+        alert('请输入发布码');
+        return;
+    }
 
     var pics=[];
     for (var index in globalImgs) {
@@ -173,6 +177,7 @@ function validate()//检查和发布动态
             	title:title,
                 content:content,
                 orgnazation:org,
+                auth:fetchcode,
                 companionUrl:url
             },
             //返回数据的格式
